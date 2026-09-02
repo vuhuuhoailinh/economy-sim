@@ -1,0 +1,2044 @@
+Sheets: ['Shop Presentation', 'IAP', 'IAP ADR', 'IAP iOS', 'Basic Circulation', 'H1 Guideline', 'Random Offer System', 'Rotation', 'Exchange Rate', 'Price Localization', 'Popup Script', 'Fail Offer Đề xuất', 'Golden Card Guaranteed', 'New Card Guaranteed', 'Card Treasure Birthday IAP', '1+2 Birthday IAP', 'Party Duties', 'Birthday Box', 'Labour Day IAP', 'Secret Deal', 'Summer Offer 2', 'Summer Offer 1', '4. Happy Hour IAP RO', '3. Surprise Boost IAP RO', '2. Same Price Bigger Prize IAP ', '1. Lucky Chance IAP RO', 'Starter Pack  Special Deal IAP ', 'Đề xuấtStarter PackSpecial Deal', 'Hard Level Kit IAP Recurring', 'Super Hard Level Kit IAP Recurr', 'Super Hard Level Kit Đề xuất', 'Hard Level Kit Đề xuất', 'Purchase Bonus IAP Recurring', 'Purchase Bonus Optimize', 'Purchase Bonus Card Update', '1+1 IAP Recurring', 'ART Update', 'Screwdom Master Pass', 'Knit Away Weekly Quest', '1+1 Card Update', 'Buy 1 or All IAP Recurring', 'Buy 1 or All Card Update', 'Spring Day IAP', 'Womens Day IAP', 'Valentine IAP', 'Valentines Day', 'Weekly Quest', 'BMI', 'NewYear IAP', 'Thanksgiving Mission', 'Optimize Thanksgiving Mission', 'Black Friday IAP', 'Halloween Event + IAP', 'Optimize Halloween Event + IAP', 'Key Collection', 'Key Collection Đề xuất', 'Update Key Collection - 112', 'Key Collection Updated', 'Chain Offer', 'Chain Offer Đề xuất', 'Chain Offer Optimize', 'Chain Offer Card Update', 'Chain Offer V2', 'Master Pass', 'Summer Pass Optimization', 'Summer pass calculation draft', 'Win Streak', 'Win Streak Tối ưu - HuyNX', 'Streak Assist', 'Piggy Bank', 'Piggy Bank Card Update', 'Winter Trinkets', 'Christmas IAP 1', 'Christmas IAP 2', 'Festive Pass', 'iOS IAP Hail Mary', 'Databucket Request', 'Insight', 'Stamp Card', 'Card Treasures']
+
+
+--- Shop Presentation (First 15 rows) ---
+,Unnamed: 0,Unnamed: 1,Unnamed: 2,Unnamed: 3,Unnamed: 4,Unnamed: 5
+0,No.,IAP,Presentation,Presentation [Screwdom],Note,P.S
+1,1,No Ads + No Ads Bundle,,,,
+2,2,Popup No Ads,,,,
+3,3,Beginner Bundle / Beginner Bundle,,,,
+4,4,Small Bundle / none,,,,
+5,5,Medium Bundle / Great Bundle,,,,
+6,6,Large Bundle / Epic Bundle,,,,
+7,7,"none / 
+Super Bundle",,,,
+8,8,"none / 
+Ultra Bundle",,,,
+9,9,Coins,,,,
+10,10,"Fail Offer / 
+Keep Up Offer",,,,
+11,11,Chain Offer,,,,
+12,12,Master Pass,,,,
+13,12A,Starter Pack,,,,
+
+--- IAP (First 15 rows) ---
+,Unnamed: 0,Unnamed: 1,Unnamed: 2,Unnamed: 3,16/7 - 27/7 (Coin trước khi sửa),Unnamed: 5,7/8 - 9/8 (Coin sau sửa lần 1),Unnamed: 7,Unnamed: 8,Unnamed: 9,Unnamed: 10
+0,No.,IAP,Description,Price,∑ Count,∑ Value ($),∑ Count',∑ Value ($)',IAP [Screwdom],Description [Screwdom],Price [Screwdom]
+1,1,Coins (6),"- Hiển thị từ Level 1 ở Shop Screen
+- Tỉ lệ quy đổi cơ bản: $1 = 300 Coins. Giá trị gói IAP càng cao thì được Bonus Coin càng nhiều → tỉ lệ quy đổi càng tăng
+- Có lựa chọn xem RW nhận miễn phí 50 Coins
+- Consumable - Có thể mua được nhiều lần
+
+600 Coins 
+1800 Coins + 300 Bonus (discount 15%)
+3600 Coins + 900 Bonus (20%)
+7200 Coins + 2000 Bonus (20%)
+15000 Coins + 6000 Bonus (30%)
+29000 Coins + 18000 Bonus (30%)","$1.99
+$5.99 
+$11.99 
+$24.99 
+$47.99 
+$99.99","106
+22
+8
+3
+0
+0","244.22
+220.10
+129.60
+89.92
+0
+0","114
+25
+6
+2
+1
+0","249.95
+167.27 (↓)
+75.72
+51.40
+47.99
+0",Coins (6),"- Hiển thị từ Level 1 ở Shop Screen
+- Tỉ lệ quy đổi cơ bản: $1 = 150 Coins. Giá trị gói IAP càng cao thì được Bonus Coin càng nhiều → tỉ lệ quy đổi càng tăng
+- Consumable - Có thể mua được nhiều lần
+
+300 Coins
+900 Coins (discount 15%)
+1900 Coins (20%)
+6000 Coins (35%)
+15000 Coins (50%)
+36000 Coins (60%)","$1.99
+$4.99
+$9.99
+$24.99
+$49.99
+$99.99"
+2,2,No Ads,"- Hiển thị từ Level 1 ở Shop Screen
+- Non - Consumable - Chỉ mua được 1 lần duy nhất
+- Khi ng chơi mua 1 trong 2 gói No Ads thì sẽ biến mất và ẩn cả gói còn lại đi
+
+Bỏ toàn bộ IAA trừ Rewarded Ads",$5.99,8,54.70,6,39.09,No Ads,"- Hiển thị từ Level 1 ở Shop Screen
+- Non - Consumable - Chỉ mua được 1 lần duy nhất
+- Khi ng chơi mua 1 trong 2 gói No Ads thì sẽ biến mất và ẩn cả gói còn lại đi
+
+Bỏ toàn bộ IAA trừ Rewarded Ads",$7.99
+3,3,No Ads Bundle,"- Hiển thị từ Level 1 ở Shop Screen và popup No Ads
+- Tự động bật popup Remove Ads ở Gameplay Screen tại Level X, bật lại sau Y Level → X,Y có thể được điều chỉnh qua Remote Config (hiện tại X = 12, Y = 6)
+- Non - Consumable
+
+No Ads + 2000 Coins + 4x Boosters Set 8 + ",$9.99 (Tag 500% VALUE),75,872.96,93,1021.39,No Ads Bundle,"- Hiển thị từ Level 1 ở Shop Screen và popup No Ads
+- Không tự động bật popup Remove Ads ở Gameplay Screen
+- Non - Consumable
+
+No Ads + 1500 Coins + 4x Boosters Set",$9.99 (Tag 50% OFF)
+4,4,Beginner Bundle,"- Hiển thị từ Level 1 ở Shop Screen
+- Non - consumable
+
+1500 Coins + 2x Boosters Set",$4.99 (Tag 25% OFF),41,237.66,51,277.81,Beginner Bundle,"- Hiển thị từ Level 10 ở Shop Screen 
+- Non - consumable
+
+1500 Coins + 1x Boosters Set + 1h Infinite Heart",$9.99
+5,5,Small Bundle,"- Hiển thị từ Level 15 ở trong Shop Screen
+- Consumable
+
+2500 Coins + 1h Infinite Heart",$6.99,6,47.56,22,164.54,Great Bundle,"- Hiển thị từ Level 10 ở trong Shop Screen
+- Consumable
+
+3000 Coins + 4x Boosters Set + 3h Infinite Heart",$19.99 (Tag Popular)
+6,6,Medium Bundle,"- Hiển thị từ Level 15 ở trong Shop Screen
+- Consumable
+
+4000 Coins + 2x Boosters Set + 3h Infinite Heart",$14.99,1,19.75,8,126.62,Epic Bundle,"- Hiển thị từ Level 10 ở trong Shop Screen
+- Consumable
+
+5000 Coins + 8x Boosters Set + 6h Infinite Heart",$29.99
+7,7,Large Bundle,"- Hiển thị từ Level 15 ở trong Shop Screen
+- Consumable
+
+7500 Coins + 4x Boosters Set + 6h Infinite Heart",$25.99,5,147.56,8,220.43,Super Bundle,"- Hiển thị từ Level 10 ở trong Shop Screen
+- Consumable
+
+12000 Coins + 12x Boosters Set + 24h Infinite Heart",$49.99
+8,8,,,,,,,,Ultra Bundle,"- Hiển thị từ Level 10 ở trong Shop Screen
+- Consumable
+
+30000 Coins + 15x Boosters Set + 48h Infinite Heart",$99.99 (Tag Best value)
+9,9,Fail Offer,"- Chỉ hiển thị sau khi ng chơi hoàn thành Level 10
+- Hiển thị phía dưới popup Revive / Continue khi ng chơi thua
+- Nếu mua thì cũng sẽ coi như là được hồi sinh để chơi tiếp ngay lập tức
+- Consumable
+- Từ lần mua thứ 2 trở đi thì sẽ chỉ được discount 30% so với ban đầu
+
+1500 Coins + 1x Boosters Set","Lần 1: $3.99 (Tag 50% OFF)
+
+Lần 2 trở đi: $5.99 (Tag 30% OFF)","29
+7","132.28
+50.60","44
+20","191.87
+138.95",Keep Up Offer,"- Bắt đầu hiển thị từ sau khi ng chơi hoàn thành Level 2
+- Hiển thị phía dưới popup Revive / Continue khi ng chơi thua
+- Nếu mua thì cũng sẽ coi như là được hồi sinh để chơi tiếp ngay lập tức
+- Consumable
+
+600 Coins + 1x Boosters Set + 30m Infinite Heart",$4.99
+10,10,Total,,,311,2246.81,400,2773-03-01 00:00:00,,"Top In-App Purchases (United States - AppMagic)
+(1) Coin Pack 1 - $1.99
+(2) Keep Up Offer - $4.99
+(3) Coin Pack 2 - $4.99
+(4) Beginner's Bundle - $9.99
+(5) Great Bundle - $19.99
+(6) Coin Pack 3 - $9.99
+(7) Remove Ads Bundle - $9.99
+(9) Epic Bundle - $29.99",
+
+--- IAP ADR (First 15 rows) ---
+,No.,Product ID,IAP,Description,Price,IAP [Screwdom],Description [Screwdom],Price [Screwdom]
+0,1,"puzzle.yarn.fever.unravel.puzzle
+
+.600coin
+.1800coin
+.3800coin
+.12000coin
+.30000coin
+.52000coin",Coins (6),"- Hiển thị từ Level 1 ở Shop Screen
+- Tỉ lệ quy đổi cơ bản: $1 = 300 Coins
+- Consumable - Có thể mua được nhiều lần
+
+600 Coins (base)
+1800 Coins (discount 15%)
+3800 Coins (20%)
+12000 Coins (35%)
+30000 Coins (50%)
+72000 Coins (60%)","$1.99
+$4.99 (x2.5)
+$9.99 (x2)
+$24.99 (x2.5)
+$49.99 (x2)
+$99.99 (x2)",Coins (6),"- Hiển thị từ Level 1 ở Shop Screen
+- Tỉ lệ quy đổi cơ bản: $1 = 150 Coins
+- Consumable - Có thể mua được nhiều lần
+
+300 Coins (base)
+900 Coins (discount 15%)
+1900 Coins (20%)
+6000 Coins (35%)
+15000 Coins (50%)
+36000 Coins (60%)","$1.99
+$4.99 (x2.5)
+$9.99 (x2)
+$24.99 (x2.5)
+$49.99 (x2)
+$99.99 (x2)"
+1,2,.noads,No Ads,"- Hiển thị từ Level 1 ở Shop Screen
+- Non - Consumable - Chỉ mua được 1 lần duy nhất
+- Khi mua 1 trong 2 gói No Ads thì sẽ ẩn cả 2 gói đi
+- Mức giá phụ thuộc vào thị trường mục tiêu
+
+Bỏ toàn bộ IAA trừ Rewarded Ads",$5.99 / $7.99 / $9.99,No Ads,"- Hiển thị từ Level 1 ở Shop Screen
+- Non - Consumable - Chỉ mua được 1 lần duy nhất
+- Khi ng chơi mua 1 trong 2 gói No Ads thì sẽ biến mất và ẩn cả gói còn lại đi
+
+Bỏ toàn bộ IAA trừ Rewarded Ads",$7.99
+2,3,.noadsbundle,No Ads Bundle,"- Hiển thị từ Level 1 ở Shop Screen và popup No Ads
+- Tự động bật popup ở Gameplay Screen tại Level X, bật lại sau Y Level → X,Y có thể được điều chỉnh qua Remote Config (hiện tại X = 12, Y = 6)
+- Không hiển thị nữa sau Z lần từ chối từ ng chơi để tránh ảnh hưởng đến trải nghiệm (Z = 3)
+- Sử dụng để phân loại ng chơi
+- Có thể thử nghiệm thêm trường hợp hiển thị 2 lựa chọn No Ads trong cùng 1 popup để ng chơi lựa chọn
+
+No Ads + 1500 Coins + 4x Boosters Set → discount 50%",$9.99 (Tag 50% OFF),No Ads Bundle,"- Hiển thị từ Level 1 ở Shop Screen và popup No Ads
+- Không tự động bật popup Remove Ads ở Gameplay Screen
+- Non - Consumable
+
+No Ads + 1500 Coins + 4x Boosters Set → actually 65% OFF according to my calculation",$9.99 (Tag 50% OFF)
+3,4,.beginnerbundle,Decorated Pouch,"- Từ Level 10 thì mới bắt đầu hiển thị ở trong Shop Screen
+- Consumable
+
+3000 Coins + 1x Boosters Set + 1h Infinite Heart → discount 25%",$9.99,Beginner Bundle,"- Hiển thị từ Level 10 ở Shop Screen 
+- Non - consumable
+
+1500 Coins + 1x Boosters Set + 1h Infinite Heart → discount 25%",$9.99
+4,5,.smallbundle,Artisan Satchel,"- Từ Level 10 thì mới bắt đầu hiển thị ở trong Shop Screen
+- Consumable
+
+6000 Coins + 4x Boosters Set + 3h Infinite Heart → discount 40%",$19.99 (Tag Popular),Great Bundle,"- Hiển thị từ Level 10 ở trong Shop Screen
+- Consumable
+
+3000 Coins + 4x Boosters Set + 3h Infinite Heart → discount 40%",$19.99 (Tag Popular)
+5,6,.mediumbundle,Exquisite Basket,"- Từ Level 10 thì mới bắt đầu hiển thị ở trong Shop Screen
+- Consumable
+
+10000 Coins + 8x Boosters Set + 6h Infinite Heart → discount 45%",$29.99,Epic Bundle,"- Hiển thị từ Level 10 ở trong Shop Screen
+- Consumable
+
+5000 Coins + 8x Boosters Set + 6h Infinite Heart → discount 40%",$29.99
+6,7,.largebundle,Overflowing Chest,"- Từ Level 10 thì mới bắt đầu hiển thị ở trong Shop Screen
+- Consumable
+
+24000 Coins + 12x Boosters Set + 24h Infinite Heart → discount 60%",$49.99 ,Super Bundle,"- Hiển thị từ Level 10 ở trong Shop Screen
+- Consumable
+
+12000 Coins + 12x Boosters Set + 24h Infinite Heart → discount 60%",$49.99
+7,8,.royalbundle (mới),Royal Vault,"- Từ Level 10 thì mới bắt đầu hiển thị ở trong Shop Screen
+- Consumable
+
+60000 Coins + 15x Boosters Set + 48h Infinite Heart → discount 65%",$99.99 (Tag Best Value),Ultra Bundle,"- Hiển thị từ Level 10 ở trong Shop Screen
+- Consumable
+
+30000 Coins + 15x Boosters Set + 48h Infinite Heart → discount 65%",$99.99 (Tag Best value)
+8,9,".failoffer0
+
+.failoffer1",Assist Offer,"- Chỉ hiển thị khi ng chơi thua từ Level 10 trở đi (tức là hoàn thành Level 9)
+- Hiển thị phía dưới popup Revive / Continue khi ng chơi thua
+- Nếu mua thì cũng sẽ coi như là được hồi sinh để chơi tiếp ngay lập tức
+- Consumable
+- Từ lần mua thứ 2 trở đi thì sẽ không được discount nữa (lần đầu là 40%)
+
+900 Coins + 1x Boosters Set + 30m Infinite Heart","Lần 1: $3.99 (Tag 40% OFF) - giảm từ $5.99
+
+Lần 2 trở đi: $5.99 (Không sử dụng Tag OFF nữa)",Keep Up Offer,"- Bắt đầu hiển thị từ sau khi ng chơi hoàn thành Level 2
+- Hiển thị phía dưới popup Revive / Continue khi ng chơi thua
+- Sau khi mua thì quay về popup ban đầu, không được tiếp tục chơi mà vẫn phải trả phí
+- Consumable
+
+600 Coins + 1x Boosters Set + 30m Infinite Heart",$4.99
+9,10,.specialdeal,Special Deal!,"- Hiển thị từ Level 1 ở Shop Screen
+- Tự động bật popup ở Home Screen tại Level X, chỉ tồn tại trong vòng Y giờ → X, Y có thể điều chỉnh qua Remote Config (mặc định X = 4, Y = 24)
+- Đồng thời cũng sẽ hiển thị ở dưới popup Continue giống Keep Up Offer
+- Hướng tới mức giá $2.99 và cũng có thể sử dụng để phân loại ng chơi
+- Non - consumable
+
+1200 Coins + 1x Boosters Set + 1h Infinite Heart",$2.99 (Tag 60% OFF),,"- Theo ghi nhận thì giá IAP giữa các thị trường trên cùng 1 nền tảng đang là giống nhau; còn giữa iOS và Android thì đang có sự khác nhau ở phần nội dung, giá và thể hiện ở một số Bundle",
+10,11,".chainoffer1
+.chainoffer2
+.chainoffer3
+.chainoffer4
+.chainoffer5
+.chainoffer6","Sushi Flow 1
+Sushi Flow 2
+Sushi Flow 3
+Sushi Flow 4
+Sushi Flow 5
+Sushi Flow 6","- Hiển thị & mở khóa lần lượt trong Popup Sushi Flow (tính năng mở khóa sau khi hoàn thành Level 24).
+- Chỉ xuất hiện và mua được trong thời gian diễn ra LiveOps (bắt đầu từ 08h00 sáng thứ 5 mỗi tuần lẻ, kéo dài trong 4 ngày).
+- Consumable - theo cơ chế Loop 1 - 2 - 3 - 4 - 5 - 6 - 1 - ...
+
+(1) 660 Coins + 30m Heart + 1x Scissors + 1x Hammer +  1x Broom
+(2) 1060 Coins + 1h Heart + 3x Scissors + 2x Hammer + 1x Broom
+(3) 2300 Coins + 2h Heart + 4x Scissors + 3x Hammer + 4x Broom
+(4) 5950 Coins + 5h Heart + 7x Scissors + 6x Hammer + 3x Broom
+(5) 11800 Coins + 11h Heart + 7x Scissors + 6x Hammer + 4x Broom
+(6) 28500 Coins + 18h Heart + 9x Scissors + 9x Hammer + 6x Broom","$2.49 (- 45%)
+$4.99 (- 35%)
+$10.99 (- 40%)
+$18.99 (- 45%)
+$27.99 (- 55%)
+$49.99 (- 60%)",,,
+11,12,".chainoffer1.premium
+.chainoffer2.premium
+.chainoffer3.premium
+.chainoffer4.premium
+.chainoffer5.premium
+.chainoffer6.premium","Sushi Premium 1
+Sushi Premium 2
+Sushi Premium 3
+Sushi Premium 4
+Sushi Premium 5
+Sushi Premium 6","- Hiển thị & mở khóa lần lượt trong Popup Sushi Flow (tính năng mở khóa sau khi hoàn thành Level 24).
+- Chỉ xuất hiện và mua được trong thời gian diễn ra LiveOps (bắt đầu từ 08h00 sáng thứ 5 mỗi tuần lẻ, kéo dài trong 4 ngày).
+- Consumable - theo cơ chế Loop 1 - 2 - 3 - 4 - 5 - 6 - 1 - ...
+- Đặc biệt: Chỉ áp dụng được cho ng chơi Dolphin và Whale thông qua Remote Config
+
+(1) 660 Coins + 30m Heart + 1x Scissors + 1x Hammer +  1x Broom
+(2) 1060 Coins + 1h Heart + 3x Scissors + 2x Hammer + 1x Broom
+(3) 2300 Coins + 2h Heart + 4x Scissors + 3x Hammer + 4x Broom
+(4) 5950 Coins + 5h Heart + 7x Scissors + 6x Hammer + 3x Broom
+(5) 11800 Coins + 11h Heart + 7x Scissors + 6x Hammer + 4x Broom
+(6) 28500 Coins + 18h Heart + 9x Scissors + 9x Hammer + 6x Broom","$2.99 (- 35%)
+$5.99 (- 20%)
+$11.99 (- 35%)
+$20.99 (- 40%)
+$29.99 (- 50%)
+$54.99 (- 55%)",,,
+12,13,".halloweenoffer1
+.halloweenoffer2
+.halloweenoffer3
+.halloweenoffer4","Wicked Treats 1
+Wicked Treats 2
+Wicked Treats 3
+Wicked Treats All","- Hiển thị trong Popup Halloween IAP (Wicked Treats)
+- Chỉ xuất hiện và mua được trong thời gian diễn ra event: từ 00h00 sáng ngày 28/10 đến hết ngày 31/10, tương đương với 3 ngày
+- Consumable
+
+(1) 1x Broom + 2x Hammer + 2x Scissors + 5 Candies
+(2) 30m Heart + 2x Broom + 3x Hammer + 3x Scissors + 10 Candies
+(3) 1200 Coins + 45m Heart + 3x Broom + 4x Hammer + 4x Scissors + 15 Candies
+(4) 1200 Coins + 75m Heart + 6x Broom + 9x Hammer + 9x Scissors + 30 Candies","$1.99
+$4.49
+$8.49
+$10.99 (-40%)",,,
+13,14,.halloweenoffer5,Wicked Treats Original Price All,"- Hiển thị trong Popup Halloween IAP (Wicked Treats)
+- Chỉ xuất hiện và không mua được trong thời gian diễn ra event: từ 00h00 sáng ngày 28/10 đến hết ngày 31/10, tương đương với 3 ngày
+
+1200 Coins + 75m Heart + 6x Broom + 9x Hammer + 9x Scissors + 30 Candies",$14.99,,,
+14,15,".endlesspresent1
+.endlesspresent2
+.endlesspresent3
+.endlesspresent4
+.endlesspresent5
+.endlesspresent6
+.endlesspresent7
+.endlesspresent8","Endless Presents 1
+Endless Presents 2
+Endless Presents 3
+Endless Presents 4
+Endless Presents 5
+Endless Presents 6
+Endless Presents 7
+Endless Presents 8","- Hiển thị & mở khóa lần lượt trong Popup Endless Present (tính năng mở khóa sau khi hoàn thành Level 19).
+- Chỉ xuất hiện và mua được trong thời gian diễn ra LiveOps.
+- Tính năng sự kiện này sẽ diễn ra tổng cộng 3 lần trong thời gian tháng 12.
+   + Lần 1: 04/12 đến 07/12
+   + Lần 2: 14/12 đến 17/12
+   + Lần 3: 24/12 đến 27/12 
+ - Tính năng diễn ra từ 00:00am đến 11:59pm của khoảng thời gian cho phép theo giờ UTC (GMT +0).
+- Mỗi gói chỉ mua được 1 lần trong mỗi đợt sự kiện (không loop lại như Chain Offer).
+- Consumable
+
+- Tổng quà nhận được (bao gồm cả IAP và Free sau khi mua IAP):
+(1) 1000 Coins + 30m Heart + 1x Hammer +  1x Broom
+(2) 1900 Coins + 30m Heart + 1x Scissors + 1x Hammer + 1x Broom
+(3) 2700 Coins + 1h Heart + 2x Scissors + 2x Hammer + 1x Broom
+(4) 6300 Coins + 1h Heart + 4 Scissors + 4 Hammer + 2 Broom
+(5) 8000 Coins + 9h Heart + 6x Scissors + 4x Hammer + 4x Broom
+(6) 13200 Coins + 12h Heart + 9x Scissors + 9x Hammer + 9x Broom
+(7) 27500 Coins + 36h Heart + 14x Scissors + 14x Hammer + 14x Broom
+(8) 73500 Coins + 60h Heart + 18x Scissors + 18x Hammer + 18x Broom","$2.49 (-50%)
+$4.99 (-40%)
+$7.99 (-35%)
+$14.99 (-45%)
+$19.99 (-50%)
+$29.99 (-60%)
+$49.99 (-65%)
+$99.99 (-70%)",,,
+
+--- IAP iOS (First 15 rows) ---
+,No.,Product ID,IAP,Description,Price,IAP [Screwdom],Description [Screwdom],Price [Screwdom]
+0,1,"puzzle.yarn.fever.unravel.puzzle
+
+.600coin
+.1800coin
+.3800coin
+.12000coin
+.30000coin
+.52000coin",Coins (6),"- Hiển thị từ Level 1 ở Shop Screen
+- Tỉ lệ quy đổi cơ bản: $1 = 300 Coins
+- Consumable - Có thể mua được nhiều lần
+
+600 Coins (base)
+1800 Coins (discount 15%)
+3800 Coins (20%)
+12000 Coins (35%)
+30000 Coins (50%)
+72000 Coins (60%)","$1.99
+$4.99 (leap x2.5)
+$9.99 (x2)
+$24.99 (x2.5)
+$49.99 (x2)
+$99.99 (x2)",Coins (6),"- Hiển thị từ Level 1 ở Shop Screen
+- Tỉ lệ quy đổi cơ bản: $1 = 150 Coins
+- Consumable - Có thể mua được nhiều lần
+
+300 Coins (base)
+900 Coins (discount 15%)
+1900 Coins (20%)
+6000 Coins (35%)
+15000 Coins (50%)
+36000 Coins (60%)","$1.99
+$4.99 (leap x2.5)
+$9.99 (x2)
+$24.99 (x2.5)
+$49.99 (x2)
+$99.99 (x2)"
+1,2,.noads,No Ads,"- Hiển thị từ Level 1 ở Shop Screen
+- Non - Consumable - Chỉ mua được 1 lần duy nhất
+- Khi mua 1 trong 2 gói No Ads thì sẽ ẩn cả 2 gói đi
+- Mức giá phụ thuộc vào thị trường mục tiêu
+
+Bỏ toàn bộ IAA trừ Rewarded Ads",$7.99,No Ads,"- Hiển thị từ Level 1 ở Shop Screen
+- Non - Consumable - Chỉ mua được 1 lần duy nhất
+- Khi ng chơi mua 1 trong 2 gói No Ads thì sẽ biến mất và ẩn cả gói còn lại đi
+
+Bỏ toàn bộ IAA trừ Rewarded Ads",$7.99
+2,3,.noadsbundle,No Ads Bundle,"- Hiển thị từ Level 1 ở Shop Screen và popup No Ads
+- Tự động bật popup ở Gameplay Screen tại Level X, bật lại sau Y Level → X,Y có thể được điều chỉnh qua Remote Config (hiện tại X = 12, Y = 6)
+- Không hiển thị nữa sau X lần từ chối từ ng chơi để tránh ảnh hưởng đến trải nghiệm
+- Sử dụng để phân loại ng chơi
+- Có thể thử nghiệm thêm trường hợp hiển thị 2 lựa chọn No Ads trong cùng 1 popup để ng chơi lựa chọn
+
+No Ads + 1500 Coins + 4x Boosters Set → discount 50%",$9.99 (Tag 50% OFF),No Ads Bundle,"- Hiển thị từ Level 1 ở Shop Screen và popup No Ads
+- Không tự động bật popup Remove Ads ở Gameplay Screen
+- Non - Consumable
+
+No Ads + 1500 Coins + 4x Boosters Set → actually 65% OFF according to my calculation",$9.99 (Tag 50% OFF)
+3,4,.beginnerbundle,Decorated Pouch,"- Từ Level 10 thì mới bắt đầu hiển thị ở trong Shop Screen
+- Consumable
+
+1800 Coins + 1x Boosters Set + 1h Infinite Heart → discount 25%
+
+- Giá và nội dung khác so với phiên bản tương ứng của Android",$6.99,Special Offer,"- Hiển thị từ Level 10 ở Shop Screen 
+- Non - consumable
+
+900 Coins + 1x Boosters Set + 1h Infinite Heart → discount 25%",$6.99
+4,5,.smallbundle,Artisan Satchel,"- Từ Level 10 thì mới bắt đầu hiển thị ở trong Shop Screen
+- Consumable
+
+3800 Coins + 3x Boosters Set + 3h Infinite Heart → discount 40%",$19.99,Great Bundle,"- Hiển thị từ Level 10 ở trong Shop Screen
+- Consumable
+
+1900 Coins + 2x Boosters Set + 2h Infinite Heart → discount 40%",$19.99
+5,6,.mediumbundle,Exquisite Basket,"- Từ Level 10 thì mới bắt đầu hiển thị ở trong Shop Screen
+- Consumable
+
+12000 Coins + 8x Boosters Set + 6h Infinite Heart → discount 45%",$29.99 (Tag Popular),Epic Bundle,"- Hiển thị từ Level 10 ở trong Shop Screen
+- Consumable
+
+6000 Coins + 6x Boosters Set + 6h Infinite Heart → discount 40%",$29.99 (Tag Popular)
+6,7,.largebundle,Overflowing Chest,"- Từ Level 10 thì mới bắt đầu hiển thị ở trong Shop Screen
+- Consumable
+
+30000 Coins + 12x Boosters Set + 24h Infinite Heart → discount 60%",$54.99,Super Bundle,"- Hiển thị từ Level 10 ở trong Shop Screen
+- Consumable
+
+15000 Coins + 15x Boosters Set + 24h Infinite Heart → discount 60%",$54.99
+7,8,.royalbundle,Royal Vault,"- Từ Level 10 thì mới bắt đầu hiển thị ở trong Shop Screen
+- Consumable
+
+72000 Coins + 15x Boosters Set + 48h Infinite Heart → discount 65%",$99.99 (Tag Best Value),Ultra Bundle,"- Hiển thị từ Level 10 ở trong Shop Screen
+- Consumable
+
+30000 Coins + 30x Boosters Set + 48h Infinite Heart → discount 65%",$99.99 (Tag Best value)
+8,9,".failoffer0
+
+.failoffer1",Assist Offer,"- Chỉ hiển thị khi ng chơi thua từ Level 10 trở đi (tức là hoàn thành Level 9)
+- Hiển thị phía dưới popup Revive / Continue khi ng chơi thua
+- Nếu mua thì cũng sẽ coi như là được hồi sinh để chơi tiếp ngay lập tức
+- Consumable
+- Từ lần mua thứ 2 không discount
+
+1200 Coins + 1x Boosters Set + 30m Infinite Heart","Lần 1: $3.99 (Tag 40% OFF) - giảm từ $5.99
+
+Lần 2 trở đi: $5.99 (Không sử dụng Tag OFF nữa)",Keep Up Offer,"- Bắt đầu hiển thị từ sau khi ng chơi hoàn thành Level 2
+- Hiển thị phía dưới popup Revive / Continue khi ng chơi thua
+- Sau khi mua thì quay về popup ban đầu, không được tiếp tục chơi mà vẫn phải trả phí
+- Consumable
+
+600 Coins + 1x Boosters Set + 30m Infinite Heart",$4.99
+9,10,.starterpack,Special Deal!,"- Hiển thị từ Level 1 ở Shop Screen
+- Tự động bật popup ở Home Screen tại Level X, chỉ tồn tại trong vòng Y giờ → X, Y có thể điều chỉnh qua Remote Config (mặc định là 10)
+- Đồng thời cũng sẽ hiển thị ở dưới popup Continue giống Keep Up Offer
+- Hướng tới mức giá $2.99 và cũng có thể sử dụng để phân loại ng chơi
+- Non - consumable
+
+1200 Coins + 1x Boosters Set + 1h Infinite Heart",$2.99 (Tag 60% OFF),,- Theo ghi nhận thì giá IAP giữa các thị trường và các nền tảng đang là giống nhau,
+10,11,".chainoffer1
+.chainoffer2
+.chainoffer3
+.chainoffer4
+.chainoffer5
+.chainoffer6","Sushi Flow 1
+Sushi Flow 2
+Sushi Flow 3
+Sushi Flow 4
+Sushi Flow 5
+Sushi Flow 6","- Hiển thị & mở khóa lần lượt trong Popup Sushi Flow (tính năng mở khóa sau khi hoàn thành Level 24).
+- Chỉ xuất hiện và mua được trong thời gian diễn ra LiveOps (bắt đầu từ 08h00 sáng thứ 5 mỗi tuần lẻ, kéo dài trong 4 ngày).
+- Consumable - theo cơ chế Loop 1 - 2 - 3 - 4 - 5 - 6 - 1 - ...
+
+- Tổng quà nhận được (bao gồm cả IAP và Free sau khi mua IAP):
+(1) 660 Coins + 30m Heart + 1x Scissors + 1x Hammer +  1x Broom
+(2) 1060 Coins + 1h Heart + 3x Scissors + 2x Hammer + 1x Broom
+(3) 2300 Coins + 2h Heart + 4x Scissors + 3x Hammer + 4x Broom
+(4) 5950 Coins + 5h Heart + 7x Scissors + 6x Hammer + 3x Broom
+(5) 11800 Coins + 11h Heart + 7x Scissors + 6x Hammer + 4x Broom
+(6) 28500 Coins + 18h Heart + 9x Scissors + 9x Hammer + 6x Broom","$2.49 (- 45%)
+$4.99 (- 35%)
+$10.99 (- 40%)
+$18.99 (- 45%)
+$27.99 (- 55%)
+$49.99 (- 60%)",,,
+11,12,".chainoffer1.premium
+.chainoffer2.premium
+.chainoffer3.premium
+.chainoffer4.premium
+.chainoffer5.premium
+.chainoffer6.premium","Sushi Premium 1
+Sushi Premium 2
+Sushi Premium 3
+Sushi Premium 4
+Sushi Premium 5
+Sushi Premium 6","- Hiển thị & mở khóa lần lượt trong Popup Sushi Flow (tính năng mở khóa sau khi hoàn thành Level 24).
+- Chỉ xuất hiện và mua được trong thời gian diễn ra LiveOps (bắt đầu từ 08h00 sáng thứ 5 mỗi tuần lẻ, kéo dài trong 4 ngày).
+- Consumable - theo cơ chế Loop 1 - 2 - 3 - 4 - 5 - 6 - 1 - ...
+- Đặc biệt: Chỉ áp dụng được cho ng chơi Dolphin và Whale thông qua Remote Config
+
+- Tổng quà nhận được (bao gồm cả IAP và Free sau khi mua IAP):
+(1) 660 Coins + 30m Heart + 1x Scissors + 1x Hammer +  1x Broom
+(2) 1060 Coins + 1h Heart + 3x Scissors + 2x Hammer + 1x Broom
+(3) 2300 Coins + 2h Heart + 4x Scissors + 3x Hammer + 4x Broom
+(4) 5950 Coins + 5h Heart + 7x Scissors + 6x Hammer + 3x Broom
+(5) 11800 Coins + 11h Heart + 7x Scissors + 6x Hammer + 4x Broom
+(6) 28500 Coins + 18h Heart + 9x Scissors + 9x Hammer + 6x Broom","$2.99 (- 35%)
+$5.99 (- 20%)
+$11.99 (- 35%)
+$20.99 (- 40%)
+$29.99 (- 50%)
+$54.99 (- 55%)",,,
+12,13,".halloweenoffer1
+.halloweenoffer2
+.halloweenoffer3
+.halloweenoffer4","Wicked Treats 1
+Wicked Treats 2
+Wicked Treats 3
+Wicked Treats All","- Hiển thị trong Popup Halloween IAP (Wicked Treats)
+- Chỉ xuất hiện và mua được trong thời gian diễn ra event: từ 00h00 sáng ngày 28/10 đến hết ngày 31/10, tương đương với 3 ngày
+- Consumable
+
+(1) 1x Broom + 2x Hammer + 2x Scissors + 5 Candies
+(2) 30m Heart + 2x Broom + 3x Hammer + 3x Scissors + 10 Candies
+(3) 1200 Coins + 45m Heart + 3x Broom + 4x Hammer + 4x Scissors + 15 Candies
+(4) 1200 Coins + 75m Heart + 6x Broom + 9x Hammer + 9x Scissors + 30 Candies","$1.99
+$4.49
+$8.49
+$10.99 (-40%)",,,
+13,14,.halloweenoffer5,Wicked Treats Original Price All,"- Hiển thị trong Popup Halloween IAP (Wicked Treats)
+- Chỉ xuất hiện và không mua được trong thời gian diễn ra event: từ 00h00 sáng ngày 28/10 đến hết ngày 31/10, tương đương với 3 ngày
+
+1200 Coins + 75m Heart + 6x Broom + 9x Hammer + 9x Scissors + 30 Candies",$14.99,,,
+14,15,".endlesspresent1
+.endlesspresent2
+.endlesspresent3
+.endlesspresent4
+.endlesspresent5
+.endlesspresent6
+.endlesspresent7
+.endlesspresent8","Endless Present 1
+Endless Present 2
+Endless Present 3
+Endless Present 4
+Endless Present 5
+Endless Present 6
+Endless Present 7
+Endless Present 8","- Hiển thị & mở khóa lần lượt trong Popup Endless Present (tính năng mở khóa sau khi hoàn thành Level 19).
+- Chỉ xuất hiện và mua được trong thời gian diễn ra LiveOps.
+- Tính năng sự kiện này sẽ diễn ra tổng cộng 3 lần trong thời gian tháng 12.
+   + Lần 1: 04/12 đến 07/12
+   + Lần 2: 14/12 đến 17/12
+   + Lần 3: 24/12 đến 27/12 
+ - Tính năng diễn ra từ 00:00am đến 11:59pm của khoảng thời gian cho phép theo giờ UTC (GMT +0).
+- Mỗi gói chỉ mua được 1 lần trong mỗi đợt sự kiện (không loop lại như Chain Offer).
+- Consumable
+
+- Tổng quà nhận được (bao gồm cả IAP và Free sau khi mua IAP):
+(1) 1000 Coins + 30m Heart + 1x Hammer +  1x Broom
+(2) 1900 Coins + 30m Heart + 1x Scissors + 1x Hammer + 1x Broom
+(3) 2700 Coins + 1h Heart + 2x Scissors + 2x Hammer + 1x Broom
+(4) 6300 Coins + 1h Heart + 4 Scissors + 4 Hammer + 2 Broom
+(5) 8000 Coins + 9h Heart + 6x Scissors + 4x Hammer + 4x Broom
+(6) 13200 Coins + 12h Heart + 9x Scissors + 9x Hammer + 9x Broom
+(7) 27500 Coins + 36h Heart + 14x Scissors + 14x Hammer + 14x Broom
+(8) 73500 Coins + 60h Heart + 18x Scissors + 18x Hammer + 18x Broom","$2.49 (-50%)
+$4.99 (-40%)
+$7.99 (-35%)
+$14.99 (-45%)
+$19.99 (-50%)
+$29.99 (-60%)
+$49.99 (-65%)
+$99.99 (-70%)",,,
+
+--- Basic Circulation (First 15 rows) ---
+,What?,Source/Sink,Comparison,Note 1,Note 2,Progression Design
+0,New Users,+ 400 Coins,+ 100 Coins,Updated Nov 2025,,Level 15 - 20 - 25 - 30 - 35 - 40 - ... are Hard Levels
+1,Level Completion (Easy),+ 20 Coins,+ 10 Coins,1 RW -> x2 / x3 / x5 value in Coins,Coin Mult RW shows up from Lv.1,"At Lv.10, player should have 190 Coins, which is just enough for 1 use of Revive, but an inexperience player should already lost at least a few times before that"
+2,Level Completion (Hard),+ 40 Coins,+ 20 Coins,1 RW -> x2 / x3 / x5 value in Coins,,"After Lv.10, only then the Shop unlocks 5 new Bundles, selling Boosters Set and Infinite Hearts at relatively good discount, ranging from $9.99 all the way to $99.99"
+3,Level Completion (Very Hard),+ 60 Coins,none,1 RW -> x2 / x3 / x5 value in Coins,,
+4,"Booster Add Box
+Add more Box","- 380 Coins
+Unlocks at Lv.1",- 190 Coins,"Strategically, the most useful helpers
+Increase 100 Coins each use per level","Unlocks at Lv.1
+Non-limited uses of RW for all Boosters","Discount of Bundles (%): 20 / 35 / 45 / 55 / 60 (to player, this should be a few percent higher when taking in Infinite Heart value)
+Discount of Coin Packs (%): 15 / 20 / 35 / 50 / 60"
+5,"Boosters Hammer
+Add a Hole","- 160 Coins
+Unlocks at Lv.2",- 80 Coins,,"Unlocks at Lv.2
+Limit to 3 extra Holes per Level","At Lv.15, the first Hard Level, player should have up to 240 Coins at disposal, but should not be enough to get pass this Level without RW or purchasing IAP"
+6,"Booster Scrissors
+Attract all screw at first Box","- 120 Coins
+Unlocks at Lv.8",- 60 Coins,"Weakest, therefore cheapest","Unlocks at Lv.5
+Given only 1 forced free use as Tutorial","After Lv.15, the game unlocks the Key Collection feature, just after player struggle with a Hard level, giving them an immediate reward and a sense of relieve. Similarly for Lv.20 with the Master Pass."
+7,"Booster Broom
+Clear all Screw on temp hole","- 240 Coins
+Unlocks at Lv.4",- 120 Coins,Need certain amount of skill to use effectively,Unlocks at Lv.7,
+8,"Booster Hammer
+Break an obstacle",none,- 120 Coins,"While having the same price, if used correctly, Hammer can be significantly stronger",Unlocks at Lv.10,
+9,Booster Set,- 520 Coins,- 380 Coins,,,
+10,"Revive & Add Box
+Limit to 2 extra Boxes per Level",- 380 Coins,- 190 Coins,,,
+11,"Revive & Broom
+Available after reaching 4 Boxes limit",- 380 Coins,- 190 Coins,,,
+12,Refill Heart (single),-1 RW,- 1 RW,Wait for 30 minutes for 1 free Heart,,
+13,Infinite Heart 15m,- 60 Coins,,,,
+14,Infinite Heart 30m,- 150 Coins,,,,
+
+--- H1 Guideline (First 15 rows) ---
+,Core System,Details,Extra Note,REF 1,REF 2
+0,Trigger Offer System,"Hard Level Kit:
+- Có thể bắt đầu hiển thị từ sau Level 10, sau khi ng chơi đã trải qua 1 lượt các Level với độ khó cao để cảm nhận và đã làm cạn kiệt tài nguyên
+- Tự động xuất hiện sau khi ng chơi hoàn thành 1 Level, trở về Home và Level tiếp theo là Hard hoặc Super Hard Level. Nếu đang còn trong tgian của gói trước thì không hiện thêm gói mới
+- Làm art concept riêng cho 2 gói Hard và Super Hard
+- Chia nhiều mức giá theo tier-based segmentation, gói Super Hard thường sẽ đắt và nhiều vật phẩm hơn
+- Có thể làm thêm banner ở popup Revive nếu trước đó họ chần chừ k mua nhg khi thua thì muốn mua chẳng hạn, nhưng nên cân nhắc cả quy tắc thứ tự hiển thị và k hiển thị quá nhiều
+- Có thể bán item Extra Box ở đây cũng được vì sẽ có giá trị trực tiếp với ng chơi
+- Thời gian mở bán có thể kéo dài từ 30m đến 24h hoặc hơn tùy giá gói","Hard Level Kit: textholder
+Super Hard Level Kit: textholder
+
+-> điền tên tương ứng của gói vào đây sau khi thống nhất được art concept",,
+1,,"Special Deal: điều chỉnh lại quy tắc hoạt động để tối ưu khả năng chuyển đổi IAP + Starter Pack
+- Thay vì hiển thị gói Special Deal $2.99 trước đó thì sẽ hiển thị gói Starter Pack format chọn 1 trong 3 gói với các mức giá $1.99 - $4.99 - $7.99. Đây sẽ là gói có tác dụng phân loại ng chơi sớm tùy theo khả năng chi trả của họ. Mức giá đầu tiên có thể cài Remote Config để test thêm các mức khác như $0.99 hay $2.99 xem mức nào chuyển đổi tốt hơn, cho doanh thu tốt hơn.
+- Vì hiển thị 3 gói cùng lúc nên sẽ không thể hiển thị dưới dạng banner tại popup Revive nữa, nên sẽ chuyển sang hiển thị theo nguyên tắc của popup Out of Coins (khi bấm k đủ Coin thì hiện)
+- Vì đây sẽ là 1 trong những gói đầu tiên ng chơi gặp, nên sẽ có mức %discount lớn hơn một chút để tối đa khả năng chuyển đổi
+- Mỗi ng chơi thì sẽ chỉ được mua 1 gói Starter Pack, sau đó Starter Pack sẽ biến mất. Còn không thì Starter Pack sẽ tồn tại trong 48h","- Nếu hết tgian mà vẫn k mua thì từ sẽ chuyển sang hiển thị Special Deal, vẫn theo quy tắc vòng lặp như trước
+- Giá của Special Deal sẽ có thể là $0.99 - $1.99 - $2.99, có thể dùng Remote Config để điều chỉnh
+- Hoạt động theo kiểu hiển thị giá của Remote trước, sau đó hết 1 chu kỳ sẽ hiển thị vẫn gói đấy nhưng với giá thấp hơn
+- Đến gói thấp nhất rồi vẫn không được thì hiển thị lặp đi lặp lại theo chu kỳ
+- Thời gian hiển thị của Special Deal sẽ chỉnh sửa thành 24h, còn thời gian đợi sẽ là 72h
+- Tương tự, mục tiêu vẫn là chuyển đổi nên %discount sẽ lớn hơn bthg",,
+2,Random Offer System,"- Chi tiết tại đây: Random Offer System 
+
+-> GD phụ trách chủ động điền chi tiết nội dung của các gói bán
+
+- Bao gồm tập hợp nhiều gói với format khác nhau, trước mắt chủ yếu dưới dạng Purchase Bonus, nếu ổn thì sau sẽ bổ sung thêm
+- Tính toán thông số cho từng ng chơi ở lần đầu tiên đăng nhập mỗi ngày. Bắt đầu tính từ lúc hiển thị Loading Screen
+- Chỉ áp dụng cho ng chơi từ Level 15 trở đi
+- Tác động đến hình ảnh, giá và nội dung các gói sẽ xuất hiện trong ngày hôm đó","- Có 2 loại gói High-value và Low-value
+- Tại cùng 1 thời điểm chỉ hiển thị tối đa 2 gói của 2 loại, và chỉ gói nào đc kích hoạt thì khi hết mới tính cooldown
+- Chọn theo thứ tự, hết cái này rồi thì hiện cái tiếp theo của loại đó, cho đến khi hết danh sách thì lặp lại từ đầu
+- Ng chơi đã mua rồi thì vẫn có thể mua lại được ở chu kỳ tiếp theo
+- Riêng có thêm 1 loại là Occasional Offer thì cứ đạt điều kiện là có thể hiển thị cùng với 2 loại còn lại
+- Tùy kết quả mà sẽ bổ sung hoặc bớt các gói khỏi Rotation Pool",,
+3,Seasonal Offer,"Woman's Day: Blooming Gift
+- Format 1+1 kết hợp user segmentation (value-based) để đánh giá hiệu quả so với Black Friday
+- Có gói riêng thêm cho segment Killer Whale (Tổng IAP > $70)
+- Diễn ra vào dịp 8/3, Quốc tế Phụ nữ",,,
+4,,"Spring Offer: Spring Gift
+- Thử nghiệm format mới 2-For-1 và Tag X Value cho segment ng chơi chưa mua IAP để tăng tỉ lệ chuyển đổi
+- Đối với Non-payer sẽ kết hợp 1 lựa chọn mua IAP và 1 lựa chọn mở khóa bằng RV; còn lại các segment khác sẽ đều là IAP
+- Phải mua gói bên trái trước rồi mới được mua gói bên phải
+- Diễn ra 2 lần vào 2 cuối tuần của tháng 3, trước khi bước sang các tháng mùa hè",,,
+5,,"Summer Offer 1:
+- textholder",- Sau khi có kqua của Valentine's Day thì tính tiếp,,WIP
+6,,"Summer Offer 2:
+- textholder",- Sau khi có kqua của Valentine's Day thì tính tiếp,,WIP
+7,,"Labor Day:
+- textholder","- Diễn ra vào khoảng nghỉ lễ 1/5, từ 1/5 đến 3/5
+- LiveOps dạng Minigame tương tự Winter Trinkets
+- IAP format Purchase Bonus hoặc 1+1, target vào việc ng chơi đã hoàn thành 1 lượng Stage nhất định, đã chơi nhiều LiveOps thì bán lượng Event Token phù hợp cho họ để đạt mốc phần thưởng tiếp theo khi sắp hết tgian
+- Có thể retheme gói Recurring IAP sẽ xảy ra vào thời điểm đó thành theme Labour Day để kích thích ng chơi mua thêm",,
+8,,"Anniversary:
+- textholder","- Lấy ngày 21/6 làm ngày kỉ niệm chính thức
+- Diễn ra trong 1 tuần, từ 16/6 đến 23/6
+- LiveOps tương tự Winter Trinkets
+- LiveOps Umbrella Mission tương tự Thanksgiving, cân bằng lại nhiệm vụ và có nhiệm vụ liên kết với Card Album
+- LiveOps Card Rush hoặc Stamp Card, kéo dài trong 2 ngày cuối tuần
+- IAP 1: format 1+2 hoặc 1+3 
+- IAP 2: Card Treasures", ,
+9,Recurring LiveOps,"Key Collection: giảm thời gian diễn ra từ 7 ngày còn 4 ngày. Cân đối lại tiến trình và ndung phần thưởng theo thời gian mới. Vẫn diễn ra bắt đầu từ thứ 2 hàng tuần, nhưng sẽ kết thúc sớm hơn.",,, 
+10,,Chain Offer: giảm thời gian diễn ra từ 4 ngày còn 2 ngày. Vẫn diễn ra từ thứ 2 hàng tuần nhưng kết thúc sớm hơn. Có thể tối ưu thêm dựa trên kết quả của đợt tối ưu trước đó.,, ,
+11,,"1+1 Deal & Buy-One-or-All:
+- 2 gói sẽ chạy luân phiên mỗi cuối tuần, tuần này là 1+1 thì tsau là gói còn lại
+- Mỗi gói có 2 art concept, cũng sẽ luân phiên liên tục
+- Cần thiết kế phần thưởng và giá bán dựa trên kịch bản segment (tier-based)
+- Tgian mở bán tính từ thời điểm đăng nhập sẽ là 24h hoặc 48h cho cả 2 gói (gói giá cao hơn thì có thể để thời gian lâu hơn)
+- Không cần có logic mua xong thì hiển thị bậc tiếp theo","1+1 Deal:
+Magical Wishes / Weekend Combo
+Buy-One-or-All: 
+Shopping Fever / Deluxe Gift Box",,
+12,,"Purchase Bonus:
+- Đưa về chạy luân phiên, bắt đầu từ thứ 4 sau khi Chain Offer kết thúc. Chạy theo quy tắc trong khoảng tgian quy định, nếu ng chơi đăng nhập thì mới hiện gói bán và bắt đầu tính tgian
+- Làm 2 bộ concept, sau đó thay đổi luân phiên
+- Cặp Chain Offer và Purchase Bonus sẽ luân phiên với Piggy Bank
+- Thời gian của gói sẽ khoảng 24 đến 48h, và có chia nhiều mức giá và vật phẩm dựa theo segmentation (tier-based) -> ví dụ có thể gộp tier D-F và S-S+ để phù hợp","Purchase Bonus 1:
+text
+
+Purchase Bonus 2:
+text
+
+-> điền tên tương ứng của gói vào đây sau khi thống nhất được art concept",  ,
+13,,"Card Albums:
+- Ngoài các hệ thống vốn phải có của 1 Collectible Meta-game và việc phải hệ thống lại phần thưởng Card Pack vào các LiveOps sẵn có, còn cần bổ sung dần thêm các LiveOps và IAP dành riêng để hỗ trợ cho Meta-game này
+- Ví dụ: các gói IAP bán Card Pack, Wild Card; hay các LiveOps ở cuối tgian trước khi kết thúc chu kỳ để tạo động lực cho ng chơi hoàn thành tất cả các Album; hay là sau khi hoàn thành 1 Hard Level sẽ nhận được 1 Pack...
+- Chu kỳ của Card Album sẽ là 60 ngày","- Chưa cần thực hiện các tính năng như Trade giữa các ng chơi với nhau
+- Thời gian bắt đầu chạy sẽ loanh quanh khoảng tgian mùa hè nên có thể lấy chủ đề này",,
+14,,"Streak Assist:
+- Tối ưu liên tục kèm các bộ Level Design
+- Tăng hiệu quả bằng việc tối ưu UI/UX của tính năng sao cho dễ hiểu, tăng friction khi diễn hoạt mất Streak ở popup Revive/Quit",,,
+
+--- Random Offer System (First 15 rows) ---
+,Cột 1,Pack,Duration,Cooldown,Price,Availability,Reward,True Value,Discount,Segment,Details
+0,,,,,,,,,,,
+1,(0) Secret Deal,S,24h,48h,$2.99,1/1,Coin + Heart + Booster,,"50% 
+(Tag WOW 200%)",C - D,- Kích hoạt sau khi hoàn thành Level và ng chơi chưa mua IAP trong vòng 7 ngày gần nhất (168h)
+2,Occasional Offer,M,24h,48h,$5.99,1/1,Coin + Heart + Booster,,"50%
+(Tag WOW 200%)",B,- Giá thấp hơn và %discount lớn để thu hút ng chơi đã từng mua IAP nhưng lâu rồi chưa mua tiếp
+3,Format: Purchase Bonus,L,24h,48h,$10.99,1/1,Coin + Heart + Booster,,"50%
+(Tag WOW 200%)",A,- Ng chơi chưa từng mua IAP thì k tính vào đây do đã có sẵn hệ thống Special Deal
+4,,XL,24h,48h,$16.99,1/1,Coin + Heart + Booster,,"50% 
+(Tag WOW 200%)",S - S+,
+5,,,,,,,,,,,
+6,(1) Lucky Chance,S,24h,48h,$5.99,1/1,Coin + Heart + Booster,,"65%
+(Tag 3X Value)",C - D - F,"- Kích hoạt sau khi hoàn thành 1 Level, hoặc khi bấm vào btn Coin nhưng không đủ (sau OoC)"
+7,High-value Offer,M,24h,48h,$11.99,1/1,Coin + Heart + Booster,,"60%
+(Tag 2.5X Value)",B,- Giá cao hơn nhưng đi kèm với mức Discount hấp dẫn để kích thích ng chơi chi trả mạnh tay
+8,Format: Purchase Bonus,L,24h,48h,$17.99,1/1,Coin + Heart + Booster,,"50%
+(Tag 2X Value)",A,"- Đi kèm text ""This is a limited time offer"""
+9,,XL,24h,48h,$24.99,1/1,Coin + Heart + Booster,,"50%
+(Tag 2X Value)",S - S+,
+10,,,,,,,,,,,
+11,(2) Same Price Bigger Prize,S,72h,72h,$2.99,3/3,Coin + Heart + Booster,,"x%
+(Tag x% More + x% More)",C - D - F,"- Kích hoạt sau khi hoàn thành 1 Level, hoặc khi bấm vào btn Coin nhưng không đủ (sau OoC)"
+12,High-value Offer,M,72h,72h,$4.99,3/3,Coin + Heart + Booster,,"x%
+(Tag x% More + x% More)",B,"- Giá vừa phải, thấp hơn khoảng segment, kết hợp với %more hấp dẫn để thu hút mua cả 3 gói"
+13,Format: = Price < Prize,L,72h,72h,$6.99,3/3,Coin + Heart + Booster,,"x%
+(Tag x% More + x% More)",A,"- %discount tính trên tổng giá 3 gói trên tổng phần thưởng, %more tính theo so với gói đầu tiên"
+14,,XL,72h,72h,$8.99,3/3,Coin + Heart + Booster,,"x%
+(Tag x% More + x% More)",S - S+,
+
+--- Rotation (First 15 rows) ---
+,Rotation Pool,Min Cooldown,Max Cooldown,Time Inbetween,Offer / Week,Offer Available,Full Rotation
+0,,,,,,,
+1,Low-value Offer (20 - 30%),24h,48h,2 to 4 days,"1.75 - 3.5 offers
+",2.0,4 to 8 days
+2,High-value Offer (>40%),48h,72h,4 to 6 days,1.15 - 1.75 offers,2.0,8 to 12 days
+
+--- Exchange Rate (First 15 rows) ---
+,Commodity,Coin Value,Reward Value,Dollar Value,Note
+0,Coin,,,$1 = 150 / 180 / 190 / 240 / 300 / 360 Coins,"Coin is the base commodity and medium of exchange
+300 Coins = $1.99 (base) -> 150 Coins = $0.99"
+1,Booster Add Box,190 Coins,1 RW (free/time),,"When calculating bundles, use the base exchange rate first then apply appropriate amount of discount later."
+2,Booster Drill,80 Coins,1 RW,,"After successful purchase of IAP, RW options are no longer available"
+3,Booster Magnet,60 Coins,1 RW,,Currency > Item = 190 Coins / Boosters
+4,Booster Broom,120 Coins,1 RW,,
+5,Booster Hammer,120 Coins,1 RW,,
+6,Boosters Set,380 Coins,1 RW,$2.49,
+7,Revive & Add Box,190 Coins,1 RW,,
+8,Revive & Broom,190 Coins,1 RW,,
+9,Refill Heart (1),38 / 47.5 / 63.5 / 95 / 190 Coins,1 RW,,
+10,Refill Heart (up to 5),190 Coins,,,
+11,Infinite Heart 15m,30 Coins,,,
+12,Infinite Heart 30m,75 Coins,,$0.49,EV of Infinite Heart depends a lot on player skill and behavior
+13,Infinite Heart 1h,150 Coins,,$0.99,
+14,Infinite Heart 3h,,,,
+
+--- Price Localization (First 15 rows) ---
+,Tier,Countries,Price Range,Test Candidate,ADR Lần 1,"ADR Lần 2 (KR, JP only)"
+0,Tier S,US,+20%,,"- Assist 0: 4.99
+- Assit 1: 6.99
+- Decorated Pouch 
+- Tiny coins
+- Small Coins
+- Medium Coins
+- Noads
+- No ads bundle
+- Special Deal
+",
+1,,UK,+20%,,"- Assist 0: 4.39
+- Assit 1: 6.49
+- Decorated Pouch 
+- Tiny coins
+- Small Coins
+- Medium Coins
+- Noads
+- No ads bundle
+- Special Deal",
+2,,Germany,+20%,,"- Assist 0: 4.99
+- Assit 1: 7.99
+- Decorated Pouch 
+- Tiny coins
+- Small Coins
+- Medium Coins
+- Noads
+- No ads bundle
+- Special Deal",
+3,, Japan,+20%,,"- Assist 0: 700
+- Assit 1: 1080
+- Decorated Pouch 
+- Tiny coins
+- Small Coins
+- Medium Coins
+- Noads
+- No ads bundle
+- Special Deal","23 products, trừ seasonal events "
+4,, South Korea,+20%,,"- Assist 0: 7000
+- Assit 1: 11000
+- Decorated Pouch 
+- Tiny coins
+- Small Coins
+- Medium Coins
+- Noads
+- No ads bundle
+- Special Deal","23 products, trừ seasonal events "
+5,Tier A,New Zealand,+10%,"Switzerland, Denmark, Austria, Norway, Ireland, Sweden, Taiwan, South Africa","- Assist 0: 7.99
+- Assit 1: 11.99
+- Decorated Pouch 
+- Tiny coins
+- Small Coins
+- Medium Coins
+- Noads
+- No ads bundle
+- Special Deal",
+6,,Australia,,,"- Assist 0: 6.99
+- Assit 1: 10.99
+- Decorated Pouch 
+- Tiny coins
+- Small Coins
+- Medium Coins
+- Noads
+- No ads bundle
+- Special Deal",
+7,,Canada,,,"- Assist 0: 5.99
+- Assit 1: 9.49
+- Decorated Pouch 
+- Tiny coins
+- Small Coins
+- Medium Coins
+- Noads
+- No ads bundle
+- Special Deal",
+8,Tier B,,0,,"Assist Offer x 2, Decorated Pouch, Medium Coins, No ads, No ads Bundle, Small Coins, Special Deal, Tiny Coins",
+9,Tier C,Brazil,-0.1,"France, Italy, South Africa, Netherlands, Czechia, Taiwan, Puerto Rico, Poland, Slovania, Finland, Israel, Belgium, UAE, Hungary, Greece, Turkey, Bulgaria, Colombia, Costa Rica, Ecuador, Kuwait, Nigeria, Peru, Ukraine, Saudi Arabia, ","- Assist 0:  19.99
+- Assit 1: 31.99
+- Decorated Pouch 
+- Tiny coins
+- Small Coins
+- Medium Coins
+- Noads
+- No ads bundle
+- Special Deal",
+10,,Mexico,,,"- Assist 0: 79.00
+- Assit 1: 125.00
+- Decorated Pouch 
+- Tiny coins
+- Small Coins
+- Medium Coins
+- Noads
+- No ads bundle
+- Special Deal",
+11,Tier D,Romania,-0.2,"Malaysia, Thailand, Indonesia, Chile, Singapore, Greece, Hong Kong, Pakistan, Egypt, India, China,","- Assist 0: 16.99
+- Assit 1: 25.99
+- Decorated Pouch 
+- Medium Coins
+- Noads
+- No ads bundle
+- Small Coins
+- Special Deal
+- Tiny coins",
+12,,"Spain, ",,,"- Assist 0: 3.49
+- Assit 1: 4.99
+- Decorated Pouch 
+- Tiny coins
+- Small Coins
+- Medium Coins
+- Noads
+- No ads bundle
+- Special Deal",
+13,,"Kazakhstan, ",,,"- Assist 0: 1790
+- Assit 1: 2590
+- Decorated Pouch 
+- Tiny coins
+- Small Coins
+- Medium Coins
+- Noads
+- No ads bundle
+- Special Deal",
+14,,Philippines,,,"- Assist 0: 185
+- Assit 1: 275
+- Decorated Pouch 
+- Tiny coins
+- Small Coins
+- Medium Coins
+- Noads
+- No ads bundle
+- Special Deal",
+
+--- Popup Script (First 15 rows) ---
+,No.,Status,Type,Popup,Auto-Popup Instruction,Note
+0,1,Done,Recurring Feature,Daily Rewards,"- Mở khóa từ Lv.10, trước đó tính năng chưa mở khóa nên các quy tắc phía dưới chưa được áp dụng.
+- Bắt buộc bật tính năng lần đầu tiên khi trở về Home Screen sau khi hoàn thành Lv.9.
+- Sau khi mở khóa rồi thì tự động bật ở lần đầu tiên đăng nhập mỗi ngày. Không bắt buộc.",
+1,2,Done,Recurring Feature,Key Collection,"- Mở khóa từ Lv.15, trước đó tính năng chưa mở khóa nên các quy tắc phía dưới chưa được áp dụng.
+- Bắt buộc bật tính năng lần đầu tiên khi trở về Home Screen sau khi hoàn thành Lv.14.
+- Bật ở lần đầu tiên đăng nhập của mỗi chu kỳ mới (8h sáng T2 hàng tuần). Không bắt buộc.","VD: T2 bắt đầu chu kỳ mới nhưng không đăng nhập, đến T3 đăng nhập thì tính là lần đầu của chu kỳ và bật popup, còn T4 đăng nhập tiếp thì không bật."
+2,3,Done,Recurring Feature,Master Pass Start,"- Mở khóa từ Lv.20, trước đó tính năng chưa mở khóa nên các quy tắc phía dưới chưa được áp dụng.
+- Bắt buộc bật khi trở về Home Screen sau khi hoàn thành Lv.19. Sau đó nếu bấm Start/Continue sẽ chuyển tới Master Pass Screen kèm popup Master Pass Info và popup Activate Master Pass để hướng dẫn ng chơi về tính năng. Popup hướng dẫn chỉ tự bật duy nhất một lần.
+- Bắt buộc bật ở lần đầu tiên đăng nhập của mỗi chu kỳ mới.",Gameplay Lv.19 -> Win Screen -> Home Screen -> Popup Master Pass Start -> Master Pass Screen -> Popup Master Pass Info -> Popup Activate Master Pass
+3,4,Done,Follow-up,"Master Pass Reward
+Master Pass End","- Khi kết thúc 1 chu kỳ Master Pass thì lần gần nhất tiếp theo đăng nhập sẽ bắt buộc tự động bật popup Master Pass End để thông báo.
+- Nếu còn phần thưởng ng chơi chưa nhận hoặc có Bonus Bank thì bật thêm popup Bonus, sau đó là Bank Master Pass Reward, nếu có.
+- Sau tất cả các cái popup như vậy thì mới bật popup bắt đầu chu kỳ Master Pass tiếp theo.",Home Screen -> Popup Master Pass End -> Popup Bonus Bank (nếu có) -> Popup Master Pass Reward (nếu có) -> Popup Master Pass Start
+4,5,Done,Recurring IAP,Chain Offer,"- Mở khoá từ Lv.25, trước đó tính năng chưa mở khóa nên các quy tắc phía dưới chưa được áp dụng.
+- Bắt buộc bật khi trở về Home Screen sau khi hoàn thành Lv.24, nếu đang trong thời gian diễn ra sự kiện. Còn nếu lúc đó mà không trong tgian thì chu kỳ tiếp theo sẽ bật.
+- Bật lần đầu tiên đăng nhập mỗi ngày trong thời gian tính năng hoạt động (từ 8h sáng T5 đến 8h sáng T2 mỗi tuần lẻ). Không bắt buộc.","Trường hợp ng chơi được bật popup Chain Offer xong sau đó họ mua IAP xong thì vẫn trở về popup Chain Offer, và sau khi tắt popup Chain Offer thì vẫn tiếp tục luồng popup bình thường."
+5,6,Done,Follow-up,Chain Offer Reward,- Sau khi kết thúc tính năng nếu còn mà phần thưởng do mua IAP mà ng chơi chưa nhận thì bật popup Chain Offer Reward để nhận bù ở lần đăng nhập tiếp theo.,
+6,7,Skip,Recurring Feature,Weekly Quest,"- Mở khoá từ Lv.25, trước đó tính năng chưa mở khóa nên các quy tắc phía dưới chưa được áp dụng.
+- Không bật khi trở về Home Screen sau khi hoàn thành Lv.24, chỉ hiển thị icon thông báo (!) để bấm điều hướng ng chơi bấm vào. Sau đó sẽ bật kèm popup Weekly Quest Info để hướng dẫn ng chơi về tính năng. Popup hướng dẫn chỉ tự bật duy nhất một lần.
+- Tự đông bật ở lần đầu tiên đăng nhập của mỗi chu kỳ mới (8h sáng T2 hàng tuần). Không bắt buộc.",
+7,8,Done,Recurring Feature,Win Streak,"- Mở khoá từ Lv.30, trước đó tính năng chưa mở khóa nên các quy tắc phía dưới chưa được áp dụng.
+- Bắt buộc bật khi trở về Home Screen sau khi hoàn thành Lv.29, nếu đang trong thời gian diễn ra sự kiện. Còn nếu lúc đó mà không trong tgian thì chu kỳ tiếp theo sẽ bật.
+- Bắt buộc bật popup Win Streak khi trở về Home Screen sau khi thua mất chuỗi thắng để diễn hoạt ng chơi mất chuỗi thưởng. Nếu thua liên tiếp nhiều lần thì không cần bật vì vốn dĩ đang không có chuỗi thắng rồi.
+- Bẳt buộc bật khi ng chơi lần đầu đạt mốc nhận thưởng đầu tiên.
+- Bật ở lần đầu tiên đăng nhập của mỗi chu kỳ mới (8h sáng T6 hàng tuần).
+- Bật khi ng chơi win 1 level đầu tiên trong ngày (chỉ trong thời gian diễn ra event).",
+8,9,Done,Follow-up,Win Streak Reward,- Sau khi kết thúc tính năng nếu còn mà phần thưởng mà ng chơi chưa nhận thì bật popup Win Streak Reward để nhận bù ở lần đăng nhập tiếp theo.,
+9,10,Done,Recurring IAP,Ad Choice,"- Bắt buộc bật khi trở về Home Screen sau khi hoàn thành Lv.11 trên ADR, còn Lv.9 trên iOS (theo Remote Config ""level_show_no_ads""). Nếu chọn ""Check Offers!"" thì sẽ bật popup No Ads Bundle.
+- Popup Ad Choice chỉ hiển thị duy nhất 1 lần tại thời điểm này, từ đó về sau theo kịch bản riêng nếu có bật popup No Ads Bundle thì không cần đi kèm Ad Choice.","Trước chỉ bật popup No Ads Bundle, nhưng giờ sẽ bật Ad Choice trước rồi mới dẫn đến No Ads Bundle sau."
+10,11,Done,Recurring IAP,No Ads Bundle,"- Đối segment Non-Spend, Ad-Addict và Minnow, từ Lv.15 trở đi, cứ mỗi 03 lần ng chơi trở về Home Screen do hoàn thành Level hoặc thoát giữa Level thì bật xen kẽ với popup Special Deal (nếu có). Không bắt buộc.",Trong trường hợp tắt Remote Config Ad Choice (hiếm) thì sẽ có thêm logic hiển thị sau khi hoàn thành Level như của Ad Choice.
+11,12,Done,Recurring IAP,Special Deal,"- Bắt buộc bật khi trở về Home Screen sau khi hoàn thành Lv.4.
+- Khi chu kỳ 48h kết thúc, thì lần tiếp theo trở về Home Screen hoặc trở lại Game thì sẽ bắt buộc bật popup Last Chance. Khi tắt popup này thì tính năng mới thực sự kết thúc.
+
+- Đối segment Non-Spend, Ad-Addict, tự động hiển thị lại Special Deal sau mỗi 48 giờ, tính từ thời điểm kết thúc của chu kỳ trước đó. Khi sang chu kỳ mới, ng chơi trở lại Game và tới Home Screen sẽ tự động bật popup của gói này và bắt đầu đếm tgian mới. Không bắt buộc.
+
+- Đối segment Non-Spend, Ad-Addict và Minnow, từ Lv.15 trở đi, cứ mỗi 03 lần ng chơi trở về Home Screen do hoàn thành Level hoặc thoát giữa Level thì bật xen kẽ với popup No Ads Bundle (nếu có). Không bắt buộc.",Chu kỳ nào của Special Deal cũng sẽ có popup Last Chance
+12,13,Skip,Event IAP,Halloween Wicked Treats,"- Mở khoá từ Lv.10, trước đó tính năng chưa mở khoá nên các quy tắc phía dưới chưa được áp dụng.
+- Tự động bật vào lần đầu tiên đăng nhập trong ngày, trong quãng thời gian diễn ra sự kiện (0h ngày 29/10 đến 23:59 ngày 31/10 UTC).",Sự kiện Halloween đã kết thúc nên không cần kiểm tra
+13,14,Skip,Event Feature,Halloween Pumpkin Smash,"- Mở khoá từ Lv.10, trước đó tính năng chưa mở khoá nên các quy tắc phía dưới chưa được áp dụng.
+- Tự động bật vào lần đầu tiên đăng nhập trong ngày, trong quãng thời gian diễn ra sự kiện (0h ngày 25/10 đến 23:59 ngày 31/10 UTC).",Sự kiện Halloween đã kết thúc nên không cần kiểm tra
+14,15,Skip,Follow-up,Pumpkin Smash Reward,- Sau khi kết thúc sự kiện nếu còn mà phần thưởng mà ng chơi chưa nhận thì bật popup Pumpkin Smash Reward để nhận bù ở lần đăng nhập tiếp theo.,Sự kiện Halloween đã kết thúc nên không cần kiểm tra
+
+--- Fail Offer Đề xuất (First 15 rows) ---
+,Type,Pack,Reward,Coins,Dollar Value,True Value,Discount,Unnamed: 7,User Segment,Pack.1,Reward.1,Duration,Coins.1,Dollar Value.1,True Value.1,Discount.1
+0,From Second Time,11,1200 Coins + 1x Scissors + 1x Hammer + 1x Broom,1720,5.99,5.73,"-4,54%",,A,3,3200 Coins + 30m Add Box + 6x Scissors + 6x Hammer + 3x Broom,15m,5600,7.99,18.67,"57,2%"
+1,First Time,1,1200 Coins + 1x Scissors + 1x Hammer + 1x Broom,1720,3.99,5.73,"30,37%",,D - F,1,800 Coins + 15m Add Box + 2x Scissors + 2x Hammer + 1x Broom,5m,1600,1.99,5.33,"62,66%"
+
+--- Golden Card Guaranteed (First 15 rows) ---
+,User Segment,Pack,Reward,Coins,Dollar Value,True Value,Discount,Unnamed: 7,User Segment.1,Pack.1,Reward.1,Duration,Coins.1,Dollar Value.1,True Value.1,Discount.1
+0,S - S+,3,3000 Coins + 1x Gold Pack + 4x Scissors + 4x Hammer + 4x Broom,5840,12.99,19.47,"33,28%",,S - S+,4,6400 Coins + 1h Add Box + 8x Scissors + 8x Hammer + 4x Broom,20m,9600,12.99,32.0,"59,41%"
+1,A - B,2,1500 Coins + 1x Gold Pack + 2x Scissors + 2x Hammer + 2x Broom,3300,6.99,11.0,"36,45%",,A,3,3200 Coins + 30m Add Box + 6x Scissors + 6x Hammer + 3x Broom,15m,5600,7.99,18.67,"57,2%"
+2,C - D - F,1,500 Coins + 1x Gold Pack + 1x Scissors + 1x Hammer + 1x Broom,1780,3.99,5.93,"32,72%",,D - F,1,800 Coins + 15m Add Box + 2x Scissors + 2x Hammer + 1x Broom,5m,1600,1.99,5.33,"62,66%"
+
+--- New Card Guaranteed (First 15 rows) ---
+,User Segment,Pack,Reward,Coins,Dollar Value,True Value,Discount,Unnamed: 7,User Segment.1,Pack.1,Reward.1,Duration,Coins.1,Dollar Value.1,True Value.1,Discount.1
+0,S - S+,3,3000 Coins + 1x Rainbow Pack + 4x Scissors + 4x Hammer + 4x Broom,6470,14.99,21.57,"30,51%",,S - S+,4,6400 Coins + 1h Add Box + 8x Scissors + 8x Hammer + 4x Broom,20m,9600,12.99,32.0,"59,41%"
+1,A - B,2,1200 Coins + 1x Rainbow Pack + 2x Scissors + 2x Hammer + 2x Broom,3630,7.99,12.1,"33,97%",,A,3,3200 Coins + 30m Add Box + 6x Scissors + 6x Hammer + 3x Broom,15m,5600,7.99,18.67,"57,2%"
+2,C - D - F,1,400 Coins + 1x Rainbow Pack + 1x Scissors + 1x Hammer + 1x Broom,2310,4.99,7.7,"35,19%",,D - F,1,800 Coins + 15m Add Box + 2x Scissors + 2x Hammer + 1x Broom,5m,1600,1.99,5.33,"62,66%"
+
+--- Card Treasure Birthday IAP (First 15 rows) ---
+,4,Pack,Reward,Coins,Dollar Value,True Value,Discount
+0,S - S+,$17.99,5500 Coins + 1x Amethyst Pack,5500.0,5400.0,5947.0,0.09197914915
+1,,$21.99,7500 Coins + 1x Amethyst Pack + 1x Ruby Pack,7500.0,6600.0,8544.0,0.2275280899
+2,,$29.99,10000 Coins + 2x Amethyst Pack + 2x Ruby Pack + 1x Gold Pack,10000.0,9000.0,12835.0,0.2987923646
+3,,,,0.0,,,
+4,A,$11.99,3500 Coins + 1x Amethyst Pack,3500.0,3600.0,3947.0,0.08791487205
+5,,$14.99,4500 Coins + 1x Amethyst Pack + 1x Ruby Pack,4500.0,4500.0,5544.0,0.1883116883
+6,,$16.99,6000 Coins + 2x Amethyst Pack + 1x Ruby Pack + 1x Gold Pack,6000.0,5100.0,8238.0,0.3809176985
+7,,,,0.0,,,
+8,B,$5.99,1800 Coins + 1x Silver Pack,1800.0,1800.0,2097.0,0.1416309013
+9,,$7.99,2400 Coins + 1x Silver Pack + 1x Amethyst Pack,2400.0,2400.0,3144.0,0.2366412214
+10,,$11.99,3600 Coins + 2x Silver Pack + 2x Amethyst Pack + 1x Ruby Pack,3600.0,3600.0,5585.0,0.3554162936
+11,,,,0.0,,,
+12,C - D - F,$1.99,600 Coins + 1x Emerald Pack,0.0,600.0,747.0,0.1967871486
+13,,$3.99,1200 Coins + 1x Emerald Pack + 1x Silver Pack,,1200.0,1644.0,0.2700729927
+14,,$6.99,2000 Coins + 2x Emerald Pack + 2x Silver Pack + 1x Amethyst Pack ,,2100.0,3335.0,0.3703148426
+
+--- 1+2 Birthday IAP (First 15 rows) ---
+,Column 8,IAP,Price,Pack,Reward,Dollar Value,Column 6,Discount
+0,,S+,$29.99,Pack 1,7000 Coins + 2h Heart + 4x Scissors + 4x Hammer + 4x Broom,9000.0,9080.0,0.5302713987
+1,,,FREE,Pack 2,4000 Coins + 1h Heart + 2x Scissors + 2x Hammer + 2x Broom,,5040.0,
+2,,,FREE,Pack 3,4000 Coins + 1h Heart + 2x Scissors + 2x Hammer + 2x Broom,,5040.0,
+3,,,,,,,,
+4,,S,$24.99,Pack 1,5000 Coins + 1h Heart + 3x Scissors + 3x Hammer + 3x Broom,7500.0,6560.0,0.4501466276
+5,,,FREE,Pack 2,2500 Coins + 1h Heart +  2x Scissors + 2x Hammer + 2x Broom,,3540.0,
+6,,,FREE,Pack 3,2500 Coins + 1h Heart +  2x Scissors + 2x Hammer + 2x Broom,,3540.0,
+7,,,,,,,,
+8,,A,$14.99,Pack 1,3000 Coins + 1h Heart + 3x Scissors + 3x Hammer + 3x Broom,4500.0,4560.0,0.476744186
+9,,,FREE,Pack 2,1500 Coins + 30m Heart + 1x Scissors + 1x Hammer + 1x Broom,,2020.0,
+10,,,FREE,Pack 3,1500 Coins + 30m Heart + 1x Scissors + 1x Hammer + 1x Broom,,2020.0,
+11,,,,,,,,
+12,,B,$9.99,Pack 1,2000 Coins + 30m Heart + 2x Scissors + 2x Hammer + 2x Broom,3000.0,3040.0,0.4623655914
+13,,,FREE,Pack 2,1000 Coins + 30m Heart + 1x Scissors + 1x Hammer + 1x Broom,,1520.0,
+14,,,FREE,Pack 3,500 Coins + 30m Heart + 1x Scissors + 1x Hammer + 1x Broom,,1020.0,
+
+--- Party Duties (First 15 rows) ---
+,No.,Mission,Stage 1,Stage 2, Stage 3,Stage 4,Note
+0,1,Get X Card (Get X Card in Collection),5,10,15,25,
+1,2,Complete X Hard Levels (Complete X Hard or Super Hard levels!),2,8,18,30,
+2,3,Use X Cutters (User X Cutters in Birthday Box),10,30,60,100,
+3,4,"Collect X Coins (Collect X Coins from levels, events and purchases!)",300,900,2000,4000,
+4,,,Easy,Medium,Hard,Extreme,
+5,Stage,Reward,,,,,
+6,Stage 1,Bronze Pack+ 100 Coins + 1x Scissors + 1x Hammer,,,,,Easy: Most players should be able to complete with minimum effort
+7,Stage 2,Emerald Pack + 200 Coins + 1x Scissors + 1x Broom,,,,,Medium: Average regular players should be able to reach this milestone
+8,Stage 3,Sliver Pack + 500 Coins + 1x Hammer + 1x Broom,,,,,"Hard: Players should spend more effort than most, but also do-able F2P"
+9,Stage 4,Amethyst Pack + 800 Coins + 1x Scissors + 1x Hammer + 1x Broom,,,,,Extreme: Difficult for players to complete without making a purchase
+10,Final Chest,Rainbow Pack + 2000 Coins + 2x Scissors + 2x Hammer + 2x Broom,,,, ,
+
+--- Birthday Box (First 15 rows) ---
+,Board,Board Size,Broad & Pieces,Total item,Total Squares,Blank Squares
+0,1,3x3,,2.0,9,2.0
+1,2,4x4,,3.0,16,4.0
+2,3,5x5,,5.0,25,5.0
+3,4,6x6,,5.0,36,9.0
+4,5,7x7,,7.0,49,12.0
+5,,,,,135,
+6,Stage,Reward,,,,
+7,Stage 1,2 pickaxes + 15m Heart + 100 Coins + 1 Scissors,,, ,
+8,Stage 2,3 pickaxes + 200 Coins + 1x Scissors + 1x Hammer,,,,
+9,Stage 3,4 pickaxes + 400 Coins + 30m Heart + 1x Hammer + 1x Broom,,,,
+10,Stage 4,5 pickaxes + 30m Heart + 800 Coins + 1x Scissors + 1x Hammer + 1x Broom,,,,
+11,Stage 5,2000 Coins +  1x Scissors + 1x Hammer + 1x Broom,,,,
+
+--- Labour Day IAP (First 15 rows) ---
+,User Segment,Pack,Reward,Coins,Dollar Value,True Value,Discount,Tag
+0,S - S+,1,"6000 Coins + 3h Heart + 8x Hammer, 8x Scissors, 8x Broom",10160,16.99,33.87,"49,84%",Tag WOW 200%
+1,A,2,"4000 Coins + 2h Heart + 5x Hammer, 5x Scissors, 5x Broom",6600,10.99,22.0,"50,05%",Tag WOW 200%
+2,B,3,"2000 Coins + 1h Heart + 3x Hammer, 3x Scissors, 3x Broom",3560,5.99,11.87,"49,54%",Tag WOW 200%
+3,C - D - F,4,"1000 Coins + 30m Heart + 2x Hammer, 2x Scissors, 2x Broom",2040,2.99,6.8,"56,03%",Tag WOW 200%
+
+--- Secret Deal (First 15 rows) ---
+,User Segment,Pack,Reward,Coins,Dollar Value,True Value,Discount,Tag
+0,S - S+,1,"6000 Coins + 3h Heart + 8x Hammer, 8x Scissors, 8x Broom",10160,16.99,33.87,"49,84%",Tag WOW 200%
+1,A,2,"4000 Coins + 2h Heart + 5x Hammer, 5x Scissors, 5x Broom",6600,10.99,22.0,"50,05%",Tag WOW 200%
+2,B,3,"2000 Coins + 1h Heart + 3x Hammer, 3x Scissors, 3x Broom",3560,5.99,11.87,"49,54%",Tag WOW 200%
+3,C - D - F,4,"1000 Coins + 30m Heart + 2x Hammer, 2x Scissors, 2x Broom",2040,2.99,6.8,"56,03%",Tag WOW 200%
+
+--- Summer Offer 2 (First 15 rows) ---
+,User Segment,Tier (điều kiện show gói trong 7 ngày gần nhất),Pack,Reward,Coins,Dollar Value,True Value,Discount
+0,S - S+ (avg >4000 coin/ngày), Tier S-S+: avg >5000 coin/ngày,1,"4500 Coins + 2h Heart + 2h Add Box + 12x Hammer, 12x Scissors, 12x Broom",10740,19.99,35.8,0.4416201117
+1,A (avg 3-4000 coin/ngày), Tier A: avg 3000-5000 coin/ngày ,2,"3500 Coins + 1h30 Heart + 1h30 Add Box + 8x Hammer, 8x Scissors, 8x Broom",7660,14.99,25.5,0.4121568627
+2,B (avg 2-3000 coin/ngày)," Tier B: avg 1-2999 coin/ngày, phần lớn các user này có mức chi tiêu vào ngày cuối tuần ở dưới 27$ và > 10$",3,"2500 Coins + 1h Heart + 1h Add Box + 5x Hammer, 5x Scissors, 5x Broom",5100,9.99,17.0,0.4123529412
+3,C - D - F (avg <2000 coin /ngày), Tier C-D-F: avg <1000 coin /ngày (33% user IAP và 76% trong tổng những người chơi này có mức chi tiêu vào ngày cuối tuần <10$),4,"1500 Coins + 30m Heart + 30m Add Box + 3x Hammer, 3x Scissors, 3x Broom",3060,4.99,10.2,0.5107843137
+
+--- Summer Offer 1 (First 15 rows) ---
+,User Segment,Pack,Reward,Coins,Dollar Value,True Value,Discount
+0,S - S+,1,10000 Coins + 2h30m Heart + 8x Scissors + 8x Hammer + 8x Broom,14160,24.99,47.2,0.4705508475
+1,A,2,6000 Coins + 2h Heart + 8x Scissors + 8x Hammer + 8x Broom,10160,19.99,33.8,0.4085798817
+2,B,3,5000 Coins + 1h30m Heart + 5x Scissors + 5x Hammer + 5x Broom,7600,14.99,25.3,0.4075098814
+3,C,4,1500 Coins + 1h Heart + 3x Scissors + 3x Hammer + 3x Broom,3060,4.99,8.4,0.405952381
+4,D - F,5,600 Coins + 30m Heart + 2x Scissors + 2x Hammer + 2x Broom,1640,1.99,5.4,0.6314814815
+
+--- 4. Happy Hour IAP RO (First 15 rows) ---
+,User Segment,Pack,Reward,Coins,Dollar Value,True Value,Discount
+0,S - S+,1,"2800 Coins + 1h Heart + 6x Hammer, 5x Scissors, 4x Broom",5320,9.99,17.73,"43,65%"
+1,A,2,"1600 Coins + 45m Heart + 5x Hammer, 4x Scissors, 3x Broom",3600,7.99,12.0,"33,42%"
+2,B,3,"1000 Coins + 30m Heart + 3x Hammer, 2x Scissors, 2x Broom",2200,4.99,7.33,"31,92%"
+3,C - D - F,4,"300 Coins + 15m Heart + 1x Hammer, 1x Scissors, 1x Broom",820,1.49,2.73,"45,42%"
+
+--- 3. Surprise Boost IAP RO (First 15 rows) ---
+,User Segment,Pack,Reward,Coins,Dollar Value,True Value,Discount
+0,A - S - S+,1,"3400 Coins + 2h Heart + 6x Hammer, 6x Scissors, 6x Broom",6520,13.99,21.73,"35,62%"
+1,B,2,"2100 Coins + 1h Heart + 4x Hammer, 4x Scissors, 4x Broom",4180,8.99,13.93,"35,46%"
+2,C,3,"850 Coins + 30m Heart + 2x Hammer, 2x Scissors, 2x Broom",1890,3.99,6.3,"36,67%"
+3,D - F,4,"450 Coins + 15m Heart + 1x Hammer, 1x Scissors, 1x Broom",970,1.99,3.23,"38,39%"
+
+--- 2. Same Price Bigger Prize IAP  (First 15 rows) ---
+,User Segment,Pack,Reward,Coins,Dollar Value,True Value,Discount
+0,S - S+,1.0,2400 Coins + 1h Heart + 4x Scissors,2880.0,8.99,9.6,"42,7%"
+1,,,"3200 Coins + 2h Heart + 6x Scissors, 4x Hammer",4560.0,8.99,15.2,"40,86%"
+2,,,"3800 Coins + 4h Heart + 8x Scissors, 6x Hammer, 4x Broom",6680.0,8.99,22.27,"59,63%"
+3,A,2.0,1800 Coins + 30m Heart + 3x Scissors,2160.0,6.99,7.2,"42,81%"
+4,,,"2400 Coins + 1h Heart + 5x Scissors, 3x Hammer",3480.0,6.99,11.6,"39,74%"
+5,,,"3000 Coins + 2h Heart + 7x Scissors, 5x Hammer, 3x Broom",5360.0,6.99,17.87,"60,88%"
+6,B,3.0,1300 Coins + 15m Heart + 2x Scissors,1540.0,4.99,5.13,"42,13%"
+7,,,"1800 Coins + 30m Heart + 3x Scissors, 2x Hammer",2480.0,4.99,8.27,"39,66%"
+8,,,"2300 Coins + 1h Heart + 4x Scissors, 3x Hammer, 2x Broom",3740.0,4.99,12.47,"59,98%"
+9,C - D - F,4.0,900 Coins + 15m Heart + 1x Scissors,0.0,2.99,3.4,"43,23%"
+10,,,"1100 Coins + 30m Heart + 2x Scissors, 1x Hammer",,2.99,5.0,"40,2%"
+11,,,"1300 Coins + 45m Heart + 3x Scissors, 2x Hammer, 1x Broom",,2.99,7.4,"59,59%"
+
+--- 1. Lucky Chance IAP RO (First 15 rows) ---
+,User Segment,Pack,Reward,Coins,Dollar Value,True Value,Discount
+0,S - S+,1,"10000 Coins + 8h Heart + 10x Hammer, 10x Scissors, 10x Broom",15200,24.99,50.67,"50,68%"
+1,A,2,"8000 Coins + 4h Heart + 6x Hammer, 6x Scissors, 6x Broom",11120,17.99,37.07,"51,47%"
+2,B,3,"6000 Coins + 2h Heart + 6x Hammer, 6x Scissors, 6x Broom",9120,11.99,30.4,"60,56%"
+3,C - D - F,4,"3500 Coins + 1h Heart + 3x Hammer, 3x Scissors, 3x Broom",5060,5.99,16.87,"64,49%"
+
+--- Starter Pack  Special Deal IAP  (First 15 rows) ---
+,Cột 1,Pack,Reward,Coins,Price,True Value,Discount
+0,starterpackmini,1,400 Coins + 15m Heart + 1x Scissors ,520,0.99,1.73,"42,77%"
+1,starterpacksmall,1,900 Coins + 30m Heart + 2x Scissors,1140,2.99,3.8,"21,32%"
+2,starterpackmedium,2,1000 Coins + 2x Scissors  + 1x Hammer,1400,0.99,4.67,"78,8%"
+3,starterpackmedium,2,2000 Coins + 45m Heart + 2x Hammer + 3x Scissors,2680,4.99,8.93,"44,12%"
+4,starterpackbig,3,3200 Coins + 1h Heart + 2x Broom + 3x Hammer + 4x Scissors ,4640,7.99,15.47,"48,35%"
+5,specialdealsmall,1,600 Coins + 1x Hammer + 1x Scissors + 1x Broom  + 30m Heart,1120,0.99,3.73,"73,46%"
+6,specialdealmedium,2,1500 Coins + 1x Hammer + 1x Broom + 1x Scissors  + 45m Heart,2020,1.99,6.73,"70,43%"
+7,specialdealbig,3,2500 Coins + 1x Hammer + 1x Broom + 1x Scissors  + 1h Heart,3020,2.99,10.07,"70,31%"
+
+--- Đề xuấtStarter PackSpecial Deal (First 15 rows) ---
+,Cột 1,Pack,Reward,Coins,Price,True Value,Discount
+0,starterpacksmall,1,900 Coins + 15m Heart + 1x Scissors,1020,1.99,3.4,"41,47%"
+1,starterpackmedium,2,1800 Coins + 30m Heart + 2x Hammer + 2x Scissors,2360,4.99,7.87,"36,59%"
+2,starterpackbig,3,3600 Coins + 1h Heart + 3x Broom + 3x Hammer + 3x Scissors ,5160,8.99,17.2,"47,73%"
+3,specialdealsmall,1,600 Coins + 1x Hammer + 1x Scissors + 1x Broom  + 30m Heart,1120,0.99,3.73,"73,46%"
+4,specialdealmedium,2,1500 Coins + 1x Hammer + 1x Broom + 1x Scissors  + 45m Heart,2020,1.99,6.73,"70,43%"
+5,specialdealbig,3,2500 Coins + 1x Hammer + 1x Broom + 1x Scissors  + 1h Heart,3020,2.99,10.07,"70,31%"
+
+--- Hard Level Kit IAP Recurring (First 15 rows) ---
+,User Segment,Pack,Reward,Duration,Coins,Dollar Value,True Value,Discount,Unnamed: 8,User Segment.1,Pack.1,Reward.1,Duration.1,Coins.1,Dollar Value.1,True Value.1,Discount.1
+0,S - S+,4,2400 Coins + 6x Scissors + 4x Hammer + 2x Broom,20m,4240,8.49,14.13,"39,92%",,S - S+,4,3200 Coins + 1h Add Box + 6x Scissors + 6x Hammer + 6x Broom,20m,6320,8.49,21.07,"59,71%"
+1,A,3,1000 Coins + 4x Scissors + 2x Hammer + 2x Broom,15m,2280,4.99,7.6,"34,34%",,A,3,1600 Coins + 30m Add Box + 4x Scissors + 4x Hammer + 4x Broom,15m,3680,4.99,12.27,"59,33%"
+2,B - C,2,500 Coins + 2x Scissors + 1x Hammer + 1x Broom,10m,1140,2.49,3.8,"34,47%",,B - C,2,800 Coins + 30m Add Box + 2x Scissors + 2x Hammer + 2x Broom,10m,1840,2.49,6.13,"59,38%"
+3,D - F,1,380 Coins + 1x Scissors + 1x Hammer + 1x Broom,5m,900,1.49,3.0,"50,33%",,D - F,1,300 Coins + 15m Add Box + 1x Scissors + 1x Hammer + 1x Broom,5m,820,0.99,2.73,"63,74%"
+
+--- Super Hard Level Kit IAP Recurr (First 15 rows) ---
+,User Segment,Pack,Reward,Duration,Coins,Dollar Value,True Value,Discount,Unnamed: 8,User Segment.1,Pack.1,Reward.1,Duration.1,Coins.1,Dollar Value.1,True Value.1,Discount.1
+0,S - S+,4,4000 Coins + 8x Scissors + 8x Hammer + 4x Broom,20m,7200,12.99,24.0,"45,88%",,S - S+,4,6400 Coins + 1h Add Box + 8x Scissors + 8x Hammer + 4x Broom,20m,9600,12.99,32.0,"59,41%"
+1,A,3,1600 Coins + 6x Scissors + 6x Hammer + 3x Broom,15m,4000,7.99,13.33,"40,06%",,A,3,3200 Coins + 30m Add Box + 6x Scissors + 6x Hammer + 3x Broom,15m,5600,7.99,18.67,"57,2%"
+2,B - C,2,800 Coins + 4x Scissors + 2x Hammer + 1x Broom,10m,1840,3.99,6.13,"34,91%",,B - C,2,1600 Coins + 30m Add Box + 4x Scissors + 4x Hammer + 2x Broom,10m,3200,3.99,10.67,"62,61%"
+3,D - F,1,400 Coins + 2x Scissors + 2x Hammer + 1x Broom,5m,1200,1.99,4.0,"50,25%",,D - F,1,800 Coins + 15m Add Box + 2x Scissors + 2x Hammer + 1x Broom,5m,1600,1.99,5.33,"62,66%"
+
+--- Super Hard Level Kit Đề xuất (First 15 rows) ---
+,User Segment,Pack,Reward,Duration,Coins,Dollar Value,True Value,Discount,Unnamed: 8,User Segment.1,Pack.1,Reward.1,Duration.1,Coins.1,Dollar Value.1,True Value.1,Discount.1
+0,S - S+,4,3400 Coins + 6x Scissors + 6x Hammer + 4x Broom,20m,6040,11.99,20.13,"40,44%",,S - S+,4,6400 Coins + 1h Add Box + 8x Scissors + 8x Hammer + 4x Broom,20m,9600,12.99,32.0,"59,41%"
+1,A,3,1600 Coins + 6x Scissors + 6x Hammer + 3x Broom,15m,4000,7.99,13.33,"40,06%",,A,3,3200 Coins + 30m Add Box + 6x Scissors + 6x Hammer + 3x Broom,15m,5600,7.99,18.67,"57,2%"
+2,B - C,2,800 Coins + 4x Scissors + 2x Hammer + 1x Broom,10m,1840,3.99,6.13,"34,91%",,B - C,2,1600 Coins + 30m Add Box + 4x Scissors + 4x Hammer + 2x Broom,10m,3200,3.99,10.67,"62,61%"
+3,D - F,1,400 Coins + 2x Scissors + 2x Hammer + 1x Broom,5m,1200,1.99,4.0,"50,25%",,D - F,1,800 Coins + 15m Add Box + 2x Scissors + 2x Hammer + 1x Broom,5m,1600,1.99,5.33,"62,66%"
+
+--- Hard Level Kit Đề xuất (First 15 rows) ---
+,User Segment,Pack,Reward,Duration,Coins,Dollar Value,True Value,Discount,Unnamed: 8,User Segment.1,Pack.1,Reward.1,Duration.1,Coins.1,Dollar Value.1,True Value.1,Discount.1
+0,S - S+,4,2400 Coins + 3x Scissors + 3x Hammer + 2x Broom,20m,3720,7.99,12.4,"35,56%",,S - S+,4,3200 Coins + 1h Add Box + 6x Scissors + 6x Hammer + 6x Broom,20m,6320,8.49,21.07,"59,71%"
+1,A,3,1000 Coins + 4x Scissors + 2x Hammer + 2x Broom,15m,2280,4.99,7.6,"34,34%",,A,3,1600 Coins + 30m Add Box + 4x Scissors + 4x Hammer + 4x Broom,15m,3680,4.99,12.27,"59,33%"
+2,B - C,2,500 Coins + 2x Scissors + 1x Hammer + 1x Broom,10m,1140,2.49,3.8,"34,47%",,B - C,2,800 Coins + 30m Add Box + 2x Scissors + 2x Hammer + 2x Broom,10m,1840,2.49,6.13,"59,38%"
+3,D - F,1,380 Coins + 1x Scissors + 1x Hammer + 1x Broom,5m,900,1.49,3.0,"50,33%",,D - F,1,300 Coins + 15m Add Box + 1x Scissors + 1x Hammer + 1x Broom,5m,820,0.99,2.73,"63,74%"
+
+--- Purchase Bonus IAP Recurring (First 15 rows) ---
+,User Segment,Pack,Reward,Coins,Dollar Value,True Value,Discount
+0,S - S+,1,"8000 Coins + 6h Heart + Chest (5x Hammer,5x Scissors, 3x Broom)",10120,19.99,33.73,40%
+1,A - B,2,"3000 Coins + 3h Heart + Chest (3x Hammer, 3x Scissors, 2x Broom)",4320,8.99,14.4,40%
+2,C,3,"1800 Coins + 1h Heart + Chest ( 2x Scissors, 1x Broom)",2280,4.99,7.6,35%
+3,D - F,4,"1000 Coins + 30m Heart + Chest (1x Hammer, 1x Scissors)",1280,1.99,4.27,55%
+
+--- Purchase Bonus Optimize (First 15 rows) ---
+,User Segment,Coin Req. Under,Pack,Reward,Coins,Dollar Value,True Value,Discount
+0,S - S+,2000,1,"4200 Coins + 2h Heart + 4x Hammer, 4x Scissors, 4x Broom",6280,12.99,20.93,40%
+1,A - B,1000,2,"2700 Coins + 1h Heart + 3x Hammer, 3x Scissors, 2x Broom",4020,8.99,13.4,35%
+2,C,500,3,"1800 Coins + 30m Heart + 1x Hammer, 1x Scissors, 1x Broom",2320,4.99,7.73,35%
+3,D - F,500,4,"1000 Coins + 15m Heart +  1x Hammer, 1x Scissors, 1x Broom",1520,2.99,5.07,40%
+
+--- Purchase Bonus Card Update (First 15 rows) ---
+,User Segment,Coin Req. Under,Pack,Reward,Coins,Dollar Value,True Value,Discount
+0,S - S+,2000,4,"4200 Coins + 1x Ruby Pack + 4x Hammer, 4x Scissors, 4x Broom",6950,12.99,23.17,45%
+1,A - B,1000,3,"2700 Coins + 1x Amethyst Pack + 3x Hammer, 3x Scissors, 2x Broom",4505,8.99,15.02,40%
+2,C,500,2,"1800 Coins + 1x Silver Pack + 1x Hammer, 1x Scissors, 1x Broom",2640,4.99,8.8,45%
+3,D - F,500,1,"1000 Coins + 1x Emerald Pack +  1x Hammer, 1x Scissors, 1x Broom",1720,2.99,5.73,50%
+
+--- 1+1 IAP Recurring (First 15 rows) ---
+,ID,"Average Transaction Value
+(all-time)",Tier,Pack,Price,Reward,Dollar Value,True Value,Discount
+0,6.0,> 25,S+,Pack 1,$29.99,3000 Coins + 1h Heart + 1h Add Box + Chest 1 (4x Scissors + 4x Hammer + 4x Broom),9000.0,,
+1,,,,Pack 2,FREE,1500 Coins + 1h Heart + 1h Add Box + Chest 2 (1500 Coins + 4x Scissors + 4x Hammer + 4x Broom),,14360,0.3732590529
+2,5.0,15 - 25,S,Pack 1,$24.99,2000 Coins + 1h Heart + 1h Add Box + Chest 1 (3x Scissors + 3x Hammer + 3x Broom),7500.0,,
+3,,,,Pack 2,FREE,1000 Coins + 30m Heart + 30m Add Box + Chest 2 (1000 Coins + 3x Scissors + 3x Hammer + 3x Broom),,11770,0.362786746
+4,4.0,10 - 15,A,Pack 1,$14.99,1200 Coins + 30m Heart + 30m Add Box + Chest 1 (2x Scissors + 2x Hammer + 2x Broom),4500.0,,
+5,,,,Pack 2,FREE,600 Coins + 30m Heart + 30m Add Box + Chest 2 (600 Coins + 2x Scissors + 2x Hammer + 2x Broom),,6580,0.3161094225
+6,3.0,5 - 10,B,Pack 1,$9.99,800 Coins + 30m Heart + 30m Add Box + Chest 1 (1x Scissors + 1x Hammer + 1x Broom),3000.0,,
+7,,,,Pack 2,FREE,400 Coins + 15m Heart + 15m Add Box + Chest 2 (400 Coins + 1x Scissors + 1x Hammer + 1x Broom),,4215,0.2882562278
+8,2.0,3 - 5,C,Pack 1,$4.99,400 Coins + 15m Heart + 15m Add Box + Chest 1 (1x Scissors + 1x Hammer ),1500.0,,
+9,,,,Pack 2,FREE,200 Coins + 15m Heart + 15m Add Box + Chest 2 ( 100 Coins + 1x Broom),,2270,0.3392070485
+10,1.0,0 - 3,D&F,Pack 1,$1.99,400 Coins + 30m Heart + Chest 1 (1x Scissors + 1x Hammer),600.0,,
+11,,,,Pack 2,FREE,200 Coins + 30m Heart + Chest 2 (1x Hammer + 1x Broom),,1280,0.53125
+12,,Tối ưu 17/4,,,,,,,
+13,6.0,> 25,S+,Pack 1,$29.99,7000 Coins + 2h Heart + 4x Scissors + 4x Hammer + 4x Broom,9000.0,16160,0.4430693069
+14,,,,Pack 2,FREE,5000 Coins + 1h Heart + 4x Scissors + 4x Hammer + 4x Broom,,Tag 45%,
+
+--- ART Update (First 15 rows) ---
+,Suggestion,Priority,REF,Note
+0,Bỏ lựa chọn xem Ad RW để nhận 50 Coins miễn phí ở Shop Screen,Ưu tiên 1,,Tài liệu tham khảo về Shop Design: Best_practices_for_in-game_shops.pdf 
+1,Thay đổi nội dung và giá của các gói IAP theo như Sheet IAP [Update],Ưu tiên 1,,
+2,"Chỉnh sửa cách thể hiện của các Bundle và thêm 2 Bundle mới (tổng 5 Bundle):
+- Sử dụng cách đặt tên để các gói trở nên hấp dẫn và gần gũi với Theme của sản phẩm hơn (Decorated Pouch, Artisan Satchel, Exquisite Basket, Overflowing Crate, Royal Chest)
+- Hình ảnh minh họa của các gói cũng phải thể hiện được sự tăng tiến của giá trị: Pouch < Satchel < Basket < Chest < Vault, tương tự, số lượng Coin ở trong hình minh họa cũng phải thấy được sự khác biệt
+- Nội dung của gói phải được xếp theo thứ tự Coin -> Booster -> Infinite Heart
+- Đồng bộ về cách thiết kế như:
+ + Coin thì k có ""x"", chỉ Boosters có ""x""
+ + Đằng sau icon Coin thì có hiệu ứng vòng xoay -> em thì thiên về làm bằng 2D hơn, làm bằng VFX particles nhiều lúc nhìn hơi nổi bật quá
+ + Tag Popular và Best Value để giống các REF là ruy-băng vắt chéo để ở bên trái
+ + Các Tag giảm giá sẽ để trong hình ngôi sao nhiều cánh 
+- Chỉ có VFX shine chạy qua ở các gói có gắn tag như X% OFF, Popular và Best Value",Ưu tiên 1,,
+3,"Sửa layout của 6 gói Coins thành dạng hình chữ nhật đứng, xếp thành 2 hàng, mỗi hàng 3 gói để ng chơi có thể nhìn và cân nhắc tốt hơn
+- Sau khi cân nhắc để tối ưu phần hiển thị thông tin -> quyết định bỏ phần hiển thị Bonus Coins",Ưu tiên 1,,
+4,"Chỉnh sửa Popup No Ads Bundle:
+- Kích thước lớn hơn, thể hiện được thông tin nhiều và rõ ràng hơn
+- Đầu tư hình ảnh minh họa sinh động hấp dẫn hơn (có thể cân nhắc về mascot)
+- Lưu ý về sắc độ, độ tương phản sao cho các thông tin quan trọng dễ nhìn và nổi bật nhất có thể",Ưu tiên 1,,
+5,"Sửa banner của Assist Offer:
+- Các phần nội dung hiển thị cần đồng bộ, ví dụ như First-time Bonus (thông tin phụ) và 50% OFF (thông tin chính) nên gần nhau để bổ trợ ngữ nghĩa
+- Sửa tiêu đề thành Assist Offer để mang tính khích lệ hơn",Ưu tiên 1,,
+6,"Chỉnh sửa popup bật sau khi thanh toán thành công IAP như REF, đảm bảo cho kích thước dù hiện nhiều hay ít vật phẩm thì đều như nhau và đều cân đối, chứ không lúc to lúc nhỏ bị mất cân đối
+- Text thay đổi dựa trên gói IAP mà ng chơi mua (nếu được, không thì đành để Purchase Successful)
+- Có VFX sao sáng lấp lánh ở phía trên các icon phần thưởng và ánh sáng hào quang ở đằng sau
+- Khi bấm vào màn hình để tắt popup thì có diễn hoạt icon thu nhỏ lại, khi biến mất thì có tỏa ra vòng tròn sáng kèm lấp lánh, có thể tham khảo REF đính kèm",Ưu tiên 1,,Link
+7,"Chỉnh sửa hình ảnh, icon của các Boosters và phần btn Boosters:
+- Booster Add Slot thì kiểu cảm giác bị mờ nhạt và khó nhìn so với các Booster còn lại
+- Booster Magic Box thì Box vẫn là ảnh cũ, chưa khớp với Box hiện tại ở ngoài Gameplay
+- Booster Broom thì phần sợi chối hơi bị tối ở dưới quá, màu cũng có thể sáng hơn
+- Dấu (+) ở Booster Add Slot cũng đag hơi lạc loài, cân nhắc bỏ hoặc một option nữa là đổi sang máy khoan
+- Khi không sử dụng được Broom thì chưa thấy được sự thay đổi kiểu như mờ đi để không bấm vào được mà bấm vào thì mới hiện tooltip
+- Booster Add Box cũng như Revive cũng cần sửa lại cho giống với REF của Screwdom, nhưng sẽ bị trùng cách thể hiện với Magic Box",Ưu tiên 1,,
+8,,,,
+9,Vẽ bổ sung popup Special Deal và dạng banner khi ở dưới popup,Ưu tiên 2,,
+10, A/B testing xem Ad RW nhận 50 Coins 1 ngày 1 lần ,Ưu tiên 2,,
+11,"Thêm diễn hoạt đơn giản cho Boosters ở trong popup, ở trong Shop",Ưu tiên 2,Link,
+12,"Thêm diễn hoạt các gói sẽ nhún lần lượt tạo thành sóng khi mở Shop Screen, ref bên cạnh ạ",Ưu tiên 2,Link,
+13,,, ,
+
+--- Screwdom Master Pass (First 15 rows) ---
+,No,Key,Reward,Coin Value,Master Pass,Coin Value 2
+0,0,0.0,10 Coins,10,20 Coins + 8 Heart Limit + 1 Avatar,20
+1,1,1.0,1x Drill,80,15m Heart,0
+2,2,2.0,1x Magnet,60,1x Broom,120
+3,3,3.0,20 Coins,20,1x Drill,80
+4,4,4.0,1x Drill,80,1x Magnet,60
+5,5,8.0,Chest: 1x Hammer + 15m Heart,120,Chest: 50 Coins + 1x Magnet + Hammer,230
+6,6,5.0,1x Drill,80,1x Magnet,60
+7,7,6.0,20 Coins,20,1x Hammer,120
+8,8,9.0,1x Hammer,120,30m Heart,0
+9,9,7.0,1x Magnet,60,1x Broom,120
+10,10,10.0,Chest: 1x Drill + 1x Broom,200,Chest: 60m Heart + 50 Coins + 1x Broom + Drill,250
+11,11,,1x Drill,80,2x Magnet,120
+12,12,,1x Broom,120,2x Hammer,240
+13,13,,30m Heart,0,2x Drill,160
+14,14,,1x Magnet,60,2x Broom,240
+
+--- Knit Away Weekly Quest (First 15 rows) ---
+,No,Quest,Reward (stars),Coin spend,Cột 4,Chest,Stars needed,Reward chest,Coin Value,Note
+0,,Knit Away,,,,,,,,
+1,1.0,Use 3 drills,10.0,,,Chest 1,30.0,150 coin = không mua được booster nào,150,"1 level add 2 box
+40 box = 20 level"
+2,2.0,Active 60 minutes,10.0,,,Chest 2,70.0,300 coin + 1 drill,"700
+gấp xấp xỉ 4.5 lần","1000 coin = 1 add box, dư 100 coin"
+3,3.0,Spend 1000 coins,15.0,,,Chest 3,100.0,,,
+4,4.0,Completed 25 levels,15.0,,,,,,,"Stickiness 40% -> 40% users play everyday, expected 200 Levels per Month for Core Users -> 50 level/week"
+5,5.0,Use 30 rainbow boxes,20.0,500 x 30 = 15000,,,,,,điều chỉnh lại phần thưởng
+6,6.0,Add 40 boxes,30.0,900 x 40 = 36000,,,,,,
+7,,,,,,,,,,
+8,1.0,Use 3 drills,10.0,,,Chest 1,30.0,150 coin = không mua được booster nào,150,
+9,2.0,Active 60 minutes,10.0,,,Chest 2,70.0,300 coin + 1 drill,"700
+gấp xấp xỉ 4.5 lần",
+10,3.0,Spend 1000 coins,15.0,,,Chest 3,100.0,,,
+11,4.0,Completed 25 levels,15.0,,,,,,,
+12,5.0,Use 30 broom,20.0,,,,,,,
+13,6.0,Add 40 boxes,30.0,,,,,,,
+
+--- 1+1 Card Update (First 15 rows) ---
+,ID,"Average Transaction Value
+(all-time)",Tier,Pack,Price,Reward,Value,Total Value,True Value,Discount
+0,6.0,> 25,S+,Pack 1,24.99,4400 Coins + 1x Gold Pack + 4x Scissors + 4x Hammer + 4x Broom,7240,12280.0,40.93,39%
+1,,,,Pack 2,FREE,2200 Coins + 1x Gold Pack + 4x Scissors + 4x Hammer + 4x Broom,5040,,,Tag 40%
+2,5.0,15 - 25,S,Pack 1,19.99,3600 Coins + 1x Ruby Pack + 3x Scissors + 3x Hammer + 3x Broom,5830,9860.0,32.87,39%
+3,,,,Pack 2,FREE,1800 Coins + 1x Ruby Pack +  3x Scissors + 3x Hammer + 3x Broom,4030,,,Tag 40%
+4,4.0,10 - 15,A,Pack 1,14.99,2400 Coins + 1x Amethyst Pack + 2x Scissors + 2x Hammer + 2x Broom,3925,6650.0,22.17,32%
+5,,,,Pack 2,FREE,1200 Coins + 1x Amethyst Pack + 2x Scissors + 2x Hammer + 2x Broom,2725,,,Tag 30%
+6,3.0,5 - 10,B,Pack 1,9.99,1800 Coins + 1x Silver Pack + 1x Scissors + 1x Hammer + 1x Broom,2640,4380.0,14.6,32%
+7,,,,Pack 2,FREE,900 Coins + 1x Silver Pack + 1x Scissors + 1x Hammer + 1x Broom,1740,,,Tag 30%
+8,2.0,3 - 5,C,Pack 1,4.99,760 Coins + 1x Emerald Pack + 1x Scissors + 1x Hammer,1240,2180.0,7.27,31%
+9,,,,Pack 2,FREE,380 Coins + 1x Emerald Pack + 1x Scissors + 1x Broom,940,,,Tag 30%
+10,1.0,0 - 3,D&F,Pack 1,1.99,300 Coins + 1x Bronze Pack + 1x Scissors,520,930.0,3.1,36%
+11,,,,Pack 2,FREE,150 Coins + 1x Bronze Pack + 1x Hammer,410,,,Tag 35%
+
+--- Buy 1 or All IAP Recurring (First 15 rows) ---
+,ATV (all-time),Tier,Pack,Price,Reward,Dollar Value,True Value,Discount
+0,> 25,S+,Pack 1,$19.99,6000 Coins + 30m Heart + 6x Scissors ,6000.0,6720,0.1071428571
+1,,,Pack 2,$24.99,6500 Coins + 45m Heart  + 6x Scissors + 6x Hammer,7500.0,8180,0.08312958435
+2,,,Pack 3,$29.99,7000 Coins + 1h Heart + 6x Scissors + 6x Hammer + 6x Broom,9000.0,10120,0.1106719368
+3,,,Pack All,$34.99,19500 Coins + 2h15m Heart + 18x Scissors + 12x Hammer + 6x Broom,10500.0,Tag 60%,0.5803357314
+4,,,,,,,,
+5,15 - 25,S,Pack 1,$14.99,4500 Coins + 30m Heart + 5x Scissors ,4500.0,5100,0.1176470588
+6,,,Pack 2,$19.99,5000 Coins + 45m Heart  + 5x Scissors + 5x Hammer,6000.0,6400,0.0625
+7,,,Pack 3,$24.99,5500 Coins + 1h Heart + 5x Scissors + 5x Hammer + 5x Broom,7500.0,8100,0.07407407407
+8,,,Pack All,$29.99,15000 Coins + 2h15m Heart + 15x Scissors + 10x Hammer + 5x Broom,9000.0,Tag 55%,0.5408163265
+9,,,,,,,,
+10,10 - 15,A,Pack 1,$9.99,2800 Coins + 30m Heart + 4x Scissors ,3000.0,3280,0.08536585366
+11,,,Pack 2,$11.99,3000 Coins + 45m Heart  + 4x Scissors + 3x Hammer,3600.0,3960,0.09090909091
+12,,,Pack 3,$14.99,3200 Coins + 1h Heart + 4x Scissors + 3x Hammer + 3x Broom,4500.0,4880,0.07786885246
+13,,,Pack All,$16.99,9000 Coins + 2h15m Heart + 12x Scissors + 6x Hammer + 3x Broom,5100.0,Tag 60%,0.5792079208
+
+--- Buy 1 or All Card Update (First 15 rows) ---
+,ATV (all-time),Tier,Pack,Price,Reward,Value,True Value,Discount
+0,15+,SS+,Pack 1,9.99,2000 Coins + 3x Hammer + 3x Broom,3200.0,10.67,6%
+1,,,Pack 2,14.99,3000 Coins + 3x Scissors + 3x Hammer + 3x Broom,4560.0,15.2,1%
+2,,,Pack 3,19.99,4000 Coins + 1x Gold Pack + 3x Scissors + 3x Hammer + 3x Broom,6320.0,21.07,5%
+3,,,Pack All,25.99,9000 Coins + 1x Gold Pack + 6x Scissors + 9x Hammer + 9x Broom,14080.0,46.93,45%
+4,,,,,,,,Tag 45%
+5,10 - 15,A,Pack 1,4.99,3x Scissors + 3x Hammer + 3x Broom,1560.0,5.2,4%
+6,,,Pack 2,8.99,1200 Coins + 3x Scissors + 3x Hammer + 3x Broom,2760.0,9.2,2%
+7,,,Pack 3,10.99,2400 Coins + 1x Amethyst Pack + 1x Scissors + 1x Hammer + 1x Broom,3405.0,11.35,3%
+8,,,Pack All,12.99,3600 Coins + 1x Amethyst Pack + 7x Scissors + 7x Hammer + 7x Broom,7725.0,25.75,50%
+9,,,,,,,,Tag 40%
+10,3 - 10,BC,Pack 1,1.99,1x Scissors + 1x Hammer + 1x Broom,520.0,1.73,-15%
+11,,,Pack 2,2.99,400 Coins + 1x Scissors + 1x Hammer + 1x Broom,920.0,3.07,3%
+12,,,Pack 3,4.99,800 Coins + 1x Emerald Pack + 1x Scissors + 1x Hammer + 1x Broom,1520.0,5.07,2%
+13,,,Pack All,5.99,1200 Coins + 1x Emerald Pack + 3x Scissors + 3x Hammer + 3x Broom,2960.0,9.87,39%
+14,,,,,,,,Tag 40%
+
+--- Spring Day IAP (First 15 rows) ---
+,User Segment,Price,Pack,S,Dollar Value,True Value,Total,Discount
+0,Non-Payer,$1.99,1,500 Coins + 15m Heart + 1x Scissors + 1x Broom,600,860,1960.0,70% (Tag 3x Value)
+1,,1 Reward Ads,2,100 Coins + 15m heart + 1x Hammer + 1x Scissors,0,380,,
+2,,Free,Chest A,200 Coins + 1x Booster Set,0,720,,
+3,Minnow,$2.99,3,500 Coins + 30m Heart + 1x Booster Set,900,1020,2400.0,0.35
+4,,$1.99,4,300 Coins + 15m Heart + 1x Booster Set,600,820,,
+5,,Free,Chest B,200 Coin + 60m Heart + 1x Scissors + 1x Broom,0,560,,
+6,Dolphin,$7.99,5,1500 Coins  + 60m heart + 3x Booster Set,2400,3060,6420.0,0.4
+7,,$4.99,6,1000 Coins + 30m heart + 2x Booster Set,1500,2040,,
+8,,Free,Chest C,800 Coins  + 90m heart + 1x Booster Set,0,1320,,
+9,Whale,$9.99,7,3500 Coins  + 60m heart + 4x Booster set,3000,5580,9640.0,0.45
+10,,$7.99,8,1500 Coins  + 30m heart +  2x Booster set,2400,2540,,
+11,,Free,Chest D,1000 Coins  + 90m heart +  1x Booster set,0,1520,,
+12,Killer Whale,$11.99,9,5000 Coins + 60m heart + 5x booster set,3600,6600,13920.0,0.5
+13,,$9.99,10,3000 Coins  + 30m heart + 4x Booster set,3000,5080,,
+14,,Free,Chest E,1200 coin + 90m heart + 2x Booster set,0,2240,,
+
+--- Womens Day IAP (First 15 rows) ---
+,IAP,Pack,Price,Reward,Dollar Value,True Value,Discount
+0,Non-Payers,Pack 1,$1.99,600 Coins + 1x Scissors + 1x Hammer + 1x Broom,600.0,1120,
+1,,Pack 2,FREE,300 Coins + Chest 2 (200 Coins) + Chest 3 (15m Heart + 1x Hammer) + Chest 4 (1x Scissors + 1x Broom),,920,0.7058823529
+2,Minnows,Pack 1,$4.99,900 Coins + 1x Scissors + 1x Hammer + 1x Broom,1500.0,1420,
+3,,Pack 2,FREE,500 Coins + Chest 2 (300Coins) + Chest 3 (30m Heart + 1x Broom) + Chest 4 (1x Scissors + 1x Hammer),,1320,0.4525547445
+4,Dolphins,Pack 1,$14.99,3000 Coins + 3x Scissors + 3x Hammer + 3x Broom,4500.0,4560,
+5,,Pack 2,FREE,1200 Coins + Chest 2 (600Coins) + Chest 3 (600 Coins + 30m Heart + 2x Hammer + 2x Broom) + Chest 4 (2x Scissors + 2x Hammer + 2x Broom),,4490,0.5027624309
+6,Whales,Pack 1,$19.99,4000 Coins + 3x Scissors + 3x Hammer + 3x Broom,6000.0,5560,
+7,,Pack 2,FREE,1800 Coins + Chest 2 (800Coins) + Chest 3 (1200 Coins + 30m Heart + 3x Hammer + 3x Broom) + Chest 4 (3x Scissors + 3x Hammer + 3x Broom),,6560,0.504950495
+8,Killer Whales,Pack 1,$24.99,6000 Coins + 6x Scissors + 6x Hammer + 6x Broom,7500.0,9120,
+9,Total IAP > $70,Pack 2,FREE,2500 Coins + Chest 2 (1500 Coins) + Chest 3 (1500 Coins + 60m Heart + 2x Scissors + 2x Hammer + 2x Broom) + Chest 4 (4x Scissors + 4x Hammer + 4x Broom),,9640,0.6002132196
+
+--- Valentine IAP (First 15 rows) ---
+,IAP,Price,Pack,Reward,Discount
+0,Valentine Small,  ,Pack 1,1000 Coins + 1x Scissors + 1x Hammer + 1x Broom,0.35
+1,,,Pack 2,500 Coins + 30m Heart + 30m Add Box + Chest 1 (1x Scissors + 1x Hammer),
+2,,,Pack 3,500 Coins + Chest 2 (250 Coins) + Chest 3 (15m Heart + 1x Hammer) + Chest 4 (1x Scissors + 1x Broom),
+3,,,,,
+4,Valentine Medium,$14.99,Pack 1,2000 Coins + 2x Scissors + 2x Hammer + 2x Broom,0.45
+5,,,Pack 2,1000 Coins + 45m Heart + 45m Add Box + Chest 1 (1x Scissors + 1x Hammer),
+6,,,Pack 3,1000 Coins + Chest 2 (500Coins) + Chest 3 (500 Coins + 15m Heart + 1x Hammer + 1x Broom) + Chest 4 (1x Scissors + 1x Hammer + 1x Broom),
+7,,,,,
+8,Valentine Large,$24.99,Pack 1,5000 Coins + 4x Scissors + 4x Hammer + 4x Broom,0.55
+9,,,Pack 2,2000 Coins + 60m Heart + 60m Add Box + Chest 1 (1x Scissors + 1x Hammer + 1x Broom),
+10,,,Pack 3,2000 Coins + Chest 2 (1000 Coins) + Chest 3 (1500 Coins + 45m Heart + 2x Scissors + 2x Hammer + 2x Broom) + Chest 4 (2x Scissors + 2x Hammer + 2x Broom), 
+11,,,,,
+12,Valentine Extra Large,$34.99,Pack 1,8000 Coins + 8x Scissors + 8x Hammer + 8x Broom,0.6
+13,,,Pack 2,4000 Coins + 90m Heart + 90m Add Box + Chest 1 (2x Scissors + 2x Hammer + 2x Broom),
+14,,,Pack 3,4000 Coins + Chest 2 (2000 Coins) + Chest 3 (2000 Coins + 60m Heart + 2x Scissors + 2x Hammer + 2x Broom) + Chest 4 (4x Scissors + 4x Hammer + 4x Broom),
+
+--- Valentines Day (First 15 rows) ---
+,Chest,Star,Reward
+0,1,3,     1x Scissors + 1x Hammer
+1,2,8,     30m Heart + 1x Hammer + 1x Broom
+2,3,10,     200 Coins + 1x Scissors + 1x Hammer
+3,4,15,     1h Heart + 1x Boosters Set
+4,5,24,     500 Coins + 2x Boosters Set
+
+--- Weekly Quest (First 15 rows) ---
+,No,Quest,Reward (Stars),Chest,Stars Needed,Rewards,Note
+0,1,Complete 5 Levels,10.0,Chest 1,30.0,60 Coins + 15m Heart + 1x Hammer,
+1,2,Use 5 Scissors / Hammers / Brooms (rotates each week),10.0,Chest 2,60.0,120 Coins + 30m Heart + 1x Scissors + 1x Broom,
+2,3,Win 10 Consecutive Levels,15.0,Chest 3,100.0,600 Coins + 1h Heart + 1x Scissors + 1x Hammer + 1x Broom,
+3,4,Earn 900 Coins,15.0,,,,
+4,5,Add 30 Boxes,20.0,,,,
+5,6,Complete 35 Hard Levels,30.0,,, ,
+6,,,,,,,
+7,Bộ 2,,,,,,
+8,1,Complete 3 Levels,10.0,,,,
+9,2,Use 5 Hammers,10.0,,,,
+10,3,Continuous Login 3 Days,15.0,,,,
+11,4,Win 10 Consecutive Levels,15.0,,,,
+12,5,Add 40 Boxes,20.0,,,,
+13,6,Complete 30 Hard Levels,30.0,,,,
+
+--- BMI (First 15 rows) ---
+,Group,Countries,BMI (Relative),Note
+0,Tier S+,Switzerland,+40%,
+1,Tier S,"Norway, Uruguay, Norway",+20%,
+2,Tier 0,"US, UK, Sweden, Denmark, Canada",+0%,
+3,Tier A,"Turkey, Poland, Colombia, Singapore, Saudi Aribia, UAE, Australia",-0.1,
+4,Tier B,"New Zealand, Israel, Mexico, Czechia, Chile, Kuwait, Peru, Bahrain, Nicaragua, Venezuela",-0.2,
+5,Tier C,"Honduras, Qatar, Brazil, Thailand, Guatemala, Oman, South Korea, Pakistan",-0.3,
+6,Tier D,"Azerbaijan, Hungary, Jordan, China, Moldova, Romania",-0.4,
+7,Tier F,"Japan, Hong Kong, Vietnam, Malaysia, Philippines, Ukraine, South Africa, Egypt, India, Indonesia, Taiwan",-0.5,
+8,Outliers A,"US, China, Japan, South Korea, Germany, UK, Taiwan, Canada, France, Australia",,Top 10 Countries in Mobile Games IAP Spending (2024 - Sensor Tower)
+9,Outliers B,"Brazil, Italy, Switzerland, Hong Kong, Thailand, Saudi Arabia, Mexico, Indonesia, Turkey, Spain",,Top 11 - 20 Countries (significantly weaker compared to Top 10)
+
+--- NewYear IAP (First 15 rows) ---
+,IAP,Turns,Price,Column 7,Slot,Reward,Percent (%),Note
+0,,1,Free,,1,100 Coins,100,Lần quay Free đầu tiên luôn là 100%.
+1,,2,$0.99,,2,600 Coins + 1x Hammer,90,
+2,,3,$1.99,,3,900 Coins + 1h Heart,10,
+3,,4,$2.99,,4,1200 Coins,80,
+4,,5,$3.99,,5,5x Scissors + 5x Broom,20,
+5,,6,$4.99,,6,1200 Coins + 5x Hammer,95,
+6,,7,$5.99,,7,1500 Coins + 3x Boosters Set ,5,
+7,,8,$7.99,,8,5000 Coins,100,
+
+--- Thanksgiving Mission (First 15 rows) ---
+,No.,Mission,Stage 1,Stage 2, Stage 3,Stage 4,Note
+0,1,Complete X Steps (Complete X Steps in Key Collection!),3,9,15,20,
+1,2,"Use X Boosters (Use X Hammer, Scissors, or Broom!)",8,20,35,50,"- Revive and Add Boxes are not counted
+- Forces players out of hoarding items
+- Still need to spend Coins to Revive"
+2,3,Complete X Hard Levels (Complete X Hard or Super Hard levels!),5,15,25,40,- Needs about 120 Levels
+3,4,"Collect X Coins (Collect X Coins from levels, events and purchases!)",600,1800,3600,6400,"- Coins from IAP are counted
+- Should required IAP to complete"
+4,,,Easy,Medium,Hard,Extreme,
+5,Stage 1,Rewards: 1x Scissors + 1x Hammer,,,,,Easy: Most players should be able to complete with minimum effort
+6,Stage 2,Rewards: 1x Scissors + 1x Broom,,,,,Medium: Average regular players should be able to reach this milestone
+7,Stage 3,Rewards: 1x Hammer + 1x Broom,,,,,"Hard: Players should spend more effort than most, but also do-able F2P"
+8,Stage 4,Rewards: 1x Scissors + 1x Hammer + 1x Broom,,,,,Extreme: Difficult for players to complete without making a purchase
+9,Final Chest,Rewards: 1000 Coins + 1h Heart + 2x Scissors + 2x Hammer + 2x Broom,,,, ,
+
+--- Optimize Thanksgiving Mission (First 15 rows) ---
+,Missions & Rewards mới:,Stage,Missions,Unnamed: 3,Unnamed: 4,Unnamed: 5,Unnamed: 6,"Rewards
+",Unnamed: 8,"Coin Value
+(đã Unlock CA)",Unnamed: 10,Assumptions,Unnamed: 12,Unnamed: 13,Key Collection Rewards,Unnamed: 15,Unnamed: 16,Unnamed: 17,Unnamed: 18
+0,,,Missions,Requirements,,Approximate to (for each mission/stage),Resources Needed (for each stage),,,,,"
+- 100% Winrate
+- User chơi sự kiện với 0 Resources
+- Progression NNH - NNH - NNSH
+- 1 level drops 5 Keys
+- Trung bình kiếm 29 Coin/Level
+- Trung bình 1 Booster = 160 Coins",,,Stage,Token Required,Reward,Total,Level Needed (Divided by 5)
+1,"Note: 
+- Complete Hard Levels tính cả Hard và Super Hard
+- Collect Coins tính mọi nguồn coin người chơi nhận được từ khi bắt đầu event nhưng trong bảng sẽ tính ước lượng theo số coins người chơi cày được qua level
+- Complete Steps của Key Collection tính Key và Level theo bảng Reward của Key collections 
+
+- Config ở cột Requirements (Each) màu vàng và cột Rewards (điền đúng rewards theo tên + format để update Coin value)
+
+- Dev lấy thông tin phần thưởng và nhiệm vụ các Stages ở các ô tô màu xanh lá",,,Cum,Each,,,Đã Unlock CA,Chưa Unlock CA,,,,,,1,3,15m Heart,3,0.6
+2,,Stage 1,Complete Steps (Key Collection):,5,5,"~6,6 Levels (33 Keys)","~7 Levels
+~320 Coins","1x Scissors
+15m Heart
+1x Bronze Pack","1x Scissors
+15m Heart
+50x Coins",295.0,,,,,2,5,1x Scissors,8,1.6
+3,,,Use Boosters:,2,2,~320 Coins,,,,,,,,,3,7,15m x2 Key,15,3
+4,,,Complete Hard Levels:,2,2,~6 Levels,,,,,,,,,4,10,30m Heart,25,5
+5,,,Collect Coins:,200,200,~7 Levels,,,,,,Items,Coin Value,,5,8,1x Hammer,33,6.6
+6,,Stage 2,Complete Steps (Key Collection):,10,5,"~11,2 Levels (56 Keys)","~11,2 Levels
+~480 Coins","1x Hammer
+1x Broom
+30m Heart
+1x Emerald Pack","1x Hammer
+1x Broom
+30m Heart
+100x Coins",750.0,,Coin,1,,6,7,1x Scissors,40,8
+7,,,Use Boosters:,5,3,~480 Coins,,,,,,Scissors,120,,7,12,Chest: 1x Hammer + 1x Broom,52,10.4
+8,,,Complete Hard Levels:,5,3,~9 Levels,,,,,,Hammer,160,,8,15,30m x2 Key,67,13.4
+9,,,Collect Coins:,500,300,~10 Levels,,,,,,Add Box,190,,9,10,100 Coins,77,15.4
+10,,Stage 3,Complete Steps (Key Collection):,15,5,~13 Levels (65 Keys),"~31 Levels
+~1120 Coins","1x Scissors
+1x Broom
+45m Heart
+1x Silver Pack","1x Scissors
+1x Broom
+45m Heart
+200x Coins",905.0,,Broom,240,,10,12,1x Scissors,89,17.8
+11,,,Use Boosters:,12,7,~1120 Coins,,,,,,Bronze Pack,100,,11,10,1x Broom,99,19.8
+12,,,Complete Hard Levels:,12,7,~21 Levels,,,,,,Emerald Pack,200,,12,12,1x Hammer,111,22.2
+13,,,Collect Coins:,1400,900,~31 Levels,,,,,,Silver Pack,320,,13,15,Chest: 30m Heart + 1x Hammer + 1x Scissors,126,25.2
+14,,Stage 4,Complete Steps (Key Collection):,25,10,~30 Levels (150 Keys),"~90 Levels
+~2080 Coins","1x Boosters Set
+1x Amethyst Pack
+500x Coins","1x Boosters Set
+1h Heart
+500x Coin",1505.0,,Amethyst Pack,485,,14,12,1x Broom,138,27.6
+
+--- Black Friday IAP (First 15 rows) ---
+,IAP,Pack,Price,Reward,Value,Note
+0,Same Price Bigger Prize,Pack 1,$3.99,1200 Coins + 15m Heart + 1x Scissors,1395,Lasts for 24 hours
+1,,Pack2,$3.99,1400 Coins + 30m Heart + 2x Scissors + 1x Hammer (tag 40% More),1950,
+2,,Pack 3,$3.99,1600 Coins + 45m Heart + 3x Scissors + 2x Hammer + 1x Broom (tag 100% More),2820,
+3,,,,,2820,
+4,1 + 1 Massive Deal,Pack 1,$19.99,3000 Coins + 3h Heart + 3x Boosters Set,6460,Lasts for 48 hours
+5,Tag 50% OFF,Pack 2,FREE,2000 Coins + 2h Heart + 2x Boosters Set,2640,9100
+
+--- Halloween Event + IAP (First 15 rows) ---
+,Stage,Candy,Reward,Value,Note
+0,1,10,15m Heart + 1x Scissors,195,
+1,2,25,60 Coins + 1x Hammer,220,
+2,3,35,80 Coins + 15m Heart + 1x Broom,395,
+3,4,50,Halloween Frame + 100 Coins + 30m Heart + 2x Scissors,490,
+4,5,60,Halloween Avatar + 120 Coins + 45m Heart + 1x Scissors + 1x Hammer  + 1x Broom,865,
+5,Total,180,Halloween Avatar & Frame + 360 Coins + 1h45m Heart + 4x Scissors  + 2x Hammer + 2x Broom,,
+6,,,,,
+7,IAP,One-or-All,,,
+8,,Pack 1,2x Scissors + 2x Hammer + 1x Broom + 5 Candies.,$1.99,
+9,,Pack 2,30m Heart + 3x Scissors + 3x Hammer + 2x Broom + 10 Candies,$4.49,
+10,,Pack 3,1200 Coins + 45m Heart + 4x Scissors + 4x Hammer + 3x Broom + 15 Candies,$8.49,
+11,,Pack All,1200 Coins + 1h15m Heart + 9x Scissors + 9x Hammer + 6x Broom + 30 Candies,$10.99 (- 40%),
+
+--- Optimize Halloween Event + IAP (First 15 rows) ---
+,Unnamed: 0,Stage,Candies (for each stage),Reward,Coin Value,Level required for each stage,Unnamed: 6,Items,Coin Value.1
+0,Phần thường dành cho người chơi đã mở khóa Card Album:,1,5,1x 15m Heart + 1x Scissors,195,4,,Coin,1
+1,,2,10,60x Coin + 1x Emerald Pack,260,7,,Scissors,120
+2,"Note: Tất cả người chơi sẽ nhận được Avatar và Frame mới khi đạt mốc tương ứng
+
+- Config Reward theo đúng format để Coin Value và Level Required tự Update",3,20,1x 30m Heart + 1x Broom + 1x Silver Pack,710,14,,Hammer,160
+3,,4,32,1x Halloween Avatar + 1x 30m Heart + 2x Hammer + 1x Amethyst Pack,955,22,,Add Box,190
+4,,5,45,1x Halloween Frame + 300x Coin + 1x Hammer + 1x Broom + 1x Scissors + 1x Ruby Pack,1490,31,,Broom,240
+5,,Tổng,112,1x 15m Heart + 2x Scissors + 360x Coin + 1x Emerald Pack + 2x 30m Heart + 2x Broom + 1x Silver Pack + 1x Halloween Avatar + 3x Hammer + 1x Amethyst Pack + 1x Halloween Frame + 1x Ruby Pack,3610,78,,Bronze Pack,100
+6,"Note: Phần thưởng mốc 3, 4 và 5 dành cho người chơi đã Unlock CA và chưa Unlock CA cơ bản là như nhau vì người chơi clear được stage 3 của Pinata thì đã sure kèo là qua lvl 30",,,,,,,Emerald Pack,200
+7,Phần thưởng dành cho người chơi chưa mở khóa Card Album:,Stage,Candies (for each stage),Reward,Coin Value,Level required for each stage,,Silver Pack,320
+8,,1,5,1x 15m Heart + 1x Scissors,195,4,,Amethyst Pack,485
+9,"Note: Tất cả người chơi sẽ nhận được Avatar và Frame mới khi đạt mốc tương ứng
+
+Phần thưởng nếu người chơi chưa Unlock CA sẽ hiển thị như thế này, tuy nhiên thực tế người chơi cần chơi >70 Levels mới có thể clear hết toàn bộ 5 stage nên trong quá trình cày sự kiện mà người chơi lên được Lvl 30 và mở khóa CA thì phần thưởng sẽ thay đổi thành phần thưởng dành cho người chơi đã Unlock CA",2,10,60x Coin + 1x Hammer,220,7,,Gold Pack,760
+10,,3,20,1x 30m Heart + 80x Coin + 1x Broom,470,14,,Ruby Pack,670
+11,,4,32,1x Halloween Avatar + 300x Coin + 1x 30m Heart + 2x Hammer,770,22,    ,Rainbow Pack,1390
+12,,5,45,1x Halloween Frame + 400x Coin + 1x 45m Heart + 1x Hammer + 1x Broom + 1x Scissors,1145,31,,15m Heart,75
+13,,Tổng,112,1x 15m Heart + 2x Scissors + 840x Coin + 4x Hammer + 2x 30m Heart + 2x Broom + 1x Halloween Avatar + 1x Halloween Frame + 1x 45m Heart,2800,78,,30m Heart,150
+14,,,,,,,,45m Heart,225
+
+--- Key Collection (First 15 rows) ---
+,Stage,Token Required,Reward,Total,Level Needed (Divided by 5),Note,Level,Total Screw
+0,1,3,1x Scissors,3,0.6,,1,9
+1,2,5,15m Heart,8,1.6,,2,42
+2,3,7,1x Hammer,15,3.0,,3,108
+3,4,10,1x Broom,25,5.0,,4,78
+4,5,15,100 Coins,40,8.0,,5,117
+5,6,12,1x Scissors,52,10.4,,6,102
+6,7,18,1x Broom,70,14.0,,7,111
+7,8,25,30m Heart,95,19.0,,8,108
+8,9,40,Chest: 1x Hammer + Broom,135,27.0,,9,156
+9,10,30,200 Coins,165,33.0,,10,93
+10,11,15,1x Scissors,180,36.0,,11,132
+11,12,25,1x Hammer,205,41.0,,12,129
+12,13,35,1x Broom,240,48.0,,13,141
+13,14,60,"Chest: 30m Heart, 1x Hammer + Scissors",300,60.0,,14,78
+14,15,30,1x Hammer,330,66.0,,15,129
+
+--- Key Collection Đề xuất (First 15 rows) ---
+,Stage,Token Required,Reward,Total,Level Needed (Divided by 5),Note,Level,Total Screw
+0,1,3,15m Heart,3,0.6,Tặng ở đầu để user lấy thời gian cày ,1,9
+1,2,5,1x Scissors,8,1.6,,2,42
+2,3,7,15m x2 Key,15,3.0,Động lực thêm khi được x2 key sau mỗi màn chơi,5,117
+3,4,10,30m Heart,25,5.0,cố chơi khi có thời gian tặng,6,102
+4,5,12,1x Hammer,37,7.4,,3,108
+5,6,6,1x Scissors ,43,8.6,,7,111
+6,7,15,Chest: 1x Hammer + 1x Broom,58,11.6,,9,156
+7,8,20,30m x2 Key,78,15.6,"đang quen với tiến trình được x2 key, việc nhận được khá ít trong màn gây ra tiến trình chậm -> họ sẽ cố để đạt được phần thưởng này",10,93
+8,9,10,100 Coins,88,17.6,,8,108
+9,10,14,1x Scissors,102,20.4,,11,132
+10,11,18,1x Broom,120,24.0,,4,78
+11,12,15,1x Hammer,135,27.0,,12,129
+12,13,25,Chest: 30m Heart + 1x Hammer + 1x Scissors,160,32.0,họ nhận được thêm thời gian và còn 1 chút thời gian để x2 key nên chơi sẽ cố gắng thắng thật nhanh,14,78
+13,14,20,1x Broom,180,36.0,,13,141
+14,15,30,30m x2 Key,210,42.0,tiếp thêm động lực,21,129
+
+--- Update Key Collection - 112 (First 15 rows) ---
+,Stage,Token Required,Reward,Total,Level Needed (Divided by 5),Note
+0,1,3,15m Heart,3,0.6,
+1,2,5,1x Scissors,8,1.6,
+2,3,7,15m x2 Key,15,3.0,
+3,4,10,30m Heart,25,5.0,
+4,5,8,1x Hammer,33,6.6,
+5,6,7,1x Scissors ,40,8.0,
+6,7,12,Chest: 1x Hammer + 1x Broom,52,10.4,
+7,8,15,30m x2 Key,67,13.4,
+8,9,10,100 Coins,77,15.4,  
+9,10,12,1x Scissors,89,17.8,
+10,11,10,1x Broom,99,19.8,
+11,12,12,1x Hammer,111,22.2,
+12,13,15,Chest: 30m Heart + 1x Hammer + 1x Scissors,126,25.2,
+13,14,12,1x Broom,138,27.6,
+14,15,16,30m x2 Key,154,30.8,
+
+--- Key Collection Updated (First 15 rows) ---
+,Stage,Token Required,Reward,Total,Level Needed (Divided by 5),Note,Level,Total Screw
+0,1,3,1x Scissors,3,0.6,,1,9
+1,2,5,15m Heart,8,1.6,,2,42
+2,3,7,1x Hammer,15,3.0,,3,108
+3,4,10,1x Broom,25,5.0,,4,78
+4,5,15,100 Coins,40,8.0,,5,117
+5,6,12,1x Scissors,52,10.4,,6,102
+6,7,18,1x Broom,70,14.0,,7,111
+7,8,16,30m Heart,86,17.2,,8,108
+8,9,20,Chest: 1x Hammer + Broom,106,21.2,,9,156
+9,10,24,200 Coins,130,26.0,,10,93
+10,11,12,1x Scissors,142,28.4,,11,132
+11,12,14,1x Hammer,156,31.2,,12,129
+12,13,18,1x Broom,174,34.8,,13,141
+13,14,26,"Chest: 30m Heart, 1x Hammer + Scissors",200,40.0,,14,78
+14,15,20,1x Hammer,220,44.0,,15,129
+
+--- Chain Offer (First 15 rows) ---
+,Stage,Part,No.,Price,Reward,Value,Total Value,Note,Note 2
+0,1,1,1,FREE,15m Heart,75,,,
+1,2,1,2,FREE,20 Coins,20,,,
+2,3,1,3,FREE,1x Hammer,160,255.0,= 1-2 RW,
+3,4,2,1,$2.49,600 Coins,600,,,$2.99
+4,5,2,2,FREE,15m Heart,75,,,
+5,6,2,3,FREE,1x Scissors,120,,,
+6,7,2,4,FREE,20 Coins + 1x Hammer,180,,Discount 45%,Discount 35%
+7,8,2,5,FREE,Chest: 40 Coins + 15m Heart + 1x Broom,355,1330.0,= $4.49,= $4.49
+8,9,3,1,$4.99,900 Coins + 15m Heart + 1x Hammer,1135,,,$5.99
+9,10,3,2,FREE,30m Heart,150,,,
+10,11,3,3,FREE,1x Scissors,120,,,
+11,12,3,4,FREE,Chest: 60 Coins + 15m Heart + 1x Scissors,255,,,
+12,13,3,5,FREE,100 Coins,100,,Discount 35%,Discount 20%
+13,14,3,6,FREE,1x Hammer + 1x Scissors + 1x Broom,520,2280.0,= $7.49,= $7.49
+14,15,4,1,$10.99,2000 Coins + 2x Broom,2580,,,$11.99
+
+--- Chain Offer Đề xuất (First 15 rows) ---
+,Cột 1,Part,No.,Price,Reward [A],Reward [B],Value,Total Value [A],Note,Total Value [B],Note 3,Note 2
+0,1,1,1,FREE,1x Hammer,1x Hammer,160.0,,,,,
+1,2,1,2,FREE,15m Heart,15m Heart,75.0,,,,,
+2,3,1,3,FREE,100 Coins,60 Coins,100.0,335.0,= 1-2 RW,335.0,= 1-2 RW,
+3,4,2,1,$2.49,900 Coins + 1x Scissors,600 Coins,1020.0,,,,,$2.99
+4,5,2,2,FREE, 200 Coins,15m Heart,200.0,,,,,
+5,6,2,3,FREE,1x Scissors,1x Scissors,120.0,,,,,
+6,7,2,4,FREE,1x Hammer,20 Coins + 1x Hammer,160.0,,Discount 68%,,Discount 68%,Discount 35%
+7,8,2,5,FREE,Chest: 30m Heart + 1x Broom,Chest: 40 Coins + 15m Heart + 1x Broom,390.0,1890.0,7.84,1890.0,7.84,= $4.49
+8,9,3,1,$4.99,1800 Coins + 15m Heart + 1x Hammer,900 Coins + 15m Heart + 1x Hammer,2035.0,,,,,$5.99
+9,10,3,2,FREE,1x Scissors,30m Heart,120.0,,,,,
+10,11,3,3,FREE,1x Broom,1x Scissors,240.0,,,,,
+11,12,3,4,FREE,300 Coins,Chest: 60 Coins + 15m Heart + 1x Scissors,300.0,,,,,
+12,13,3,5,FREE,30m Heart,100 Coins,150.0,,Discount 64%,,Discount 64%,Discount 20%
+13,14,3,6,FREE,Chest:  1x Broom + 1x Scissors + 1x Hammer,1x Hammer + 1x Scissors + 1x Broom,520.0,3365.0,13.96,3365.0,13.96,= $7.49
+14,15,4,1,$10.99,2000 Coins + 2x Broom,2000 Coins + 2x Broom,,,,,,$11.99
+
+--- Chain Offer Optimize (First 15 rows) ---
+,CDF,Part,No.,Price,Reward [A],Value,Total Value,True Value,Discount,Unnamed: 9,AB,Part.1,No..1,Price.1,Reward [A].1,Value.1,Total Value.1,True Value.1,Discount.1,Unnamed: 19,SS+,Part.2,No..2,Price.2,Reward [A].2,Value.2,Total Value.2,True Value.2,Discount.2
+0,1,1,1,FREE,1x Hammer,160,,,,,1,1,1,FREE,1x Broom,240,,,,,1,1,1,FREE,1x Broom,240,,,
+1,2,1,2,FREE,15m Heart,0,,,,,2,1,2,FREE,30m Heart,0,,,,,2,1,2,FREE,1h Heart,0,,,
+2,3,1,3,FREE,50 Coins,50,210.0,0.7,,,3,1,3,FREE,100 Coins,100,340.0,1.13,,,3,1,3,FREE,100 Coins,100,340.0,1.13,
+3,4,2,1,1.99,600 Coins + 1x Scissors,720,,,49%,,4,2,1,2.49,800 Coins + 1x Scissors,920,,,49%,,4,2,1,2.99,1100 Coins + 1x Scissors,1220,,,49%
+4,5,2,2,FREE,100 Coins,100,,,,,5,2,2,FREE,150 Coins,150,,,,,5,2,2,FREE,150 Coins,150,,,
+5,6,2,3,FREE,1x Scissors,120,,,,,6,2,3,FREE,1x Hammer,160,,,,,6,2,3,FREE,1x Hammer,160,,,
+6,7,2,4,FREE,1x Broom,240,,,,,7,2,4,FREE,1x Broom,240,,,,,7,2,4,FREE,1x Broom,240,,,
+7,8,2,5,FREE,30m Heart,0,1180.0,3.93,,,8,2,5,FREE,30m Heart,0,1470.0,4.9,,,8,2,5,FREE,1h Heart,0,1770.0,5.9,
+8,9,3,1,3.99,1200 Coins+ 2x Broom,1680,,,56%,,9,3,1,4.99,1600 Coins + 3x Broom,2320,,,55%,,9,3,1,5.99,2000 Coins + 3x Broom,2720,,,52%
+9,10,3,2,FREE,1x Broom + 1x Hammer,400,,,,,10,3,2,FREE,1x Broom + 1x Hammer,400,,,,,10,3,2,FREE,1x Broom + 1x Hammer,400,,,
+10,11,3,3,FREE,100 Coins,100,,,,,11,3,3,FREE,200 Coins,200,,,,,11,3,3,FREE,200 Coins,200,,,
+11,12,3,4,FREE,30m Heart,0,,,,,12,3,4,FREE,1h Heart,0,,,,,12,3,4,FREE,2h Heart,0,,,
+12,13,3,5,FREE,1x Broom,240,,,,,13,3,5,FREE,1x Scissors,120,,,,,13,3,5,FREE,1x Scissors,120,,,
+13,14,3,6,FREE,1x Scissors + 1x Hammer,280,2700.0,9.0,,,14,3,6,FREE,100 Coins + 1x Hammer,260,3300.0,11.0,,,14,3,6,FREE,150 Coins + 1x Hammer,310,3750.0,12.5,
+14,15,4,1,6.99,2700 Coins + 2x Scissors,2940,,,49%,,15,4,1,7.99,3500 Coins + 2x Scissors,3740,,,51%,,15,4,1,9.99,4600 Coins + 5x Scissors,5200,,,54%
+
+--- Chain Offer Card Update (First 15 rows) ---
+,CDF,Part,No.,Price,Reward [A],Value,Total Value,True Value,Discount,Unnamed: 9,AB,Part.1,No..1,Price.1,Reward [A].1,Value.1,Total Value.1,True Value.1,Discount.1,Unnamed: 19,SS+,Part.2,No..2,Price.2,Reward [A].2,Value.2,Total Value.2,True Value.2,Discount.2
+0,1,1,1,FREE,1x Scissors,120,,,,,1,1,1,FREE,1x Scissors,120,,,,,1,1,1,FREE,1x Scissors,120,,,
+1,2,1,2,FREE,15m Heart,0,,,,,2,1,2,FREE,15m Heart,0,,,,,2,1,2,FREE,15m Heart,0,,,
+2,3,1,3,FREE,1x Bronze Pack,100,220.0,0.73,,,3,1,3,FREE,1x Bronze Pack,100,220.0,0.73,,,3,1,3,FREE,1x Bronze Pack,100,220.0,0.73,
+3,4,2,1,1.99,700 Coins + 1x Emerald Pack,900,,,49%,,4,2,1,2.49,800 Coins + 1x Emerald Pack,1000,,,49%,,4,2,1,2.99,1100 Coins + 1x Emerald Pack,1300,,,46%
+4,5,2,2,FREE,1x Scissors,120,,,,,5,2,2,FREE,1x Scissors,120,,,,,5,2,2,FREE,1x Scissors,120,,,
+5,6,2,3,FREE,50 Coins,50,,,,,6,2,3,FREE,100 Coins,100,,,,,6,2,3,FREE,150 Coins,150,,,
+6,7,2,4,FREE,1x Bronze Pack,100,,,,,7,2,4,FREE,1x Bronze Pack,100,,,,,7,2,4,FREE,1x Bronze Pack,100,,,
+7,8,2,5,FREE,30m Heart,0,1170.0,3.9,,,8,2,5,FREE,30m Heart + 1x Hammer,160,1480.0,4.93,,,8,2,5,FREE,1h Heart,0,1670.0,5.57,
+8,9,3,1,3.99,1400 Coins + 1x Silver Pack,1720,,,56%,,9,3,1,4.99,1800 Coins + 1x Silver Pack,2120,,,54%,,9,3,1,5.99,2000 Coins + 1x Silver Pack,2320,,,49%
+9,10,3,2,FREE,1x Broom + 1x Hammer,400,,,,,10,3,2,FREE,1x Broom + 1x Hammer,400,,,,,10,3,2,FREE,1x Broom + 1x Hammer,400,,,
+10,11,3,3,FREE,100 Coins,100,,,,,11,3,3,FREE,1x Scissors,120,,,,,11,3,3,FREE,200 Coins,200,,,
+11,12,3,4,FREE,1x Emerald Pack,200,,,,,12,3,4,FREE,1x Emerald Pack,200,,,,,12,3,4,FREE,1x Emerald Pack,200,,,
+12,13,3,5,FREE,30m Heart,0,,,,,13,3,5,FREE,200 Coins + 1h Heart,200,,,,,13,3,5,FREE,1x Scissors,120,,,
+13,14,3,6,FREE,1x Scissors + 1x Hammer,280,2700.0,9.0,,,14,3,6,FREE,1x Broom,240,3280.0,10.93,,,14,3,6,FREE,150 Coins + 1x Hammer,310,3550.0,11.83,
+14,15,4,1,6.99,2600 Coins + 1x Amethyst Pack,3085,,,50%,,15,4,1,7.99,3000 Coins + 1x Amethyst Pack,3485,,,49%,,15,4,1,9.99,4500 Coins + 2x Amethyst Pack,5470,,,55%
+
+--- Chain Offer V2 (First 15 rows) ---
+,Stage,Part,No.,Price,Reward,Value,Total Value,Note,Note 2
+0,1,1,1,FREE,15m Heart,75,,,
+1,2,1,2,FREE,20 Coins,20,,,
+2,3,1,3,FREE,1x Hammer,160,255.0,= 1-2 RW,
+3,4,2,1,$2.49,600 Coins,600,,,$2.99
+4,5,2,2,FREE,15m Heart,75,,,
+5,6,2,3,FREE,1x Scissors,120,,,
+6,7,2,4,FREE,20 Coins + 1x Hammer,180,,Discount 45%,Discount 35%
+7,8,2,5,FREE,Chest: 40 Coins + 15m Heart + 1x Broom,355,1330.0,= $4.49,= $4.49
+8,9,3,1,$4.99,900 Coins + 15m Heart + 1x Hammer,1135,,,$5.99
+9,10,3,2,FREE,30m Heart,150,,,
+10,11,3,3,FREE,1x Scissors,120,,,
+11,12,3,4,FREE,Chest: 60 Coins + 15m Heart + 1x Scissors,255,,,
+12,13,3,5,FREE,100 Coins,100,,Discount 35%,Discount 20%
+13,14,3,6,FREE,1x Hammer + 1x Scissors + 1x Broom,520,2280.0,= $7.49,= $7.49
+14,15,4,1,$10.99,2000 Coins + 2x Broom,2580,,,$11.99
+
+--- Master Pass (First 15 rows) ---
+,Stage,Token Required,Total Needed,Free,Coin Equivalent,Premium,Coin Equivalent 2,Note
+0,0,0,0,15m Heart,100,8-Heart Limit + 600 Coins (Pouch),600,Premium Pass: $7.99
+1,1,1,1,1x Hammer,160,30m Heart,200,Ultimate Pass: $9.99
+2,2,2,3,1x Scissors,120,1x Broom,240,Avg Time Spent a Day 45m
+3,3,3,6,40 Coins,40,1x Hammer,160,About 10 to 15 Levels per Day
+4,4,4,10,1x Hammer,160,1x Scissors,120,"Stickiness 40% -> 40% users play everyday, expected 200 Levels per Month for Core Users"
+5,5,8,18,Chest: 1x Broom + 15m Heart,240,Chest: 100 Coins + 1x Scissors + 1x Broom,460,"Extra rewards expected to help progress faster by about 25 Levels (free), and 50 - 75 Levels (premium)"
+6,6,5,23,1x Hammer,160,1x Scissors,120,"400 Levels per Month (accounting for help from Collection + MP), pushs +5 Levels per Day -> Expect 400 Levels to complete everything"
+7,7,6,29,60 Coins,60,1x Hammer,160,"Each 9 Levels: 2 Hard, 1 Very hard -> estimated 13 Keys
+400 Levels -> 580 Keys
+Bonus Bank: 200 Keys
+1-30: 380 Keys"
+8,8,9,38,1x Broom,240,30m Heart,200,
+9,9,7,45,30m Heart,200,1x Broom,240,
+10,10,10,55,Chest: 1x Hammer + 1x Scissors,280,Chest: 150 Coins + 1x Broom + 1x Hammer,550,
+11,11,8,63,1x Hammer,160,1x Scissors,120, 
+12,12,12,75,1x Broom,240,30m Heart,200,
+13,13,11,86,30m Heart,200,1x Hammer,160,
+14,14,9,95,1x Scissors,120,100 Coins,100,
+
+--- Summer Pass Optimization (First 15 rows) ---
+,Cột 1,Token Required,Total Needed,Free,Coin Equivalent,Premium,Coin Equivalent 2,Note
+0,0,0,0,1x Hammer,160,"8-Heart Limit + Golden Frame + 500 coins (chưa unlock CA)
+or
+8-Heart Limit + Golden Frame + Amethyst Pack (đã unlock CA)",700,Premium Pass: $7.99
+1,1,1,1,15m Heart,75,30m Heart,150,Ultimate Pass: $9.99
+2,2,2,3,1x Bronze Pack,100,1x Emerald Pack,200,Time Spent a Day 40m
+3,3,3,6,40 Coins,40,1x Scissors ,120,10 Levels a day
+4,4,4,10,1x Scissors,120,1x Hammer,160,"Stickiness 40% -> 40% users play everyday, expected 200 Levels per Month for Core Users"
+5,5,8,18,Chest: 1x Scissors + 1x Bronze Pack,220,Chest: 100 Coins + 1x Broom + 1x Emerald Pack,540,"Extra rewards expected to help progress faster by about 20 Levels (free), and 50 Levels (premium)"
+6,6,5,23,60 Coins,60,1x Scissors,120,Expect 350 Levels to complete everything
+7,7,6,29,15m Heart,75,30m Heart,150,"Each 9 Levels: 2 Hard, 1 Very hard -> estimated 13 Keys
+366 Levels -> 529 Keys to complete eveything
+Bonus Bank: 200 Keys (138 levels)
+1-30: 329 Keys (227 levels for 1 month period)"
+8,8,9,38,1x Hammer ,160,1x Hammer,160,
+9,9,7,45,1x Broom,240,1x Broom,240,
+10,10,10,55,Chest: 1x Scissors + 1x Hammer + 1x Emerald Pack,480,Chest: 150 Coins + 1x Hammer + 1x Broom + 1x Silver Pack,870,
+11,11,8,63,1x Hammer,160,2x Scissors,240, 
+12,12,12,75,1x Silver Pack,320,1x Amethyst Pack,480,
+13,13,11,86,30m Heart,150,60m Heart,300,
+14,14,9,95,1x Scissors,120,1x Broom,240,
+
+--- Summer pass calculation draft (First 15 rows) ---
+,Cột 1,Cột 2,Cột 3,Cột 4,Cột 5,Cột 6,Cột 7,Cột 8
+0,Stage,Original Token Required,New Token Required,Original Total Needed,New Total Needed,,,
+1,14,9,9,95,95,,,
+2,15,15,12,110,107,,,
+3,16,16,14,126,121,,,
+4,17,10,9,136,130,,,
+5,18,14,12,150,142,,,
+6,19,18,15,168,157,,,
+7,20,20,16,188,173,,,
+8,21,15,13,203,186,,,
+9,22,11,10,214,196,,,
+10,23,19,15,233,211,,,
+11,24,17,14,250,225,,,
+12,25,20,16,270,241,,,
+13,26,18,15,288,256,,,
+14,27,21,17,309,273,,,
+
+--- Win Streak (First 15 rows) ---
+,No.,Reward,Coin Equivalent,Streak,Column 5,Column 6,Column 7,Column 8
+0,2,40 Coins,40,,,,,
+1,5,1x Scissors,120,,,,,
+2,8,40 Coins + 1x Hammer,200,,,,,
+3,11,15m Heart + 1x Scissors,150,,,,,
+4,15,1x Broom,240,,,,,
+5,20,1x Scissors + 1x Hammer, ,,,,,
+6,25,30m Heart + 80 Coins,155,,,,,
+7,30,100 Coins + 1x Scissors + 1x Hammer,380,,,,,
+8,35,30m Heart + 1x Scissors + 1x Broom,435,,,,,
+9,45,500 Coins + 1x Boosters Set + Avatar,1020,,,,,
+10,,,2740,,,,,
+11,,Winsteak Update,,,,,,
+12,Stage,Reward before unlock Card Album,,,Reward after unlock Card Album,,,
+13,2,40 Coins,,,40 Coins,,50 coins,
+14,4,1x Scissors,,,1x Scissors,,1x Broom,Check point
+
+--- Win Streak Tối ưu - HuyNX (First 15 rows) ---
+,Streak,Rewards,Coin Equivalent,Checkpoints,Note
+0,2,40 coins,40.0,,Phần thưởng nhận và hiển thị sau khi unlock CA
+1,5,15m Heart + 1x Bronze pack,130.0,Checkpoint,
+2,8,1x Emerald pack,200.0,,
+3,11,1x Scissors,160.0,Checkpoint,
+4,14,1x Silver pack,320.0,,
+5,18,15m Heart + 80 Coins,110.0,Checkpoint,
+6,24,1x Amethyst Pack,485.0,,
+7,30,2x Hammer + 30m heart,300.0,Checkpoint,
+8,36,"300 coins + Ruby Pack + 1 Broom + Avatar (not yet claimed) 
+or
+300 coins + Ruby Pack + 1 Broom (nếu đã claimed avatar rồi)",1210.0,2955,
+9,Phần thưởng khi chưa unlock CA,,,,
+10,2,40 coins,40.0,,"- Phần thưởng nhận và hiển thị trước khi unlock CA
+- Khi unlock Win Streak lần đầu tiên ở level 25 sẽ hiển thị những phần thưởng này, cho tới khi users unlock CA ở level 30 sẽ hiển thị và nhận những phần thưởng ở trên"
+11,5,15m Heart ,30.0,Checkpoint,
+12,8,1x Hammer,120.0,,
+13,11,60 coins,60.0,Checkpoint,
+14,14,1x Scissors,160.0,,
+
+--- Streak Assist (First 15 rows) ---
+,Set,Streak Level,Reward
+0,Set A,1,1x Scissors
+1,,2,2x Scissors
+2,,3,2x Scissors + 1x Hammer
+3,Set B,1,1x Scissors
+4,,2,2x Scissors
+5,,3,3x Scissors + 1x Add Box
+6,Set C,1,1x Scissors
+7,,2,2x Scissors
+8,,3,2x Scissors + 1x Hammer
+9,,4,3x Scissors + 1x Hammer
+10,,5,3x Scissors + 1x Hammer + 1x Add Box
+
+--- Piggy Bank (First 15 rows) ---
+,Stage,Requirement,Coin Reward
+0,1.0,Win 1 Level,50
+1,2.0,Win 2 Levels,100
+2,3.0,Win 3 Levels,150
+3,4.0,Win 5 Levels,200
+4,5.0,Win 10 Levels,250
+5,6.0,Win 15 Levels,400
+6,7.0,Win 20 Levels,500
+7,8.0,Win 25 Levels,600
+8,9.0,Win 30 Levels,750
+9,10.0,Win 40 Levels,1000
+10,,Total,4000
+11,,Tag,80% OFF / 60% OFF
+
+--- Piggy Bank Card Update (First 15 rows) ---
+,"DF
+(avg <1000 coins/day)","Requirement
+(Win x Level)",Coin Reward,"Coin per level of each mission
+(each level gain ? coins in 1 mission)","Margin coin per level
+(each level gain ? coins to the next mission)",Unnamed: 5,"ABC
+(avg 500~3000 coins/day)","Requirement
+(Win x Level).1",Coin Reward.1,"Coin per level of each mission
+(each level gain ? coins in 1 mission).1","Margin coin per level
+(each level gain ? coins to the next mission).1",Unnamed: 11,"SS+
+(avg >3000 coins/day)","Requirement
+(Win x Level).2",Coin Reward.2,"Coin per level of each mission
+(each level gain ? coins in 1 mission).2","Margin coin per level
+(each level gain ? coins to the next mission).2"
+0,1,1,25,25.0,25.0,,1,1,50,50.0,50.0,,1,1,100,100.0,50.0
+1,2,2,50,25.0,50.0,,2,2,100,50.0,100.0,,2,2,150,75.0,150.0
+2,3,3,75,25.0,75.0,,3,3,150,50.0,150.0,,3,3,200,66.66666667,200.0
+3,4,5,100,20.0,50.0,,4,5,200,40.0,100.0,,4,5,250,50.0,125.0
+4,5,10,150,15.0,30.0,,5,10,250,25.0,50.0,,5,10,350,35.0,70.0
+5,6,15,200,13.33333333,40.0,,6,15,300,20.0,60.0,,6,15,500,33.33333333,100.0
+6,7,20,250,12.5,50.0,,7,20,350,17.5,70.0,,7,20,600,30.0,120.0
+7,8,25,300,12.0,60.0,,8,25,400,16.0,80.0,,8,25,650,26.0,130.0
+8,9,30,350,11.66666667,70.0,,9,30,500,16.66666667,100.0,,9,30,800,26.66666667,160.0
+9,10,40,500,12.5,50.0,,10,40,700,17.5,70.0,,10,40,900,22.5,90.0
+10,Value,6.666666667,2000,50.0,,,Value,10,3000,75.0,,,Value,15,4500,112.5,
+11,Price #1,0.99,85%,,,,Price #1,1.99,80%,,,,Price #1,3.99,73%,,
+12,Price #2,1.99,70%,,,,Price #2,3.99,60%,,,,Price #2,6.99,53%,,
+13,,Tag,85% OFF / 70% OFF,,,,,Tag,80% OFF / 60% OFF,,,,,Tag,75% OFF / 50% OFF,,
+
+--- Winter Trinkets (First 15 rows) ---
+,Board,Board Size,Total Squares,Pieces,Blank Squares
+0,1,3x3,9.0,2x2 (1) + 1x2 (1) + 1x1 (1),2.0
+1,2,4x4,16.0,2x2 (1) + 1x3 (1) + 1x2 (2),5.0
+2,3,5x5,25.0,2x3 (1) + 2x2 (2) + 1x2 (2),7.0
+3,4,5x6,30.0, 2x3 (2) + 1x3 (2) + 1x2 (1),10.0
+4,5,6x6,36.0,3x3 (1) + 2x2 (2) + 1x3 (1) + 1x2 (2),12.0
+5,,,116.0,,36.0
+6,Stage 1,15m Heart + 1x Scissors,,,
+7,Stage 2,1x Scissors + 1x Hammer,,,
+8,Stage 3,30m Heart + 1x Hammer + 1x Broom,,,
+9,Stage 4,1x Scissors + 1x Hammer + 1x Broom,,,
+10,Stage 5,1200 Coins + 30m Heart + 1x Boosters Set,,,
+
+--- Christmas IAP 1 (First 15 rows) ---
+,Stage,No.,Price,Reward,Value,Total Value,Note,Token Snowflake,Total Snowflake,Rewards
+0,1,1,FREE,15m Heart,0,,,10,,
+1,2,2,FREE,20 Coins,20,,,10,20.0,1x Pickaxe
+2,3,3,FREE,1x Scissors,120,140.0,,10,,
+3,4,1,$2.49,Gift Box: 1000 Coins + 1x Broom,1240,,,20,30.0,2x Pickaxe
+4,5,2,FREE,30m Heart,75,,,10,,
+5,6,3,FREE,1x Hammer,160,1475.0,Discount 50%,10,,
+6,7,1,$4.99,Gift Box: 1800 Coins + 30m Heart + 1x Scissors,1995,,,30,,
+7,8,2,FREE,100 Coins,100,,,15,60.0,1x Hammer
+8,9,3,FREE,1x Hammer + 1x Broom,400,2495.0,Discount 40%,15,,
+9,10,1,$7.99,Gift Box: 2500 Coins + 1x Scissors + 1x Hammer,2780,,,40,,
+10,11,2,FREE,200 Coins + 1h Heart,500,,,20,80.0,3x Pickaxe
+11,12,3,FREE,1x Hammer + 1x Scissors  + 1x Broom,520,3800.0,Discount 35%,20,,
+12,13,1,$14.99,Gift Box: 6000 Coins + 2x Scissors + 2x Hammer + 2x Broom,7040,,,50,,
+13,14,2,FREE,300 Coins + 1h Heart,600,,,20,,
+14,15,3,FREE,2x Scissors + 2x Hammer,560,8200.0,Discount 45%,20,100.0,1h Heart
+
+--- Christmas IAP 2 (First 15 rows) ---
+,IAP,Pack,Price,Reward,Tag,Note
+0,Christmas Purchase,Holiday Gift Pack (Mini),$6.99,2K Coins + 1h Heart + 3x Boosters Set ,40% OFF,Lasts for 24 hours
+1,,Winter Blessing Bundle,$14.99,5K Coins + 3h Heart + 8x Boosters Set,50% OFF,Unlockable from Level 20
+2,,Santa's Secret Stash (XL),$24.99,10K Coins + 6h Heart + 12x Boosters Set,60% OFF,
+3,,,,"- Hiển thị gói IAP tương ứng với từng loại Purchasers (Minnow, Dolphin, Whale). Người chơi đăng nhập vào trong khoảng thời gian cho phép là sẽ bật popup IAP tương ứng lên.
+- Nếu ng chơi Dolphin hoặc Whale không mua thì hết thời gian của gói cũ và vẫn trong khoảng tgian cho phép thì sẽ bật gói có cấp bậc thấp hơn.
+- Ngược lại nếu mua thì đầu tiên sẽ ẩn gói đã mua đi, sau đó sẽ hiển thị gói cấp bậc cao hơn (nếu còn).
+- Lưu ý mỗi gói chỉ được mua duy nhất 1 lần cho cả 2 chu kỳ.",,
+
+--- Festive Pass (First 15 rows) ---
+,Stage,Token Required,Total Needed,Free,Coin Equivalent,Premium,Coin Equivalent 2,Note
+0,0,0,0,Christmas Frame,0,8-Heart Limit + 600 Coins (Pouch) + Christmas Avatar,600,Premium Pass: $7.99
+1,1,1,1,1x Hammer,160,30m Heart,200,Ultimate Pass: $9.99
+2,2,2,3,1x Scissors,120,1x Broom,240,Avg Time Spent a Day 45m
+3,3,3,6,40 Coins,40,1x Hammer,160,About 5 Levels per Day
+4,4,4,10,1x Hammer,160,1x Scissors,120,"Stickiness 40% -> 40% users play everyday, expected 150 Levels per Month for Core Users"
+5,5,8,18,Chest: 15m Heart  + 1x Broom,240,Chest: 100 Coins + 1x Scissors + 1x Broom,460,"Extra rewards expected to help progress faster by about 25 Levels (free), and 50 - 75 Levels (premium). Other features should also help as well."
+6,6,5,23,1x Hammer,160,1x Scissors,120,Player gets 1.4 Keys for each completed Level
+7,7,6,29,60 Coins,60,1x Hammer,160,
+8,8,9,38,1x Broom,240,30m Heart,200,
+9,9,7,45,30m Heart,200,1x Broom,240,
+10,10,10,55,Chest: 1x Hammer + 1x Scissors,280,Chest: 150 Coins + 1x Broom + 1x Hammer,550,
+11,11,8,63,1x Hammer,160,1x Scissors,120, 
+12,12,6,69,1x Broom,240,30m Heart,200,
+13,13,5,74,30m Heart,200,1x Hammer,160,
+14,14,9,83,1x Scissors,120,100 Coins,100,
+
+--- iOS IAP Hail Mary (First 15 rows) ---
+,No.,Knit Away (Pixon) - iOS,REF,Unravel Master (Supersonic) - iOS,REF 2,Wool Craze (SparkWish) - iOS,REF 3,Yarn Fever (Bravestars) - iOS,Knit Jam 3D (iKame) - iOS
+0,0,IAP Last 30 days: 200K+ (AppMagic),,IAP Last 30 days: 200K+ (AppMagic),,IAP Last 30 days: 1M+ (AppMagic),,IAP Last 30 days: 100K+ (AppMagic),"Không có dữ liệu cụ thể, mới phát hành chính thức trên iOS một thời gian ngắn"
+1,1,Hiển thị thêm cả các Bundle khác ngoài Fail Offer khi ng chơi thua,,"Không cho phép xem RW để Revive, vẫn cho phép xem Ad để sử dụng Booster, bao gồm cả Add Box.
+
+Chưa có tài nguyên là Infinite Heart.",,"Nhiều miếng từ nhỏ đến rất nhỏ, không cẩn thận rất dễ bấm nhầm và thua ngoài ý muốn", ,"(1) Thêm Special Dea! - tương đương Starter Pack
+(2) Tối ưu tiến trình và thuật toán Level Design. Test một số kịch bản về độ khó và Model 3D - đảm bảo test và tối ưu thường xuyên
+(3) Áp dụng User Segmentation vào Level Design và IAP Pricing/Placement
+(3) AB Testing thêm 1 số ý tưởng từ đối thủ","Thêm btn khi bấm có thể xem toàn bộ lớp bên trong cùng một lúc
+
+Hệ thống 4 Booster bên ngoài Add Box."
+2,2,"Starter Pack: x30 Win Coins, 1h Heart, 1x Boosters Set - $4.99 (50% OFF)
+
+Special Deal!: x60 Coins, 1h Heart, 1x Boosters Set - $2.99 (60% OFF)",,"Starter Pack: x100 Win Coins, 3x Boosters Set - $4.99 (50% OFF)
+
+Bật Starter Pack ở dưới cả các popup Boosters.",,"Hiển thị Ad BN từ bắt đầu Lv.5. Ad IN hiển thị sau khi kết thúc Lv.5, ngay trước đó sẽ bật popup Remove Ads.",,"A/B Testing - IAP - 3Ps:
+(1) Presentation - Done
+(2) Price 
+(3) Placement",
+3,3,"Thêm Tag vào các gói IAP Coin (Popular, Best Value)",,Không có sẵn tính năng xem màu của lớp bên trong. Mở khóa từ Level 10 nhưng đòi hỏi ng chơi phải đạt được Win Streak 5 để mở khóa và giữ tính năng này.,,,,,
+4,4,Bán kèm Remove Ads với Bundle lớn nhất là gói $49.99,,"Khi mua Booster bằng Coin thì phải mua 3 lượt sử dụng trong cùng 1 lần, nhưng khi xem Ad thì sẽ chỉ nhận được 1 lượt.",,"Có tính năng Lucky Spin, sau khi hoàn thành mỗi Level sẽ được nhận quà miễn phí (Coin, Booster, Meta Token), tối đa 5 lần 1 ngày. Sau khi nhận đủ 5 lần thì được nhận thêm 1 phần quà nữa Bonus? -> A/B Testing?", ,,
+5,5,"Số lượng len ở đa số ít hơn so với đa số các đối thủ khác, cho tới Level 10 là Level Hard thì số lượng len mới đạt mốc 120, còn trước đó đều < 100 len -> giảm thời gian chơi nhưng vẫn giữ được độ khó. Tầm khoảng 50% thì sẽ có hộp để khiến ng chơi thua.
+
+Coin Multiplier là X1.5, X2, X3.
+
+Có cho phép xem lớp len ở bên trong.",,"Đã có Meta Progression (đơn vị cuộn len sử dụng để xây dựng phòng, nhà,...) và tính năng Collection (bộ sưu tập hình ảnh của các Level đã hoàn thành).",,"Số lượng len đa số lớn hơn các sản phẩm đối thủ, đôi khi vượt trên 300 len,
+
+Không cho phép xem lớp len ở bên trong.
+
+Coin Multiplier là X2, X3, X4, X5.
+
+Tập trung vào Meta Progression là Light Recontruction, xung quanh Moral Trope thường được sử dụng để UA.",,,
+6,6,"Đã có tính năng Weekly Mission và Master Pass.
+Có sử dụng các nhân vật IP trong Level.",,,,"Ng chơi khởi đầu mà không có bất cứ Coin nào, bắt buộc phải xem Ad để qua được 1 số Level đầu tiên -> có cảm giác tích lũy Coin chậm hơn rất nhiều so với các đối thủ khác",,,
+7,7,"Mặc định tắt Vibration.
+Khi chơi rất dễ bấm nhầm vào len dù không có chủ đích dẫn đến thua.",,,,Sử dụng cách thể hiện popup No Ads khác: so sánh 2 gói No Ads với nhau trong cùng 1 popup để hướng ng chơi đến việc mua No Ads Bundle nhiều hơn.,,,
+8,8,Danh sách các gói IAP phổ biến (theo số lượng - AppMagic),,Danh sách các gói IAP phổ biến (theo số lượng - AppMagic),,Danh sách các gói IAP phổ biến (theo số lượng - AppMagic),,,
+
+--- Databucket Request (First 15 rows) ---
+,No.,Yêu cầu,Mô tả yêu cầu,Ảnh minh họa,Ghi chú
+0,1,Cách để thêm filter/parameter vào từng bảng dữ liệu,Có cách để thêm bộ lọc vào phần này ở trong mỗi Insight trong Dashboard được không ạ?,,Dashboard Variable: https://drive.google.com/file/d/1WQathZXKkrYZyVBHOZ1RYUrvqgqlE5sQ/view?usp=drive_link
+1,2,Cách để thêm column vào bảng dữ liệu,"Ví dụ như bảng Level Analytics này, em muốn bổ sung thêm dữ liệu như số lần sử dụng Booster, số lần xem Rewarded Ad,... này thì làm như thế nào ạ?
+",,
+2,2025-05-02 00:00:00,Cách để xem param của event,Những param này thì đều có trong event level_start/level_end rồi thì lấy ra xem kiểu gì ạ,,
+3,3,Cách để thêm line vào bảng dữ liệu,"Hoặc ví dụ như chart bên cạnh thì em muốn hiển thị thêm 1 line nữa như tỉ lệ thắng, tỉ lệ thua thì làm như thế nào ạ?",,
+4,4,Cách thêm Insight vào Dashboard,Ngoài các Insight có sẵn nếu mà có cách nào đơn giản vừa phải để GD tự thêm Insight vào thì em học được ạ =))),,Demo Dashboard: https://drive.google.com/file/d/1huXsfa9qdlOEJKJ6ER7YfDqNh7M6w8_O/view?usp=drive_link
+5,5,Cách tự tính thêm dữ liệu và đưa vào Insight,"Hoặc ví dụ em có thể tự định nghĩa 1 chỉ số bằng cách tính từ các chỉ số khác được không, ví dụ em có Win Rate và Lose Rate, từ đó em muốn tính ra một số mới là Complete Rate thì làm như thế nào ạ?",,
+6,6,Phần lớn RW và IAP đang đến từ kiểu người chơi nào?,"Có thể phân loại ng chơi thành các tệp như:
+- Phân loại theo Seniority: ng chơi mới (D0 - D3), ng chơi kinh nghiệm (D4 - D7), ng chơi gắn bó (D8 - D15), ng chơi trung thành (>D15),...
+- Phân loại theo Pay Habit: ng chơi chỉ xem Ad RW, ng chơi chỉ mua các gói nhỏ, ng chơi chỉ mua IAP 1 lần,  ng chơi mua IAP nhiều lần, ng chơi mua gói IAP lớn,...
+- Phân loại theo Playstyle: ng chơi chơi nhiều Lv trong 1 ngày, ng chơi quay lại thường xuyên mỗi ngày, ng chơi kém (phải chơi nhiều lần để qua 1 Level), ng chơi thường xuyên sử dụng Booster, ng chơi kbh sử dụng Booster,...",,
+7,7,Tương quan hành vi giữa việc xem RW và chi trả IAP,Người chơi xem nhiều RW thì có khả năng mua IAP cao hơn không hay là xem nhiều RW rồi thì sẽ không mua IAP nữa?,,
+8,8,Sau khi mua IAP thì chuỗi hành vi tiếp theo của ng chơi sẽ là gì?,"Họ tiêu tài nguyên (Booster, Coin) có được sau khi mua IAP ntnao? Họ có còn xem RW sau đó không? Ng mua IAP thì có gắn bó với sản phẩm hơn không? Thời điểm khi nào thì họ tiếp tục mua thêm gói thứ 2, thứ 3?
+
+Có thể phân biệt ra chuỗi của từng loại gói IAP cũng được. Kiểu gói nhỏ thì hành vi một kiểu riêng mà gói to thì hành vi khả năng cao cũng sẽ khác.",,
+9,9,Đối với ng chơi chỉ xem RW thì có xảy ra tình trạng thừa tài nguyên là Coin hoặc Booster không?,"Ví dụ nếu property balance_coin tại một thời điểm hoặc liên tục cao hơn 1000, mà nhiều ng cũng bị vậy, thì cũng là 1 trường hợp mà lượng Coin được tích lũy mà không có nhu cầu để sử dụng đi, hoặc là do Level quá dễ, hoặc là tặng quá nhiều",,
+10,10,,,,
+
+--- Insight (First 15 rows) ---
+,No.,Data,Analyze,Note
+0,1,Metrics,"Theo dõi các chỉ số sau để đánh giá tình trạng IAP:
+- ATV (Average Transaction Value)
+- ARPDAU (Average Revenue per Daily Active User)
+- ARPPU (Average Revenue per Paying User)
+- Conversion Rate (Pay Rate)",
+1,2,Strategy,"Tiếp cận việc tối ưu doanh thu IAP theo các hướng sau:
+(1) Convert: Tăng tỉ lệ người chơi từ không mua IAP sang có mua IAP, từ mua ít sang mua thường xuyên, từ mua rẻ sang mua đắt,...
+(2) Frequency: Tăng số lần người chơi mua IAP trong cùng một khoảng thời gian nhất định
+(3) Selection: Tăng số lượng lựa chọn phù hợp với nhu cầu của người chơi, nhiều mức giá, nhiều kiểu gói, nhiều cách thể hiện,...",
+2,3,Target,"Target Market & Audience:
+- US (Tier 1)
+- iOS > Android
+- Hybridcasual
+- Tight Economy
+
+-> Medium to High Pricing",
+3,4,,,
+4,5,,,
+
+--- Stamp Card (First 15 rows) ---
+,Format,Requirement,Reward,Coin Equivalent
+0,3.0,Collect 3 stamps,1 gold pack + 1 booster set + 500 coins + 1h heart,2305
+1,4.0,Collect 4 stamps, 1 gold pack + 2 booster set + 1000 coins + 2h heart,3055
+2,6.0,Collect 3 stamps,500 coins,375
+3,,Collect 6 stamps,1 rainbow pack + 3 booster set + 2000 coins + 4h heart,4835
+
+--- Card Treasures (First 15 rows) ---
+,All-time ATV,Tier,"Pack
+$",Reward,True Value,Dollar Value,"Discount
+%"
+0,>25,S+,21.99,7000 Coins + 1x Ruby Pack,7670.0,6600.0,0.1395045632
+1,,,25.99,9000 Coins + 1x Ruby Pack + 1x Gold Pack,10430.0,7800.0,0.2521572387
+2,,,29.99,10000 Coins + 2x Ruby Pack + 1x Gold Pack + 1x Rainbow Pack,13490.0,9000.0,0.3328391401
+3,,,,,,,
+4,15 - 25,S,15.99,5000 Coins + 1x Amethyst Pack,5485.0,4800.0,0.1248860529
+5,,,19.99,7000 Coins + 1x Amethyst Pack + 1x Ruby Pack,8155.0,6000.0,0.2642550582
+6,,,25.99,9000 Coins + 2x Amethyst Pack + 1x Ruby Pack + 1x Gold Pack,11400.0,7800.0,0.3157894737
+7,,,,,,,
+8,10 - 15,A,11.99,3500 Coins + 1x Amethyst Pack,3985.0,3600.0,0.09661229611
+9,,,14.99,4500 Coins + 1x Amethyst Pack + 1x Ruby Pack,5655.0,4500.0,0.2042440318
+10,,,16.99,6000 Coins + 2x Amethyst Pack + 1x Ruby Pack + 1x Gold Pack,8400.0,5100.0,0.3928571429
+11,,,,,,,
+12,5 - 10,B,5.99,1800 Coins + 1x Silver Pack,2120.0,1800.0,0.1509433962
+13,,,8.99,2500 Coins + 1x Silver Pack + 1x Amethyst Pack,3305.0,2700.0,0.1830559758
+14,,,11.99,3600 Coins + 2x Silver Pack + 2x Amethyst Pack + 1x Ruby Pack,5880.0,3600.0,0.387755102

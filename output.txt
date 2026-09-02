@@ -1,0 +1,139 @@
+
+--- ⚙️ Assumptions ---
+,Economy Simulation: Master Assumptions,Unnamed: 1,Unnamed: 2
+0,🔵 Assumptions from data,,
+1,,,
+2,PLAYER PROGRESSION,,
+3,Parameter,Value,Notes
+4,Avg levels per session,2,How many levels played per session
+5,Sessions per day (avg player),2,Daily active sessions
+6,Daily level clears (avg),4,Auto-calculated
+7,Level difficulty: % completed first try,0.6,Win rate on first attempt
+8,In-level boosters/revive purchase rate,0.1,% of near-fail sessions buying boosters
+9,Level difficulty: bonus coin,1.5,Bonus from Hard/Super Difficulties
+10,coin (SOFT CURRENCY) ECONOMY,,
+11,Parameter,Value,Notes
+12,coin per level clear (base),20,coin earned for completing a level
+13,coin earned per social action,0,coin rewarded for completing a social interaction (e.g. helping another player)
+14,Daily coin from levels,120,Base level clears only (before video)
+15,Total daily coin income,356.95,Base level clears + video bonus + live-ops daily avg
+16,Daily coin lost to in-level purchases,92,Auto-calculated from Revives/boosters
+17,Net daily coin income,264.95,Gross income minus coin drain
+18,,,
+19,REWARDED VIDEO — coin MULTIPLIER,,
+20,Parameter,Value,Notes
+21,Reward video multiplier,3,100% of base — watching doubles the coin earned per clear
+22,Video watch rate,0.25,50% of level clears are followed by a watched video
+23,Effective video bonus per clear,22.5,Base coin × multiplier × watch rate x bonus from difficulties
+24,Daily coin from rewarded video,90,Daily clears × effective video bonus
+25,Daily coin from levels (base),120,"Base level clears, no video"
+26,,,
+27,Revive/Boosters — coin SINK,,
+28,Parameter,Value,Notes
+29,Revive/Boosters cost (coin),230,Average cost of all boosters and revive
+30,% failed levels triggering,1,Est. share of failed levels
+31,Purchase rate (of triggers),0.1,Linked to purchase rate assumption
+32,Daily levels played,4,Pulled from Player Progression
+33,Daily failed levels,1.6,Daily levels played × (1 - win rate)
+34,Daily triggers,4,Failed levels × Trigger rate
+35,Daily purchases,0.4,Triggers × purchase rate
+36,Daily coin lost to levels,92,Net coin drained per day — sink
+37,LIVE-OPS EVENTS,,
+38,Event,Cadence (days),Max coin Reward
+39,Live-ops Event 1 (Key Collection),4,1400
+40,Live-ops Event 2 (Master Pass),30,480
+41,Live-ops Event 3 (Win Streak),3,420
+42,Live-ops Event 4 (Card Album),30,6250
+
+--- 📈 Player Journey ---
+,"Player Journey Simulation (per player, cumulative)",Unnamed: 1,Unnamed: 2,Unnamed: 3,Unnamed: 4,Unnamed: 5,Unnamed: 6
+0,Cumulative gold from all sources vs level sink. All values pull from ⚙️ Assumptions & 🎪 Live-ops. Does not calculate the first free 600 coins,,,,,,
+1,Level,"Days
+Active","Level Clears
+Gold (cum)","Video Bonus
+Gold (cum)","Live-ops
+Gold (cum)","Coins
+Spent (cum)","Net Gold
+Balance"
+2,1,0.3,20,23,37,23,57
+3,2,0.5,40,45,73,46,112
+4,3,0.8,60,68,110,69,169
+5,4,1,100,90,147,92,245
+6,5,1.3,150,113,184,115,332
+7,8,2,240,180,294,184,530
+8,10,2.5,300,225,367,230,662
+9,15,3.8,450,338,551,345,994
+10,20,5,600,450,735,460,1325
+11,25,6.3,750,563,918,575,1656
+12,30,7.5,900,675,1102,690,1987
+13,40,10,1200,900,1470,920,2650
+14,50,12.5,1500,1125,1837,1150,3312
+15,60,15,1800,1350,2204,1380,3974
+16,75,18.8,2250,1688,2755,1725,4968
+17,100,25,3000,2250,3674,2300,6624
+18,125,31.3,3750,2813,4592,2875,8280
+19,150,37.5,4500,3375,5511,3450,9936
+20,175,43.8,5250,3938,6429,4025,11592
+21,200,50,6000,4500,7348,4600,13248
+22,225,56.3,6750,5063,8266,5175,14904
+23,250,62.5,7500,5625,9184,5750,16559
+24,275,68.8,8250,6188,10103,6325,18216
+25,300,75,9000,6750,11021,6900,19871
+26,325,81.3,9750,7313,11940,7475,21528
+27,350,87.5,10500,7875,12858,8050,23183
+28,375,93.8,11250,8438,13777,8625,24840
+29,400,100,12000,9000,14695,9200,26495
+30,425,106.3,12750,9563,15613,9775,28151
+31,450,112.5,13500,10125,16532,10350,29807
+32,475,118.8,14250,10688,17450,10925,31463
+33,500,125,15000,11250,18369,11500,33119
+
+--- 💰 Daily Gold Flow ---
+,Daily coin Flow Summary,Unnamed: 1,Unnamed: 2,Unnamed: 3
+0,,,,
+1,📥  DAILY coin INFLOWS,,,
+2,Source,Basis,Daily coin (Avg),% of Gross
+3,Level clears (base),Daily clears × coin per clear (B14),120,0.3361815380305365
+4,Rewarded video bonus,Daily clears × base coin × multiplier × watch rate,90,0.25213615352290236
+5,Live-ops (daily avg),From 🎪 Live-ops G13 — win-rate weighted avg across all events,146.95,0.4116823084465611
+6,GROSS DAILY INCOME,,356.95,
+7,,,,
+8,📤  DAILY coin SINKS,,,
+9,Sink,Basis,Daily coin Lost,% of Gross
+10,Revive/Boosters purchases,Failed levels × trigger % × purchase rate × boosters/revive cost,92,0.25773917915674466
+11,TOTAL DAILY SINKS,,92,
+12,,,,
+13,⚖️  NET ECONOMY,,,
+14,Net daily coin,,264.95,
+15,Net weekly coin,,1854.6499999999999,
+16,Net monthly coin,,7948.5,
+17,Video boost % of gross,,0.25213615352290236,
+18,Live-ops % of gross,,0.4116823084465611,
+19,Board Full drain %,,0.25773917915674466,
+
+--- 🎪 Live-ops Calendar ---
+,Yarn Fever – Live-ops Event Economy (Win-Rate Model),Unnamed: 1,Unnamed: 2,Unnamed: 3,Unnamed: 4,Unnamed: 5,Unnamed: 6,Unnamed: 7,Unnamed: 8,Unnamed: 9,Unnamed: 10
+0,🔵 Blue = your inputs   |   Black = calculated   |   Avg Gold per Event = Max Reward × Win Rate,,,,,,,,,,
+1,Win Rate = % of participating players who earn the full/max reward for that event. Adjust per your analytics.,,,,,,,,,,
+2,Event,"Cadence
+(days)","Max Reward
+(coin equivalent)","Max Reward
+(coin only)","Est. Win
+Rate","Avg Coin Equi
+/ Event","Avg Coin Only
+/ Event","Monthly
+Occurrences","Monthly
+Resource Impact","Monthly
+Coin Impact",Win Rate Rationale
+3,Live-ops Event 1 (Key Collection),4,5030,1400,0.5,2515,700,4,10060,2800,"Solo 25-stage collection event. Gold awarded at multiple milestone stages = max reward total. Low barrier, ~60% completion."
+4,Live-ops Event 2 (Master Pass),30,8280,480,0.6,4968,288,1,4968,288,30-day pass. Has both coins rewards and boosters
+5,Live-ops Event 3 (Win Streak),3,3000,420,0.6,1800,252,4,7200,1008,"Solo stage-based event, 9 stages. Rewards awarded at milestone stages. ~55% of active players complete all stages."
+6,Live-ops Event 4 (Card Album),30,12850,6250,0.05,642.5,312.5,1,642.5,312.5,Card Album collection. Completing each set provides different rewards.
+7,"Live-ops Event 5 
+(Stamp Card)",,,,,0,0,—,0,0,
+8,Live-ops Event 6 ,,,,,0,0,—,0,0,
+9,Live-ops Event 7 ,,,,,0,0,—,0,0,
+10,TOTAL MONTHLY LIVE-OPS GOLD,,,,,,,,22870.5,4408.5,
+11,Daily avg gold from live-ops,,,,,,,,762.35,146.95,
+12,,,,,,,,,,,
+13,💡 Daily avg (G13) is automatically pulled into '💰 Daily Gold Flow' as the live-ops income line.,,,,,,,,,,
