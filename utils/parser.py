@@ -28,11 +28,5 @@ def parse_rewards(r_str):
     elif 'boosters set' in r_str:
         h += 1; b += 1; s += 1
         
-    # Map packs to coin equivalent as requested
-    if 'bronze pack' in r_str: c += 100
-    if 'emerald pack' in r_str: c += 200
-    if 'silver pack' in r_str: c += 320
-    if 'amethyst pack' in r_str: c += 485
-    if 'ruby pack' in r_str: c += 610
-        
+    # Card packs are collectible album cards, not direct in-game coins
     return c, h, b, s

@@ -38,6 +38,40 @@ DEFAULT_KEY_STAGES = [
     {"Stage": 25, "KeysReq": 304, "Reward": "1000 Coins"},
 ]
 
+
+DEFAULT_MASTER_PASS_STAGES = [
+    {"Stage": 0, "TokensReq": 0, "Reward": "1x Hammer", "PremiumReward": "8-Heart Limit + Golden Frame + 500 coins"},
+    {"Stage": 1, "TokensReq": 1, "Reward": "15m Heart", "PremiumReward": "30m Heart"},
+    {"Stage": 2, "TokensReq": 3, "Reward": "1x Bronze Pack", "PremiumReward": "1x Emerald Pack"},
+    {"Stage": 3, "TokensReq": 6, "Reward": "40 Coins", "PremiumReward": "1x Scissors"},
+    {"Stage": 4, "TokensReq": 10, "Reward": "1x Scissors", "PremiumReward": "1x Hammer"},
+    {"Stage": 5, "TokensReq": 18, "Reward": "Chest: 1x Scissors + 1x Bronze Pack", "PremiumReward": "Chest: 100 Coins + 1x Broom + 1x Emerald Pack"},
+    {"Stage": 6, "TokensReq": 23, "Reward": "60 Coins", "PremiumReward": "1x Scissors"},
+    {"Stage": 7, "TokensReq": 29, "Reward": "15m Heart", "PremiumReward": "30m Heart"},
+    {"Stage": 8, "TokensReq": 38, "Reward": "1x Hammer", "PremiumReward": "1x Hammer"},
+    {"Stage": 9, "TokensReq": 45, "Reward": "1x Broom", "PremiumReward": "1x Broom"},
+    {"Stage": 10, "TokensReq": 55, "Reward": "Chest: 1x Scissors + 1x Hammer + 1x Emerald Pack", "PremiumReward": "Chest: 150 Coins + 1x Hammer + 1x Broom + 1x Silver Pack"},
+    {"Stage": 11, "TokensReq": 63, "Reward": "1x Hammer", "PremiumReward": "2x Scissors"},
+    {"Stage": 12, "TokensReq": 75, "Reward": "1x Silver Pack", "PremiumReward": "1x Amethyst Pack"},
+    {"Stage": 13, "TokensReq": 86, "Reward": "30m Heart", "PremiumReward": "60m Heart"},
+    {"Stage": 14, "TokensReq": 95, "Reward": "1x Scissors", "PremiumReward": "1x Broom"},
+    {"Stage": 15, "TokensReq": 107, "Reward": "Chest: 1x Scissors + 1x Broom + 1x Silver Pack", "PremiumReward": "Chest: 200 Coins + 1x Boosters Set + 1x Silver Pack"},
+    {"Stage": 16, "TokensReq": 121, "Reward": "80 Coins", "PremiumReward": "2x Hammer"},
+    {"Stage": 17, "TokensReq": 130, "Reward": "1x Emerald Pack", "PremiumReward": "1x Silver Pack"},
+    {"Stage": 18, "TokensReq": 142, "Reward": "1x Scissors", "PremiumReward": "2x Scissors"},
+    {"Stage": 19, "TokensReq": 157, "Reward": "30m Heart", "PremiumReward": "60m Heart"},
+    {"Stage": 20, "TokensReq": 173, "Reward": "Chest: 1x Hammer + 1x Broom + 1x Amethyst Pack", "PremiumReward": "Chest: 300 Coins + 60m Heart + 1x Boosters Set + 1x Amethyst Pack"},
+    {"Stage": 21, "TokensReq": 186, "Reward": "1x Hammer", "PremiumReward": "2x Hammer"},
+    {"Stage": 22, "TokensReq": 196, "Reward": "100 Coins", "PremiumReward": "2x Broom"},
+    {"Stage": 23, "TokensReq": 211, "Reward": "30m Heart", "PremiumReward": "60m Heart"},
+    {"Stage": 24, "TokensReq": 225, "Reward": "1x Emerald Pack", "PremiumReward": "1x Silver Pack"},
+    {"Stage": 25, "TokensReq": 241, "Reward": "Chest: 1x Boosters Set + 1x Silver Pack", "PremiumReward": "Chest: 500 Coins + 60m Heart + 2x Boosters Set + 1x Ruby Pack"},
+    {"Stage": 26, "TokensReq": 256, "Reward": "1x Hammer", "PremiumReward": "3x Hammer"},
+    {"Stage": 27, "TokensReq": 273, "Reward": "1x Scissors", "PremiumReward": "3x Scissors"},
+    {"Stage": 28, "TokensReq": 292, "Reward": "1x Silver Pack", "PremiumReward": "1x Amethyst Pack"},
+    {"Stage": 29, "TokensReq": 309, "Reward": "1x Broom", "PremiumReward": "3x Broom"},
+    {"Stage": 30, "TokensReq": 329, "Reward": "Chest: 200 Coins + 1x Boosters Set + 1x Ruby Pack", "PremiumReward": "Chest: 750 Coins + 60m Heart + 3x Boosters Set + 1x Rainbow Pack"},
+]
 DEFAULT_STREAK_STAGES = [
     {"WinsReq": 2, "Reward": "40 coins"},
     {"WinsReq": 5, "Reward": "15m Heart + 1x Bronze pack"},
@@ -56,5 +90,7 @@ def get_default_tuning():
         'streak_stages': pd.DataFrame(DEFAULT_STREAK_STAGES),
         'prices': pd.DataFrame(DEFAULT_PRICES),
         'key_cadence': 7,
-        'streak_cadence': 3
+        'streak_cadence': 3,
+        'master_pass_cadence': 30,
+        'master_pass_stages': pd.DataFrame(DEFAULT_MASTER_PASS_STAGES)
     }

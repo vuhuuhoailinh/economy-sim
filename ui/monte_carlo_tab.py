@@ -2,9 +2,9 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import plotly.graph_objects as go
-from simulation.micro_sim import run_micro_simulation
+from simulation.monte_carlo_sim import run_monte_carlo_simulation
 
-def render_micro_tab():
+def render_monte_carlo_tab():
     if st.session_state.config is None:
         st.warning("⚠️ Please save configuration in Macro Economy tab first!")
     else:
@@ -16,7 +16,7 @@ def render_micro_tab():
             
         if st.button("Run Monte Carlo Simulation", type="primary"):
             with st.spinner("Simulating journeys..."):
-                balance_matrix, p0_flat_log, max_levels = run_micro_simulation(cfg, tuning_cfg, num_players)
+                balance_matrix, p0_flat_log, max_levels = run_monte_carlo_simulation(cfg, tuning_cfg, num_players)
                 
                 # Plot
                 mean_balance = np.mean(balance_matrix, axis=0)
