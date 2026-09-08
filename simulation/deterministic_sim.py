@@ -66,13 +66,16 @@ def run_deterministic_simulation(cfg, tuning_cfg):
         day_base = daily_levels * avg_base_coin_per_lvl * avg_win_rate
         day_rv = day_base * cfg['rv_watch_rate'] * (cfg['rv_multiplier'] - 1)
         
-        day_log["CoinLog"].append(f"Gameplay Base (from {daily_levels} levels played): +{int(day_base)} Coins")
-        day_log["CoinLog"].append(f"Rewarded Video (RV): +{int(day_rv)} Coins")
-        day_log["CoinsEarned"] += int(day_base) + int(day_rv)
-        current_coins += int(day_base) + int(day_rv)
+        day_base_earned = int(round(day_base))
+        day_rv_earned = int(round(day_rv))
         
-        tot_base += day_base
-        tot_rv += day_rv
+        day_log["CoinLog"].append(f"Gameplay Base (from {daily_levels} levels played): +{day_base_earned} Coins")
+        day_log["CoinLog"].append(f"Rewarded Video (RV): +{day_rv_earned} Coins")
+        day_log["CoinsEarned"] += day_base_earned + day_rv_earned
+        current_coins += day_base_earned + day_rv_earned
+        
+        tot_base += day_base_earned
+        tot_rv += day_rv_earned
         
         day_liveops = 0
         # Master Pass
@@ -366,6 +369,8 @@ def run_deterministic_simulation(cfg, tuning_cfg):
             target_uses -= 1
                 
         accum_needed['bst_free'] -= (used_h + used_b + used_s)
+        if target_uses > 0:
+            accum_needed['bst_free'] = 0.0
         
         free_h, bought_h, cost_h = used_h, 0, 0
         free_b, bought_b, cost_b = used_b, 0, 0
