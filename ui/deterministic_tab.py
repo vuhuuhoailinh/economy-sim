@@ -94,6 +94,7 @@ def render_deterministic_tab():
           - Tổng cộng 135 thẻ phân bổ trong 15 Sets thẻ (mỗi set 9 thẻ, từ 1-Sao đến 6-Sao Secret Gold).
           - Tỷ lệ ra thẻ Mới: `New Card Ratio = (Remaining New / Total) ^ (power + y_value) + Pity`.
           - Thẻ trùng lặp được quy đổi tự động thành Sao: 1⭐=1, 2⭐=2, 3⭐=3, 4⭐=5, 5⭐=10, 6⭐=15 Sao.
+          - Cơ chế **5 Gói Tân Thủ**: 5 gói thẻ đầu tiên mở trong Mùa (từ bất kỳ nguồn nào) được hệ thống buff **100% rớt toàn Thẻ Mới** cho tất cả các lá bài trong gói (không bị ngắt Pity giữa gói).
           - Cơ chế **Set Completion Pity (SS2)**: Tự động hỗ trợ nhét thẻ còn thiếu vào Set gần hoàn thành nhất.
           - Cơ chế **First Pack Luck (SS2)**: Lần đầu tiên mở bất kỳ loại gói thẻ nào trong mùa chắc chắn 100% rớt Thẻ Mới.
           - Cơ chế **:rainbow[Grand Album]**: Hoàn thành đủ 15 Sets (135/135 thẻ) nhận Grand Prize Vòng 1, kho thẻ tự động reset về 0 để mở khóa Grand Album (nhân đôi Coins thưởng của các Set), **giữ nguyên toàn bộ số Sao đã tích lũy**.
