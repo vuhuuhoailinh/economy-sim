@@ -217,14 +217,26 @@ def render_deterministic_tab():
         c4.metric("Avg Win Rate", f"{res['avg_win_rate']*100:.1f}%")
         
         st.subheader("2. Gameplay & Booster Summary")
-        b1, b2, b3, b4 = st.columns(4)
-        avg_levels_day = res.get('avg_levels_per_day', res['total_levels_played'] / res['days'])
+        b1, b2, b3, b4, b5 = st.columns(5)
+        
+        tot_played = res['total_levels_played']
+        avg_levels_day = res.get('avg_levels_per_day', tot_played / res['days'])
         avg_levels_str = f"{int(avg_levels_day):,}" if avg_levels_day.is_integer() else f"{avg_levels_day:.1f}"
-        b1.metric("Total Levels Played", f"{res['total_levels_played']:,}", f"Avg: {avg_levels_str}/day")
-        b2.metric("Total Boosters Used", f"{int(res['total_bst_used_overall']):,}")
+        b1.metric("Total Levels Played", f"{tot_played:,}", f"Avg: {avg_levels_str}/day")
+
+        tot_won = res.get('total_levels_won', sum(lg.get('LevelsWon', 0) for lg in res['macro_log']))
+        avg_won_day = res.get('avg_won_per_day', tot_won / res['days'])
+        avg_won_str = f"{int(avg_won_day):,}" if avg_won_day.is_integer() else f"{avg_won_day:.1f}"
+        b2.metric("Levels Won", f"{tot_won:,}", f"Avg: {avg_won_str}/day")
+
+        tot_lost = res.get('total_levels_lost', sum(lg.get('LevelsLost', 0) for lg in res['macro_log']))
+        avg_fails_day = res.get('avg_lost_per_day', res.get('failed_levels_per_day', tot_lost / res['days']))
+        avg_fails_str = f"{int(avg_fails_day):,}" if avg_fails_day.is_integer() else f"{avg_fails_day:.1f}"
+        b3.metric("Levels Lost", f"{tot_lost:,}", f"Avg: {avg_fails_str}/day", delta_color="inverse")
+
+        b4.metric("Total Boosters Used", f"{int(res['total_bst_used_overall']):,}")
         inv = res['final_inv']
-        b3.metric("Boosters", f"{inv['Hammer']} 🔨 | {inv['Broom']} 🧹 | {inv['Scissors']} ✂️")
-        b4.metric("Avg Fails / Day", f"{res['failed_levels_per_day']:.1f}")
+        b5.metric("Boosters", f"{inv['Hammer']} 🔨 | {inv['Broom']} 🧹 | {inv['Scissors']} ✂️")
         
         st.subheader("3. Card Album Progression")
         alb = res['album_summary']
