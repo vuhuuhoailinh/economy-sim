@@ -9,8 +9,8 @@ from card_album.state import ensure_album_state
 # ==============================================================================
 # MAIN APP CONFIGURATION
 # ==============================================================================
-st.set_page_config(page_title="Game Economy & Card Album Simulator", layout="wide")
-st.title("Game Economy & Card Album Simulator")
+st.set_page_config(page_title="Game Economy Simulator", layout="wide")
+st.title("Game Economy Simulator")
 
 # Initialize global card album state
 ensure_album_state(st.session_state)
