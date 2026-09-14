@@ -493,6 +493,88 @@ def run_deterministic_simulation(cfg, tuning_cfg):
         tot_liveops += day_liveops
 
         # Card Album Daily Packs & Chests Opening
+        def claim_sets_for_round(rnd: int):
+            nonlocal current_coins, tot_album_coins
+            set_counts = {}
+            for c in sim_album_state.get("owned_cards", set()):
+                set_counts[c[0]] = set_counts.get(c[0], 0) + 1
+
+            newly_completed = []
+            for s_id, s_info in CARD_SETS.items():
+                if set_counts.get(s_id, 0) >= sum(s_info["cards"].values()):
+                    if s_id not in claimed_sets_round[rnd]:
+                        claimed_sets_round[rnd].add(s_id)
+                        newly_completed.append(s_id)
+                        
+                        set_data = SET_REWARDS_MAP.get(s_id, {})
+                        rew_str = set_data.get("AlbumReward" if rnd == 0 else "GrandAlbumReward", "")
+                        if rew_str:
+                            _c, _h, _b, _s = parse_rewards(rew_str)
+                            if _c > 0:
+                                day_log["CoinsEarned"] += _c
+                                current_coins += _c
+                                tot_album_coins += _c
+                                day_log["CoinLog"].append(f"Card Album Set {s_id} ({set_data.get('Name')}) Completed: +{_c} Coins")
+                            if _h > 0 or _b > 0 or _s > 0:
+                                inv['Hammer'] += _h; inv['Broom'] += _b; inv['Scissors'] += _s
+                                tot_bst_earned['Hammer'] += _h; tot_bst_earned['Broom'] += _b; tot_bst_earned['Scissors'] += _s
+                                tot_bst_earned_album['Hammer'] += _h; tot_bst_earned_album['Broom'] += _b; tot_bst_earned_album['Scissors'] += _s
+                                day_log["BoostersEarned"]['Hammer'] += _h
+                                day_log["BoostersEarned"]['Broom'] += _b
+                                day_log["BoostersEarned"]['Scissors'] += _s
+                                
+                                bst_parts = []
+                                if _h > 0: bst_parts.append(f"+{_h} Hammer")
+                                if _b > 0: bst_parts.append(f"+{_b} Broom")
+                                if _s > 0: bst_parts.append(f"+{_s} Scissors")
+                                day_log["BoosterLog"].append(f"Card Album Set {s_id} ({set_data.get('Name')}) Completed: {', '.join(bst_parts)}")
+
+            if newly_completed:
+                total_in_rnd = len(claimed_sets_round[rnd])
+                for s_id in newly_completed:
+                    set_data = SET_REWARDS_MAP.get(s_id, {})
+                    rew_str = set_data.get("AlbumReward" if rnd == 0 else "GrandAlbumReward", "")
+                    prefix = "Grand Album" if rnd == 1 else "Card Album"
+                    day_log["EventLog"].append(f"{prefix} Set {s_id} ({set_data.get('Name')}) Completed! Reward: [{rew_str}] (Total: {total_in_rnd}/15 Sets)")
+
+            # Check Grand Prize for round 0 (full 135 cards)
+            if rnd == 0 and (len(claimed_sets_round[0]) == 15 or total_cards_collected(sim_album_state) >= TOTAL_CARDS) and not claimed_grand_prize[0]:
+                claimed_grand_prize[0] = True
+                gp_rew = GRAND_PRIZE_REWARDS["AlbumReward"]
+                _c, _h, _b, _s = parse_rewards(gp_rew)
+                day_log["CoinsEarned"] += _c
+                current_coins += _c
+                tot_album_coins += _c
+                inv['Hammer'] += _h; inv['Broom'] += _b; inv['Scissors'] += _s
+                tot_bst_earned['Hammer'] += _h; tot_bst_earned['Broom'] += _b; tot_bst_earned['Scissors'] += _s
+                tot_bst_earned_album['Hammer'] += _h; tot_bst_earned_album['Broom'] += _b; tot_bst_earned_album['Scissors'] += _s
+                day_log["BoostersEarned"]['Hammer'] += _h
+                day_log["BoostersEarned"]['Broom'] += _b
+                day_log["BoostersEarned"]['Scissors'] += _s
+                day_log["CoinLog"].append(f"Album Grand Prize (Full 135 Cards): +{_c} Coins")
+                day_log["BoosterLog"].append(f"Album Grand Prize: +{_h} Hammer, +{_b} Broom, +{_s} Scissors")
+                day_log["EventLog"].append(f"🏆 COMPLETED FULL ALBUM! Grand Prize: [{gp_rew}] ➔ Mở khóa Grand Album!")
+
+            # Check Grand Prize for round 1 (Grand Album finished)
+            if rnd == 1 and (len(claimed_sets_round[1]) == 15 or sim_album_state.get("grand_album_finished", False)) and not claimed_grand_prize[1]:
+                claimed_grand_prize[1] = True
+                gp_rew = GRAND_PRIZE_REWARDS["GrandAlbumReward"]
+                _c, _h, _b, _s = parse_rewards(gp_rew)
+                day_log["CoinsEarned"] += _c
+                current_coins += _c
+                tot_album_coins += _c
+                inv['Hammer'] += _h; inv['Broom'] += _b; inv['Scissors'] += _s
+                tot_bst_earned['Hammer'] += _h; tot_bst_earned['Broom'] += _b; tot_bst_earned['Scissors'] += _s
+                tot_bst_earned_album['Hammer'] += _h; tot_bst_earned_album['Broom'] += _b; tot_bst_earned_album['Scissors'] += _s
+                day_log["BoostersEarned"]['Hammer'] += _h
+                day_log["BoostersEarned"]['Broom'] += _b
+                day_log["BoostersEarned"]['Scissors'] += _s
+                day_log["CoinLog"].append(f"Grand Album Grand Prize: +{_c} Coins")
+                day_log["BoosterLog"].append(f"Grand Album Grand Prize: +{_h} Hammer, +{_b} Broom, +{_s} Scissors")
+                day_log["EventLog"].append(f"🏆 COMPLETED GRAND ALBUM! Grand Prize: [{gp_rew}]")
+
+        sim_album_state["on_album_complete"] = lambda state, completions: claim_sets_for_round(completions)
+
         start_new_total = sim_album_state["new_cards_drawn"] + sim_album_state["cd_new_cards_drawn"]
         start_dup_total = sim_album_state["dup_cards_drawn"] + sim_album_state["cd_dup_cards_drawn"]
         start_stars_gained = sim_album_state.get("pack_stars_gained", 0) + sim_album_state.get("cd_stars_gained", 0)
@@ -591,90 +673,27 @@ def run_deterministic_simulation(cfg, tuning_cfg):
 
         # Track completed sets and grant rewards
         current_round = min(1, sim_album_state.get("grand_album_completions", 0))
-        set_counts = {}
-        for c in sim_album_state.get("owned_cards", set()):
-            set_counts[c[0]] = set_counts.get(c[0], 0) + 1
+        claim_sets_for_round(current_round)
 
-        newly_completed_sets = []
-        for s_id, s_info in CARD_SETS.items():
-            if set_counts.get(s_id, 0) >= sum(s_info["cards"].values()):
-                if s_id not in claimed_sets_round[current_round]:
-                    claimed_sets_round[current_round].add(s_id)
-                    newly_completed_sets.append(s_id)
-                    
-                    set_data = SET_REWARDS_MAP.get(s_id, {})
-                    rew_str = set_data.get("AlbumReward" if current_round == 0 else "GrandAlbumReward", "")
-                    if rew_str:
-                        _c, _h, _b, _s = parse_rewards(rew_str)
-                        if _c > 0:
-                            day_log["CoinsEarned"] += _c
-                            current_coins += _c
-                            tot_album_coins += _c
-                            day_log["CoinLog"].append(f"Card Album Set {s_id} ({set_data.get('Name')}) Completed: +{_c} Coins")
-                        if _h > 0 or _b > 0 or _s > 0:
-                            inv['Hammer'] += _h; inv['Broom'] += _b; inv['Scissors'] += _s
-                            tot_bst_earned['Hammer'] += _h; tot_bst_earned['Broom'] += _b; tot_bst_earned['Scissors'] += _s
-                            tot_bst_earned_album['Hammer'] += _h; tot_bst_earned_album['Broom'] += _b; tot_bst_earned_album['Scissors'] += _s
-                            day_log["BoostersEarned"]['Hammer'] += _h
-                            day_log["BoostersEarned"]['Broom'] += _b
-                            day_log["BoostersEarned"]['Scissors'] += _s
-                            
-                            bst_parts = []
-                            if _h > 0: bst_parts.append(f"+{_h} Hammer")
-                            if _b > 0: bst_parts.append(f"+{_b} Broom")
-                            if _s > 0: bst_parts.append(f"+{_s} Scissors")
-                            day_log["BoosterLog"].append(f"Card Album Set {s_id} ({set_data.get('Name')}) Completed: {', '.join(bst_parts)}")
-
-        # Check Grand Prize for round 0 (full 135 cards)
-        if (sim_album_state.get("grand_album_completions", 0) >= 1 or len(claimed_sets_round[0]) == 15) and not claimed_grand_prize[0]:
-            claimed_grand_prize[0] = True
-            gp_rew = GRAND_PRIZE_REWARDS["AlbumReward"]
-            _c, _h, _b, _s = parse_rewards(gp_rew)
-            day_log["CoinsEarned"] += _c
-            current_coins += _c
-            tot_album_coins += _c
-            inv['Hammer'] += _h; inv['Broom'] += _b; inv['Scissors'] += _s
-            tot_bst_earned['Hammer'] += _h; tot_bst_earned['Broom'] += _b; tot_bst_earned['Scissors'] += _s
-            tot_bst_earned_album['Hammer'] += _h; tot_bst_earned_album['Broom'] += _b; tot_bst_earned_album['Scissors'] += _s
-            day_log["BoostersEarned"]['Hammer'] += _h
-            day_log["BoostersEarned"]['Broom'] += _b
-            day_log["BoostersEarned"]['Scissors'] += _s
-            day_log["CoinLog"].append(f"Album Grand Prize (Full 135 Cards): +{_c} Coins")
-            day_log["BoosterLog"].append(f"Album Grand Prize: +{_h} Hammer, +{_b} Broom, +{_s} Scissors")
-            day_log["EventLog"].append(f"COMPLETED FULL ALBUM! Grand Prize: [{gp_rew}]")
-
-        # Check Grand Prize for round 1 (Grand Album finished)
-        if sim_album_state.get("grand_album_finished", False) and not claimed_grand_prize[1]:
-            claimed_grand_prize[1] = True
-            gp_rew = GRAND_PRIZE_REWARDS["GrandAlbumReward"]
-            _c, _h, _b, _s = parse_rewards(gp_rew)
-            day_log["CoinsEarned"] += _c
-            current_coins += _c
-            tot_album_coins += _c
-            inv['Hammer'] += _h; inv['Broom'] += _b; inv['Scissors'] += _s
-            tot_bst_earned['Hammer'] += _h; tot_bst_earned['Broom'] += _b; tot_bst_earned['Scissors'] += _s
-            tot_bst_earned_album['Hammer'] += _h; tot_bst_earned_album['Broom'] += _b; tot_bst_earned_album['Scissors'] += _s
-            day_log["BoostersEarned"]['Hammer'] += _h
-            day_log["BoostersEarned"]['Broom'] += _b
-            day_log["BoostersEarned"]['Scissors'] += _s
-            day_log["CoinLog"].append(f"Grand Album Grand Prize: +{_c} Coins")
-            day_log["BoosterLog"].append(f"Grand Album Grand Prize: +{_h} Hammer, +{_b} Broom, +{_s} Scissors")
-            day_log["EventLog"].append(f"COMPLETED GRAND ALBUM! Grand Prize: [{gp_rew}]")
+        cards_new_today = (sim_album_state["new_cards_drawn"] + sim_album_state["cd_new_cards_drawn"]) - start_new_total
+        cards_dup_today = (sim_album_state["dup_cards_drawn"] + sim_album_state["cd_dup_cards_drawn"]) - start_dup_total
+        stars_gained_today = (sim_album_state.get("pack_stars_gained", 0) + sim_album_state.get("cd_stars_gained", 0)) - start_stars_gained
+        current_owned_cards = total_cards_collected(sim_album_state)
+        ga_completions = sim_album_state.get("grand_album_completions", 0)
+        cumulative_cards = ga_completions * TOTAL_CARDS + current_owned_cards
 
         total_sets_completed = len(claimed_sets_round[current_round])
         day_log["AlbumSetsCompleted"] = total_sets_completed
-
-        for s_id in newly_completed_sets:
-            set_data = SET_REWARDS_MAP.get(s_id, {})
-            rew_str = set_data.get("AlbumReward" if current_round == 0 else "GrandAlbumReward", "")
-            day_log["EventLog"].append(f"Completed Set {s_id} ({set_data.get('Name')})! Reward: [{rew_str}] (Total: {total_sets_completed}/15 Sets)")
-
+        day_log["AlbumTotalSetsCompleted"] = len(claimed_sets_round[0]) + len(claimed_sets_round[1])
         day_log["PacksEarned"] = {k: v for k, v in day_packs.items() if v > 0}
         day_log["ChestsEarned"] = {k: v for k, v in day_chests.items() if v > 0}
         day_log["AlbumCardsNew"] = cards_new_today
         day_log["AlbumCardsDup"] = cards_dup_today
         day_log["AlbumStarsGained"] = stars_gained_today
         day_log["AlbumTotalOwned"] = current_owned_cards
+        day_log["AlbumCumulativeCards"] = cumulative_cards
+        day_log["AlbumRound"] = 2 if ga_completions >= 1 else 1
+        day_log["AlbumStage"] = "Grand Album" if ga_completions >= 1 else "Standard Album"
         day_log["AlbumCompletionPct"] = (current_owned_cards / TOTAL_CARDS) * 100
         day_log["AlbumStarsTotal"] = sim_album_state["stars"]
 
@@ -688,8 +707,9 @@ def run_deterministic_simulation(cfg, tuning_cfg):
             if cnt > 0: pack_summary_parts.append(f"+{cnt} Chest {t}*")
             
         if pack_summary_parts:
+            round_tag = f"[{day_log['AlbumStage']}] " if ga_completions >= 1 else ""
             day_log["EventLog"].append(
-                f"Card Album: {', '.join(pack_summary_parts)} | Progress: +{cards_new_today} New, {cards_dup_today} Dup (+{stars_gained_today} Stars) -> Total: {current_owned_cards}/135 ({current_owned_cards/135*100:.1f}%) | Sets: {total_sets_completed}/15"
+                f"{round_tag}Card Album: {', '.join(pack_summary_parts)} | Progress: +{cards_new_today} New, {cards_dup_today} Dup (+{stars_gained_today} Stars) -> Total: {current_owned_cards}/135 ({current_owned_cards/135*100:.1f}%) | Sets: {total_sets_completed}/15"
             )
 
         def process_revive():
@@ -779,15 +799,10 @@ def run_deterministic_simulation(cfg, tuning_cfg):
     tot_bst_bought = {'Hammer': 0, 'Broom': 0, 'Scissors': 0, 'Revive': tot_revives_bought}
     
     # Calculate completed sets
-    completed_sets_count = 0
-    set_counts = {}
-    for c in sim_album_state.get("owned_cards", set()):
-        set_counts[c[0]] = set_counts.get(c[0], 0) + 1
-    for s_id, s_info in CARD_SETS.items():
-        if set_counts.get(s_id, 0) >= sum(s_info["cards"].values()):
-            completed_sets_count += 1
-
     final_owned = total_cards_collected(sim_album_state)
+    ga_completions = sim_album_state.get('grand_album_completions', 0)
+    current_round = min(1, ga_completions)
+    completed_sets_count = len(claimed_sets_round[current_round])
 
     return {
         'days': days,
@@ -830,12 +845,17 @@ def run_deterministic_simulation(cfg, tuning_cfg):
             'total_cards_owned': final_owned,
             'total_cards': TOTAL_CARDS,
             'completion_pct': (final_owned / TOTAL_CARDS) * 100,
+            'cumulative_cards': ga_completions * TOTAL_CARDS + final_owned,
             'total_stars': sim_album_state['stars'],
             'new_cards_drawn': sim_album_state['new_cards_drawn'] + sim_album_state['cd_new_cards_drawn'],
             'dup_cards_drawn': sim_album_state['dup_cards_drawn'] + sim_album_state['cd_dup_cards_drawn'],
             'completed_sets': completed_sets_count,
-            'grand_album_completions': sim_album_state.get('grand_album_completions', 0),
+            'main_album_sets': len(claimed_sets_round[0]),
+            'grand_album_sets': len(claimed_sets_round[1]),
+            'total_sets_completed': len(claimed_sets_round[0]) + len(claimed_sets_round[1]),
+            'grand_album_completions': ga_completions,
             'grand_album_finished': sim_album_state.get('grand_album_finished', False),
+            'is_grand_album': ga_completions >= 1,
             'current_season': ((days - 1) // 60) + 1,
             'season_day': ((days - 1) % 60) + 1
         }

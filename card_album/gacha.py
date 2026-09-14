@@ -38,11 +38,15 @@ def check_grand_album(session_state) -> None:
         if total_cards_collected(session_state) == TOTAL_CARDS:
             completions = session_state.get("grand_album_completions", 0)
             if completions < 1:
+                if "on_album_complete" in session_state and callable(session_state["on_album_complete"]):
+                    session_state["on_album_complete"](session_state, completions)
                 session_state["inventory"] = {1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0}
                 session_state["owned_cards"] = set()
                 session_state["grand_album_completions"] = completions + 1
                 add_log(session_state, "🏆 CHÚC MỪNG! Đã hoàn thành Album. Chuyển sang vòng Grand Album!")
             elif completions == 1 and not session_state.get("grand_album_finished", False):
+                if "on_album_complete" in session_state and callable(session_state["on_album_complete"]):
+                    session_state["on_album_complete"](session_state, completions)
                 session_state["grand_album_finished"] = True
                 add_log(session_state, "🏆 CHÚC MỪNG! Đã hoàn thành toàn bộ Grand Album! Các thẻ tiếp theo sẽ biến thành Sao.")
 

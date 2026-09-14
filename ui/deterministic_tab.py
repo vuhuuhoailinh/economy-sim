@@ -228,12 +228,33 @@ def render_deterministic_tab():
         
         st.subheader("3. Card Album Progression")
         alb = res['album_summary']
+
+        # Grand Album Status Banner
+        if alb.get('grand_album_finished', False):
+            st.success("🏆 **Trạng thái Card Album:** Đã hoàn thành xuất sắc toàn bộ cả 2 vòng: **Album Tiêu Chuẩn (135/135)** & **Grand Album (135/135)**! Đã nhận 2 lần Grand Prize (+15,000 Coins & 15x Booster Set).")
+        elif alb.get('is_grand_album', False) or alb.get('grand_album_completions', 0) >= 1:
+            st.info(f"🏆 **Trạng thái Card Album: Đang ở vòng :rainbow[Grand Album] (Vòng 2)** | Đã hoàn thành Vòng 1 (135/135 Thẻ, 15/15 Sets). Tiến độ Grand Album hiện tại: **{alb['total_cards_owned']}/135 thẻ** ({alb.get('completed_sets', 0)}/15 Sets). Phần thưởng Coins từ Set ở vòng này được nhân đôi (x2 Coins)!")
+
         a1, a2, a3, a4, a5 = st.columns(5)
         cur_season = alb.get('current_season', 1)
         season_label = f"Season {cur_season}" if cur_season > 1 else "Season 1"
-        a1.metric(f"Cards ({season_label})", f"{alb['total_cards_owned']} / {alb['total_cards']}", f"{alb['completion_pct']:.1f}% Album")
+
+        if alb.get('grand_album_finished', False):
+            a1.metric("Cards (Grand Album)", "135 / 135", "🏆 Đã xong 2 Vòng")
+        elif alb.get('is_grand_album', False) or alb.get('grand_album_completions', 0) >= 1:
+            a1.metric("Cards (Grand Album)", f"{alb['total_cards_owned']} / {alb['total_cards']}", "🏆 Đang ở Grand Album (V2)")
+        else:
+            a1.metric(f"Cards ({season_label})", f"{alb['total_cards_owned']} / {alb['total_cards']}", f"{alb['completion_pct']:.1f}% Album")
+
         a2.metric("Duplicate Stars", f"{alb['total_stars']:,} Stars")
-        a3.metric("Completed Sets", f"{alb['completed_sets']} / 15 Sets")
+
+        if alb.get('grand_album_finished', False):
+            a3.metric("Completed Sets", "15 / 15 Sets", "🏆 Hoàn tất 15/15 Grand")
+        elif alb.get('is_grand_album', False) or alb.get('grand_album_completions', 0) >= 1:
+            a3.metric("Completed Sets", f"Grand: {alb.get('completed_sets', 0)} / 15 Sets", "Vòng 1: Đã xong 15/15")
+        else:
+            a3.metric("Completed Sets", f"{alb['completed_sets']} / 15 Sets")
+
         tot_packs_count = sum(res['tot_packs_earned'].values())
         tot_chests_count = sum(res.get('tot_chests_earned', {}).values())
         a4.metric("Packs Earned", f"{tot_packs_count:,} Packs")
@@ -410,10 +431,24 @@ def render_deterministic_tab():
         st.markdown("<br>", unsafe_allow_html=True)
 
         # 3. Card Album Growth Chart
+        album_chart_view = st.radio(
+            "Chế độ hiển thị biểu đồ Album",
+            ["Cộng dồn qua Grand Album (Cumulative - Tránh gãy biểu đồ)", "Theo số thẻ vòng hiện tại (Per Round)"],
+            horizontal=True,
+            help="Cộng dồn qua Grand Album giúp biểu đồ hiển thị mượt mà liên tục (vượt qua mốc 135 thẻ khi tiến vào Grand Album). Theo vòng hiện tại sẽ hiển thị số thẻ 0-135 của từng vòng."
+        )
         fig_album = go.Figure()
-        fig_album.add_trace(go.Scatter(x=df_log['Day'], y=df_log['AlbumTotalOwned'], mode='lines+markers', name='Cards Collected', line=dict(color='#9467bd', width=3), fill='tozeroy'))
-        fig_album.add_trace(go.Scatter(x=df_log['Day'], y=[135]*len(df_log), mode='lines', name='Album Max (135)', line=dict(color='#d62728', dash='dash')))
-        fig_album.update_layout(title='Card Album Growth (Cards Owned vs Max)', xaxis_title='Day', yaxis_title='Unique Cards Owned', margin=dict(l=0, r=0, t=40, b=0), height=400)
+        if album_chart_view == "Cộng dồn qua Grand Album (Cumulative - Tránh gãy biểu đồ)":
+            y_col = 'AlbumCumulativeCards' if 'AlbumCumulativeCards' in df_log.columns else 'AlbumTotalOwned'
+            fig_album.add_trace(go.Scatter(x=df_log['Day'], y=df_log[y_col], mode='lines+markers', name='Cards Collected (Tích luỹ)', line=dict(color='#9467bd', width=3), fill='tozeroy'))
+            fig_album.add_trace(go.Scatter(x=df_log['Day'], y=[135]*len(df_log), mode='lines', name='Album Vòng 1 Max (135)', line=dict(color='#ef4444', dash='dash')))
+            if alb.get('grand_album_completions', 0) >= 1 or alb.get('is_grand_album', False):
+                fig_album.add_trace(go.Scatter(x=df_log['Day'], y=[270]*len(df_log), mode='lines', name='Grand Album Max (270)', line=dict(color='#f59e0b', dash='dot')))
+            fig_album.update_layout(title='Card Album Cumulative Growth (Tích luỹ qua Grand Album)', xaxis_title='Day', yaxis_title='Tổng Thẻ Sưu Tập Tích Luỹ', margin=dict(l=0, r=0, t=40, b=0), height=400)
+        else:
+            fig_album.add_trace(go.Scatter(x=df_log['Day'], y=df_log['AlbumTotalOwned'], mode='lines+markers', name='Thẻ Vòng Hiện Tại', line=dict(color='#9467bd', width=3), fill='tozeroy'))
+            fig_album.add_trace(go.Scatter(x=df_log['Day'], y=[135]*len(df_log), mode='lines', name='Album Max (135)', line=dict(color='#ef4444', dash='dash')))
+            fig_album.update_layout(title='Card Album Growth (Thẻ Trong Vòng Hiện Tại)', xaxis_title='Day', yaxis_title='Unique Cards Owned', margin=dict(l=0, r=0, t=40, b=0), height=400)
         st.plotly_chart(fig_album, use_container_width=True)
 
         st.markdown("<br>", unsafe_allow_html=True)
@@ -506,7 +541,10 @@ def render_deterministic_tab():
                     mp_info = ":violet[**Master Pass:**] Off"
                 keys_info = f":orange[**Key Collection:**] Stage {lg.get('KeyStage', 0)} ({lg.get('DailyKeys', 0)} Keys)"
                 streak_info = f":red[**Win Streak:**] Stage {lg.get('StreakStage', 0)} ({lg.get('DailyStreak', 0)} Wins)"
-                album_info = f":blue[**Card Album:**] **{lg.get('AlbumTotalOwned', 0)}/135** ({lg.get('AlbumCompletionPct', 0.0):.1f}%) | Stars: **{lg.get('AlbumStarsTotal', 0)}** | Sets Completed: **{lg.get('AlbumSetsCompleted', 0)}/15**"
+                if lg.get('AlbumRound', 1) == 2 or lg.get('AlbumStage') == 'Grand Album':
+                    album_info = f":rainbow[**Card Album (Grand Album):**] **{lg.get('AlbumTotalOwned', 0)}/135** ({lg.get('AlbumCompletionPct', 0.0):.1f}%) | Tích luỹ: **{lg.get('AlbumCumulativeCards', 0)}/270** | Stars: **{lg.get('AlbumStarsTotal', 0)}** | Sets: Grand **{lg.get('AlbumSetsCompleted', 0)}/15** (V1: 15/15)"
+                else:
+                    album_info = f":blue[**Card Album:**] **{lg.get('AlbumTotalOwned', 0)}/135** ({lg.get('AlbumCompletionPct', 0.0):.1f}%) | Stars: **{lg.get('AlbumStarsTotal', 0)}** | Sets Completed: **{lg.get('AlbumSetsCompleted', 0)}/15**"
 
                 st.markdown(
                     f"- **Gameplay & Wallet:** Levels: **{lg.get('LevelsPlayed', 0)}** (Won: {lg.get('LevelsWon', 0)}, Lost: {lg.get('LevelsLost', 0)}) | "
