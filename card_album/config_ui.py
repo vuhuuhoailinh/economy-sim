@@ -37,9 +37,9 @@ def render_config_tab():
     init_draft_config()
     st.header("Card Album Tuning")
     if st.session_state.pop("show_config_success", False):
-        st.success("Configuration changes applied successfully!")
+        st.success("Đã áp dụng các thay đổi cấu hình lên hệ thống!")
 
-    st.markdown("Fine-tune the entire card economy system, from card drop rates and pity mechanisms to chest drops and collection optimizations.")
+    st.markdown("Tab này cho phép tinh chỉnh toàn bộ hệ thống nền kinh tế, từ tỉ lệ rớt thẻ đến phần thưởng của các sự kiện.")
     
     col_apply, col1, col2, col3 = st.columns(4)
     
@@ -50,7 +50,7 @@ def render_config_tab():
         if st.button("Reset Defaults", use_container_width=True):
             load_config_to_state(st.session_state, None)
             clear_draft_config()
-            st.success("Default configuration restored successfully!")
+            st.success("Đã khôi phục cài đặt gốc!")
             st.rerun()
 
     with col2:
@@ -71,47 +71,46 @@ def render_config_tab():
                 st.session_state["last_uploaded_json"] = content
                 if import_config_from_json(st.session_state, content):
                     clear_draft_config()
-                    st.toast("Config imported successfully!")
+                    st.toast("Tải Config thành công!")
                     st.rerun()
                 else:
-                    st.error("Invalid config file!")
+                    st.error("File Config không hợp lệ!")
 
     st.divider()
 
     with st.expander("System Configuration Guide & Drop Rate Formulas", expanded=False):
         st.markdown("""
-        **1. New Card Drop Probability Formula:**
-        The game calculates new card drop chance using:
+        **1. Công thức tính cơ hội rớt Thẻ Mới:**
+        Game hiện tại áp dụng công thức sau để tính tỉ lệ ra thẻ mới:
         
         `New Card Ratio = (Remaining New / Total) ^ (x + y) + Pity`
-        - `x`: Global difficulty base for all packs (default = 3.0).
-        - `y`: Pack-specific coefficient (configured per pack, making premium packs drop new cards more easily).
+        - `x`: Hệ số chung cho mọi gói (Base for all pack), mặc định = 3.0.
+        - `y`: Hệ số riêng của từng gói (Cấu hình riêng trong từng gói thẻ giúp gói thẻ xịn dễ rớt thẻ mới hơn).
         
-        **2. Pack Drop Rates Table (Weights Explanation):**
-        - You can directly edit the drop rate of each Card Pack in the table below.
-        - Drop rates are calculated based on **relative weights** instead of fixed percentages.
-        - **Calculation Rule:** Drop chance of a rarity = `(Weight of that rarity) / (Total weights of all rarities)`.
-        - **Example:**
-          > If Bronze Pack has weights: 1-Star: `35`, 2-Star: `26`, 3-Star: `20`, 4-Star: `11`, 5-Star: `7`, Gold: `1`.
-          > Total Weight = 35 + 26 + 20 + 11 + 7 + 1 = 100.
-          > 1-Star drop chance = `35 / 100 = 35%`. Gold drop chance = `1 / 100 = 1%`.
-          > If you change Gold weight from `1` to `100`, Total Weight becomes 199. Gold drop chance becomes `100 / 199 ≈ 50%`!
+        **2. Giải thích Bảng Tỉ lệ Gói Thẻ (Packs Config):**
+        - Bạn hoàn toàn có thể **chỉnh sửa tỉ lệ rớt thẻ** của từng Gói Thẻ ngay trong bảng bên dưới.
+        - Tỉ lệ rớt được hệ thống tính toán dựa trên **Trọng số (Weights)** thay vì % tuyệt đối. (Bạn có thể rê chuột vào tiêu đề cột để xem chú thích).
+        - **Quy tắc tính:** Cơ hội rớt của một độ hiếm = (Trọng số của độ hiếm đó) / (Tổng trọng số của tất cả các độ hiếm).
+        - **Ví dụ rõ ràng:**
+          > Nếu Gói Bronze được cấu hình Trọng số là: 1-Sao: `35`, 2-Sao: `26`, 3-Sao: `20`, 4-Sao: `11`, 5-Sao: `7`, Gold: `1`.
+          > Khi đó, Tổng trọng số = 35 + 26 + 20 + 11 + 7 + 1 = 100.
+          > Tỉ lệ rớt thẻ 1-Sao sẽ là `35 / 100 = 35%`. Tỉ lệ thẻ Gold là `1 / 100 = 1%`.
+          > Nếu bạn sửa số thẻ Gold từ `1` thành `100`, Tổng trọng số sẽ tăng lên thành 199. Lúc này tỉ lệ rớt thẻ Gold cực cao, chiếm `100 / 199 ≈ 50%`!
         
-        **3. LiveOps Rewards:**
-        - Reward milestones for Master Pass, Win Streak, and Key Collection can be viewed in detail under the "LiveOps Economy Tables" tab.
+        **3. Bảng Phần thưởng Sự kiện (LiveOps Rewards):**
+        - Các mốc thưởng của Master Pass, Win Streak, và Key Collection có thể xem chi tiết tại tab con "LiveOps Economy Tables".
         
-        **4. Pity System:**
-        - Each pack type maintains an INDEPENDENT pity counter.
-        - Each time a pack is opened without any new card, that pack's pity counter increments by 1.
-        - Once consecutive misses reach `Pity Threshold` (e.g. 3 times), `Pity Incr` (e.g. +20%) is added to the New Card Ratio on the next open. More misses increase the buff progressively (up to +100%).
+        **4. Cơ chế Bảo hiểm (Pity System):**
+        - Mỗi gói thẻ sẽ có bộ đếm bảo hiểm (Pity) chạy hoàn toàn ĐỘC LẬP với nhau.
+        - Mỗi khi bạn mở một gói thẻ và tạch (không ra thẻ mới), bộ đếm của loại gói đó sẽ tăng lên 1.
+        - Khi tạch đến ngưỡng `Pity Threshold` (vd: 3 lần), hệ thống sẽ buff thêm `Pity Incr` (vd: +20%) vào Tỉ lệ ra thẻ mới ở lần mở gói tiếp theo. Càng tạch nhiều, buff càng to (Tối đa +100%).
         
-        **5. Collection Optimization (SS2):**
-        When **SS2 Optimize Collection** is enabled, two mechanics are activated:
-        - **First Pack Luck**: The very FIRST time any pack type is opened, it is guaranteed 100% to drop a New Card.
-        - **Set Completion Pity**: Algorithmic weighting prioritizes missing cards for near-complete sets:
-          > Probability = `(Set Urgency) × (Card Affordability)`.
-          > **Set Urgency**: `S.Base + (S.Max - S.Base) * (1 - Completed Sets / Total Sets)`. Fewer completed sets = higher push probability (capped at S.Max).
-          > **Card Affordability**: `C.Base + (C.Max - C.Base) * (5 - Rarity) / 4`. Lower rarity cards have higher completion probability (capped at C.Max for 1-Star).
+        **5. Cơ chế Tối ưu Bộ Sưu Tập (SS2):**
+        Khi bật tính năng **SS2 Optimize Collection**, game sẽ kích hoạt 2 cơ chế:
+        - **First Pack Luck**: Lần ĐẦU TIÊN mở bất kỳ Gói thẻ nào, chắc chắn 100% rớt Thẻ Mới.
+        - **Set Completion Pity**: Bàn tay vô hình nhét thẻ bạn thiếu vào set gần hoàn thành nhất. Xác suất = (Độ mót của Album) × (Độ rẻ của Thẻ).
+          > **Độ mót (Pity Set)**: `S.Base + (S.Max - S.Base) * (1 - Số Set Xong / Tổng Set)`. Càng xong ít Set, xác suất nhét bài càng cao (Max bằng S.Max).
+          > **Độ rẻ (Pity Rarity)**: `C.Base + (C.Max - C.Base) * (5 - Rarity) / 4`. Thẻ càng rẻ (ít Sao) thì xác suất nhét vào set càng cao (Max bằng C.Max đối với thẻ 1-sao).
         """)
 
     # ----------------- SYSTEM CONFIG -----------------
@@ -121,12 +120,12 @@ def render_config_tab():
     power = st.session_state["draft_new_card_power"]
     if "ui_new_power" not in st.session_state:
         st.session_state["ui_new_power"] = float(power)
-    st.markdown("General Difficulty Exponent (x) in formula: **New Card Ratio = (Remaining New/Total)^(x+y) + Pity**", help="Power exponent x. Higher values make it progressively harder to obtain new cards as collection completes.")
+    st.markdown("Hệ số Khó chung (x) theo công thức: **New Card Ratio = (Remaining New/Total)^(x+y) + Pity**", help="Hệ số lũy thừa x. Giá trị càng cao, khi bạn sưu tập được càng nhiều thẻ thì cơ hội ra thẻ mới càng nhỏ.")
     c1, _ = st.columns([1, 4])
     with c1:
         st.number_input("power_input", step=0.1, label_visibility="collapsed", key="ui_new_power")
     st.session_state["draft_new_card_formula_type"] = "document"
-    st.caption("Note: Coefficient y depends on each pack type (configured in the table below).")
+    st.caption("Lưu ý: Hệ số y sẽ phụ thuộc vào từng loại Pack (Cấu hình ở bảng bên dưới).")
     
     st.write("")
     st.markdown("### 2. Chest Drop Mini-Game")
@@ -134,13 +133,13 @@ def render_config_tab():
     chest_x = st.session_state["draft_chest_drop_x"]
     if "ui_chest_x" not in st.session_state:
         st.session_state["ui_chest_x"] = float(chest_x)
-    st.markdown("General Difficulty Exponent for Chest Drops (x): **New Card Ratio = (Remaining New/Total)^(x+y)**", help="Exponent x for Chest Drops. Coefficient y depends directly on card rarity (1-Star y=1.0, 2-Star y=0.5, 3-Star y=0.0, 4-Star y=-0.5, 5-Star y=-1.0, 6-Star y=-1.5).")
+    st.markdown("Hệ số Khó chung của Đập Rương (x): **New Card Ratio = (Remaining New/Total)^(x+y)**", help="Hệ số x cho Đập Rương. Hệ số y sẽ phụ thuộc trực tiếp vào độ hiếm của thẻ (1-Sao y=1.0, 2-Sao y=0.5, 3-Sao y=0.0, 4-Sao y=-0.5, 5-Sao y=-1.0, 6-Sao y=-1.5).")
     c2, _ = st.columns([1, 4])
     with c2:
         st.number_input("chest_power_input", step=0.1, label_visibility="collapsed", key="ui_chest_x")
     
     st.markdown("**Chest Drop Tiers Configuration:**")
-    st.caption("Configure tier upgrade rates, y_value, and drop weights for each chest tier.")
+    st.caption("Cấu hình tỉ lệ thăng cấp, hệ số y_value và trọng số rớt thẻ (weights) cho từng cấp rương.")
     
     chest_tiers_data = []
     draft_tiers = st.session_state["draft_config_chest_drop_tiers"]
@@ -161,12 +160,12 @@ def render_config_tab():
     
     chest_col_config = {
         "Chest Tier": st.column_config.TextColumn("Chest Tier", disabled=True),
-        "y_value": st.column_config.NumberColumn("y_value", help="Difficulty coefficient (y) when opening this chest."),
+        "y_value": st.column_config.NumberColumn("y_value", help="Hệ số độ khó (y) khi đập rương này."),
     }
     for i in range(1, 7):
         col_name = f"Star_{i}" if i < 6 else "Gold"
-        label_help = f"{i}-Star" if i < 6 else "GOLD (6-Star)"
-        chest_col_config[col_name] = st.column_config.NumberColumn(col_name, help=f"Drop weight for {label_help} rarity. Higher value = higher drop rate.")
+        label_help = f"{i}-Sao" if i < 6 else "Thẻ VÀNG (6-Sao)"
+        chest_col_config[col_name] = st.column_config.NumberColumn(col_name, help=f"Trọng số bốc trúng độ hiếm {label_help}. Số càng to tỉ lệ càng cao.")
         
     edited_chest_tiers = st.data_editor(
         df_chest_tiers,
@@ -177,7 +176,7 @@ def render_config_tab():
     )
     
     st.markdown("**Chest Upgrade Probability Matrix:**")
-    st.caption("Configure upgrade probability based on starting chest. Rows represent starting chest, columns represent upgrade target.")
+    st.caption("Cấu hình tỉ lệ thăng cấp phụ thuộc vào rương khởi đầu. Dòng là rương khởi đầu, Cột là rương hiện tại.")
     
     matrix_data = []
     draft_matrix = st.session_state["draft_config_chest_upgrade_matrix"]
@@ -205,7 +204,7 @@ def render_config_tab():
     
     st.write("")
     st.markdown("### 3. Collection Optimization (SS2 Optimize Collection)")
-    st.caption("Configure pity weighting when drawing new cards, helping players complete unfinished sets.")
+    st.caption("Cấu hình tỉ lệ rớt bù (Pity) khi mở thẻ mới, giúp người chơi dễ dàng hoàn thành Set đang dở.")
     
     if "ui_ss2_s_base" not in st.session_state:
         st.session_state["ui_ss2_s_base"] = float(st.session_state.get("config_ss2_s_base", 0.1))
@@ -215,19 +214,19 @@ def render_config_tab():
         
     cc1, cc2, cc3, cc4 = st.columns(4)
     with cc1:
-        st.number_input("S.Base (Urgency Min)", step=0.01, key="ui_ss2_s_base", help="Minimum boost factor when many sets are completed")
+        st.number_input("S.Base", step=0.01, key="ui_ss2_s_base", help="Hệ số bù thấp nhất khi đã xong nhiều Set")
     with cc2:
-        st.number_input("S.Max (Urgency Max)", step=0.01, key="ui_ss2_s_max", help="Maximum boost factor when few sets are completed")
+        st.number_input("S.Max", step=0.01, key="ui_ss2_s_max", help="Hệ số bù cao nhất khi chưa xong Set nào")
     with cc3:
-        st.number_input("C.Base (Affordability Min)", step=0.01, key="ui_ss2_c_base", help="Buff factor for difficult cards (5-Star)")
+        st.number_input("C.Base", step=0.01, key="ui_ss2_c_base", help="Hệ số buff đối với Thẻ khó ra (Thẻ 5-Sao)")
     with cc4:
-        st.number_input("C.Max (Affordability Max)", step=0.01, key="ui_ss2_c_max", help="Buff factor for common cards (1-Star)")
+        st.number_input("C.Max", step=0.01, key="ui_ss2_c_max", help="Hệ số buff đối với Thẻ siêu dễ (Thẻ 1-Sao)")
 
     st.divider()
     
     # ----------------- PACKS CONFIG -----------------
     st.subheader("2. Pack Drop Rates Configuration")
-    st.caption("Configure card count per pack, guaranteed rarity tier, pack-specific y_value, and rarity weights.")
+    st.caption("Cấu hình số thẻ trong mỗi gói, thẻ bảo hiểm, hệ số rớt (y_value) và trọng số (weights) của từng độ hiếm.")
     packs_data = []
     
     # Store mapping to retrieve pack name cleanly from iconified name
@@ -256,16 +255,16 @@ def render_config_tab():
     # Configure columns with tooltips
     col_config = {
         "Pack": st.column_config.TextColumn("Pack Name", disabled=True),
-        "Size": st.column_config.NumberColumn("Size", help="Number of cards drawn from this pack."),
-        "Guaranteed": st.column_config.NumberColumn("Guaranteed", help="Minimum guaranteed rarity tier (e.g., 3 guarantees at least one 3-Star card)."),
-        "y_value": st.column_config.NumberColumn("y_value", help="Pack difficulty coefficient (y). Negative values make new cards easier to obtain."),
-        "Pity Threshold": st.column_config.NumberColumn("Pity Threshold", help="Consecutive empty opens required to trigger pity bonus."),
-        "Pity Incr": st.column_config.NumberColumn("Pity Incr", help="Drop chance bonus added upon reaching pity threshold (e.g. 0.2 = +20%)."),
+        "Size": st.column_config.NumberColumn("Size", help="Số lượng thẻ rút ra từ gói này."),
+        "Guaranteed": st.column_config.NumberColumn("Guaranteed", help="Độ hiếm tối thiểu được bảo đảm (Ví dụ: 3 là có ít nhất 1 thẻ 3-Sao)."),
+        "y_value": st.column_config.NumberColumn("y_value", help="Hệ số độ khó riêng (y) của gói (Chỉ dùng cho Công thức Tài liệu). Âm = rớt thẻ dễ hơn."),
+        "Pity Threshold": st.column_config.NumberColumn("Pity Threshold", help="Số lần mở gói xịt liên tiếp để kích hoạt Pity."),
+        "Pity Incr": st.column_config.NumberColumn("Pity Incr", help="% cơ hội cộng thêm khi đạt ngưỡng Pity (VD: 0.2 = +20%)."),
     }
     for i in range(1, 7):
         col_name = f"Star_{i}" if i < 6 else "Gold"
-        label_help = f"{i}-Star" if i < 6 else "GOLD (6-Star)"
-        col_config[col_name] = st.column_config.NumberColumn(col_name, help=f"Drop weight for {label_help} rarity. Higher value = higher drop rate.")
+        label_help = f"{i}-Sao" if i < 6 else "Thẻ VÀNG (6-Sao)"
+        col_config[col_name] = st.column_config.NumberColumn(col_name, help=f"Trọng số bốc trúng độ hiếm {label_help}. Số càng to tỉ lệ càng cao.")
         
     edited_packs = st.data_editor(df_packs, num_rows="fixed", hide_index=True, use_container_width=True, column_config=col_config, key="pack_config_editor")
 
@@ -323,7 +322,7 @@ def render_config_tab():
         
         # Removed Rewards Config application because they are now read-only
         
-        st.toast("Configuration saved successfully!")
+        st.toast("Cấu hình đã được lưu thành công!")
         st.session_state["show_config_success"] = True
         st.rerun()
 

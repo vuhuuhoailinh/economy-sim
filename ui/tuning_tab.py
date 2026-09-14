@@ -60,16 +60,16 @@ def render_tuning_tab():
         df_set_rewards = st.session_state.tuning.get('card_set_rewards', pd.DataFrame())
         
         col_cfg = {
-            "Set": st.column_config.TextColumn("Set", help="Set index (1-15 or Total)"),
-            "Name": st.column_config.TextColumn("Set Name / Theme"),
-            "Common": st.column_config.NumberColumn("1-Star Common", help="Number of 1-Star cards in Set"),
-            "Uncommon": st.column_config.NumberColumn("2-Star Uncommon", help="Number of 2-Star cards in Set"),
-            "Rare": st.column_config.NumberColumn("3-Star Rare", help="Number of 3-Star cards in Set"),
-            "Epic": st.column_config.NumberColumn("4-Star Epic", help="Number of 4-Star cards in Set"),
-            "Legendary": st.column_config.NumberColumn("5-Star Legendary", help="Number of 5-Star cards in Set"),
-            "Secret": st.column_config.NumberColumn("6-Star Secret Gold", help="Number of Gold (6-Star) cards in Set"),
-            "AlbumReward": st.column_config.TextColumn("Album Reward", help="Reward for completing Set first time (Round 0)"),
-            "GrandAlbumReward": st.column_config.TextColumn("Grand Album Reward", help="Reward for completing Set in Grand Album (Round 1)")
+            "Set": st.column_config.TextColumn("Set", help="Số thứ tự Set (1-15 hoặc Total)"),
+            "Name": st.column_config.TextColumn("Set Name / Theme", help="Tên Set / Chủ đề"),
+            "Common": st.column_config.NumberColumn("1-Star Common", help="Số thẻ 1-Sao trong Set"),
+            "Uncommon": st.column_config.NumberColumn("2-Star Uncommon", help="Số thẻ 2-Sao trong Set"),
+            "Rare": st.column_config.NumberColumn("3-Star Rare", help="Số thẻ 3-Sao trong Set"),
+            "Epic": st.column_config.NumberColumn("4-Star Epic", help="Số thẻ 4-Sao trong Set"),
+            "Legendary": st.column_config.NumberColumn("5-Star Legendary", help="Số thẻ 5-Sao trong Set"),
+            "Secret": st.column_config.NumberColumn("6-Star Secret Gold", help="Số thẻ Vàng (6-Sao) trong Set"),
+            "AlbumReward": st.column_config.TextColumn("Album Reward", help="Thưởng khi hoàn thành Set lần đầu (Round 0)"),
+            "GrandAlbumReward": st.column_config.TextColumn("Grand Album Reward", help="Thưởng khi hoàn thành Set ở Grand Album (Round 1)")
         }
         
         st.dataframe(
