@@ -223,7 +223,7 @@ def render_deterministic_tab():
         b1.metric("Total Levels Played", f"{res['total_levels_played']:,}", f"Avg: {avg_levels_str}/day")
         b2.metric("Total Boosters Used", f"{int(res['total_bst_used_overall']):,}")
         inv = res['final_inv']
-        b3.metric("Boosters", f"{inv['Hammer']} H | {inv['Broom']} B | {inv['Scissors']} S")
+        b3.metric("Boosters", f"{inv['Hammer']} 🔨 | {inv['Broom']} 🧹 | {inv['Scissors']} ✂️")
         b4.metric("Avg Fails / Day", f"{res['failed_levels_per_day']:.1f}")
         
         st.subheader("3. Card Album Progression")
@@ -494,10 +494,10 @@ def render_deterministic_tab():
                 st.markdown(f"### Day {lg['Day']} ({lg['DayName']})")
                 inv = lg['Inv']
                 inv_parts = []
-                if inv['Hammer'] > 0: inv_parts.append(f"{inv['Hammer']} Hammer")
-                if inv['Broom'] > 0: inv_parts.append(f"{inv['Broom']} Broom")
-                if inv['Scissors'] > 0: inv_parts.append(f"{inv['Scissors']} Scissors")
-                inv_str = ", ".join(inv_parts) if inv_parts else "Empty"
+                if inv['Hammer'] > 0: inv_parts.append(f"{inv['Hammer']} 🔨")
+                if inv['Broom'] > 0: inv_parts.append(f"{inv['Broom']} 🧹")
+                if inv['Scissors'] > 0: inv_parts.append(f"{inv['Scissors']} ✂️")
+                inv_str = " | ".join(inv_parts) if inv_parts else "Empty"
                 
                 mp_tier_str = lg.get('MPTier', 'Free')
                 if mp_tier_str != 'Off':
