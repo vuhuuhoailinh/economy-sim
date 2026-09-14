@@ -40,51 +40,63 @@ def render_deterministic_tab():
     with st.expander("System Assumptions & Economy Overview", expanded=False):
         st.markdown("""
         ### 1. Level Progression & Win Rates
-        - Level Progression: **6 Normal (N) - 2 Hard (H) - 1 Super Hard (SH)**.
+        - **Level Progression**: Diễn ra theo chu kỳ cố định 9 màn: **6 Normal (N) - 2 Hard (H) - 1 Super Hard (SH)** (tỷ lệ 6 : 2 : 1).
         - **Tiền thưởng cơ bản khi thắng màn (Base Coins)**:
           - Normal: **20 Coins**
-          - Hard: **40 Coins** (gấp 2 lần)
-          - Super Hard: **60 Coins** (gấp 3 lần)
+          - Hard: **40 Coins** (gấp 2 lần Normal)
+          - Super Hard: **60 Coins** (gấp 3 lần Normal)
           - *Trung bình một màn thắng nhận được: ~28.89 Coins (trước khi xem quảng cáo).*
-        - **Tỷ lệ thắng (Win Rate mặc định)**: Normal 100%, Hard 90%, Super Hard 80%.
+        - **Tỷ lệ thắng (Win Rate mặc định)**: Normal **100%**, Hard **90%**, Super Hard **80%** (Trung bình chu kỳ: **95.56%**).
+        - **Tần suất chơi (Daily Sessions mặc định)**: **2 sessions/ngày**, mỗi session chơi ngẫu nhiên từ **1 đến 4 màn** (trung bình ~5 màn/ngày).
 
         ### 2. Coins Economy: Faucets & Sinks
+        - **Số dư khởi đầu (Initial Coins)**: Bắt đầu mô phỏng với **400 Coins**.
         - **Nguồn bơm tiền (Inflows / Faucets)**:
-          - **Gameplay Base**: Nhận trực tiếp mỗi khi vượt qua màn chơi.
-          - **Rewarded Video (Ads)**: Xem quảng cáo sau khi thắng để nhận hệ số nhân thưởng (Mặc định: 25% tỷ lệ xem với hệ số x3 tiền thưởng).
-          - **:orange[Key Collection]**: Tiền thưởng từ các mốc chìa khóa của sự kiện trong tuần.
-          - **:red[Win Streak]**: Thưởng tiền trực tiếp khi đạt chuỗi thắng cao (Mốc 2: 40 coins, Mốc 18: 80 coins, Mốc 36: 300 coins).
-          - **:violet[Master Pass]**: 
-            - Các mốc thưởng Coins trực tiếp: Free gồm mốc 3, 6, 16, 22, 30 (tổng 480 Coins); Premium nhận thêm mốc 0, 5, 10, 15, 20, 25, 30 (tổng thêm 2,500 Coins).
-            - **Bonus Bank**: Sau khi vượt qua mốc 30 (max stage), mỗi 10 Tokens tích lũy thêm sẽ cộng 150 Coins vào ngân hàng thưởng (tối đa 3,000 Coins), được chi trả vào ngày cuối cùng của chu kỳ 30 ngày.
+          - **Gameplay Base**: Nhận trực tiếp mỗi khi vượt qua màn chơi theo chu kỳ màn chơi.
+          - **Rewarded Video (Ads)**: Xem quảng cáo sau khi thắng (Mặc định: **25%** tỷ lệ xem với hệ số **x3** tiền thưởng, tương ứng cộng thêm +200% tiền thưởng gốc của màn đó).
+          - **:orange[Key Collection]**: Diễn ra từ **Thứ 2 đến hết Thứ 5** (1 Win = 5 Keys, trần 304 Keys/tuần). Thưởng tiền tại Mốc 12 (80 Coins), Mốc 16 (120 Coins), Mốc 20 (200 Coins), Mốc 25 (1,000 Coins) -> **Tổng 1,400 Coins/chu kỳ tuần**.
+          - **:red[Win Streak]**: Diễn ra từ **Thứ 6 đến hết Chủ Nhật** (thua reset chuỗi về 0, trần 36 trận thắng). Thưởng tiền tại Mốc 2 (40 Coins), Mốc 18 (80 Coins), Mốc 36 (300 Coins) -> **Tổng 420 Coins/chu kỳ tuần**.
+          - **:violet[Master Pass] (Chu kỳ 30 ngày)**: Thu thập token từ màn chơi (N: 1, H: 2, SH: 3 Tokens, max 329 Tokens).
+            - **Nhánh Free (Mặc định bật)**: Mốc 3 (40c), Mốc 6 (60c), Mốc 16 (80c), Mốc 22 (100c), Mốc 30 (200c trong Rương) -> **Tổng 480 Coins/chu kỳ 30 ngày**.
+            - **Nhánh Premium (Nếu bật)**: Nhận thêm tại Mốc 0 (500c), Mốc 5 (100c), Mốc 10 (150c), Mốc 15 (200c), Mốc 20 (300c), Mốc 25 (500c), Mốc 30 (750c) -> **Cộng thêm 2,500 Coins**.
+            - **Bonus Bank**: Sau khi vượt mốc 30 (329 Tokens), mỗi 10 Tokens tích lũy thêm sẽ cộng **150 Coins** vào ngân hàng thưởng (tối đa **3,000 Coins**), được chi trả vào ngày cuối cùng của chu kỳ 30 ngày.
+          - **Card Set Completion & :rainbow[Grand Prize]**:
+            - Thưởng Coins khi hoàn thành từng Set: Set 1 (100 Coins), Set 4 (150 Coins), Set 7 (200 Coins), Set 10 (300 Coins), Set 13 (500 Coins). Ở vòng Grand Album phần thưởng Coins của các Set này được nhân đôi (x2).
+            - **Grand Prize**: Hoàn tất 15 Sets (135/135 Thẻ) nhận **+5,000 Coins** (Album Thường) hoặc **+10,000 Coins** (Grand Album).
         - **Nguồn xả tiền (Outflows / Sinks)**:
-          - **Revive (Hồi sinh)**: Khi thua màn, người chơi có xác suất `Revive Buy Rate` (Mặc định 10%) tiêu tốn **380 Coins** để mua tiếp 5 lượt đi (thay vì xem Ads hoặc bỏ cuộc).
+          - **Revive (Hồi sinh)**: Khi thua màn, người chơi có xác suất `Revive Buy Rate` (Mặc định 10%) tiêu tốn **380 Coins** để mua tiếp 5 lượt đi (chỉ mua khi số dư tài khoản >= 380 Coins).
           - *Lưu ý: Game không cho phép dùng Coins mua trực tiếp Booster trong màn chơi.*
 
         ### 3. Booster Economy: Faucets & Sinks
         - **Nhóm Booster hỗ trợ**: Hammer (Búa), Broom (Chổi), Scissors (Kéo).
         - **Nguồn nhận Booster (Inflows)**:
-          - **:orange[Key Collection]**: Thưởng qua rương mốc chìa khóa.
-          - **:red[Win Streak]**: Thưởng từ mốc chuỗi thắng cao (Mốc 11 nhận Scissors, Mốc 30 nhận Hammer, Mốc 36 nhận Broom).
-          - **:violet[Master Pass]**: Mốc 0 mở khóa nhận ngay 1x Hammer, và các mốc giải thưởng đan xen xuyên suốt 30 stage.
+          - **:orange[Key Collection]**: Thưởng qua các mốc chìa khóa: Mốc 2 (1 Scissors), Mốc 5 (1 Hammer), Mốc 6 (1 Broom), Mốc 9 (1 Scissors), Mốc 14 (1 Broom), Mốc 18 (1 Scissors), Mốc 22 (1 Hammer) -> **Tổng 2 Hammer, 2 Broom, 3 Scissors/chu kỳ tuần**.
+          - **:red[Win Streak]**: Thưởng từ mốc chuỗi thắng: Mốc 11 (1 Scissors), Mốc 30 (**2x Hammer**), Mốc 36 (1 Broom) -> **Tổng 2 Hammer, 1 Broom, 1 Scissors/chu kỳ tuần**.
+          - **:violet[Master Pass]**: Mốc 0 mở khóa nhận ngay 1x Hammer; nhiều mốc thưởng đơn lẻ và Rương Booster Set (1 Hammer + 1 Broom + 1 Scissors) ở cả 2 nhánh Free và Premium.
+          - **Card Set Completion & :rainbow[Grand Prize]**:
+            - Hoàn thành Set nhận Booster: Set 2, 5 (2x Scissors); Set 3, 8 (2x Hammer); Set 6, 9 (2x Broom); Set 11 (3x Scissors); Set 12, 14 (3x Hammer); Set 15 (3x Broom).
+            - **Grand Prize**: Nhận ngay **5x Booster Set** (5 Hammer, 5 Broom, 5 Scissors) ở Album Thường và **10x Booster Set** (10 Hammer, 10 Broom, 10 Scissors) ở Grand Album.
         - **Tiêu thụ Booster (Sinks)**:
-          - Cứ mỗi màn chơi bắt đầu, dựa trên `Booster Use Rate` người chơi sẽ **bốc ngẫu nhiên 1 trong 3 loại booster** có sẵn trong kho để sử dụng. Nếu kho đồ không còn loại nào, người chơi sẽ không tiêu thụ booster.
+          - `Booster Use Rate`: **Mặc định 0% (0.0)** để giả lập tích lũy kho đồ thuần túy.
+          - Khi bật (> 0): Cứ mỗi màn chơi bắt đầu, người chơi sẽ **bốc ngẫu nhiên 1 trong 3 loại booster đang có trong kho** để sử dụng. Nếu kho đồ không còn loại nào, người chơi sẽ không tiêu thụ booster và **tuyệt đối không mua bù bằng Coins**.
 
         ### 4. Card Album & LiveOps Events
         - **Card Packs Inflows**:
-          - **Core Gameplay**: Thắng màn Hard nhận **1x Bronze Pack**, thắng Super Hard nhận **1x Emerald Pack**.
+          - **Core Gameplay**: Thắng màn Hard nhận 1x Bronze Pack, thắng Super Hard nhận 1x Emerald Pack (**Mặc định TẮT** để tránh lạm phát thẻ từ cày cuốc thường; có thể bật trong config).
+          - **:orange[Key Collection]**: Cung cấp Bronze, Emerald, Silver, Amethyst, Ruby Packs theo các mốc chìa khóa.
+          - **:red[Win Streak]**: Cung cấp Bronze, Emerald, Silver, Amethyst, Ruby Packs theo các mốc chuỗi thắng.
           - **:violet[Master Pass]**: Cung cấp Bronze, Emerald, Silver, Amethyst, Ruby, Rainbow Packs.
-          - **:red[Win Streak]**: Cung cấp Bronze, Emerald, Silver, Amethyst, Ruby Packs.
-          - **:orange[Key Collection]**: Nhận pack theo các mốc chìa khóa.
-          - **:blue[Card Rush Event]**: Kích hoạt vào Thứ 7 (Tuần 1-6) và Thứ 4 + Thứ 7 (Tuần 7+), tự động nâng cấp Bronze -> Bronze+, Emerald -> Emerald+, Silver -> Silver+ (+50% số thẻ trong gói).
-          - **:green[Chest Drop Minigame]**: Thắng 3, 7, 12 level trong ngày nhận rương 1-Sao, 2-Sao, 3-Sao (gõ 5 lần/rương, có xác suất thăng cấp lên tối đa 5-Sao).
+          - **:violet[Star Chest] (Tự động Đổi Rương Sao)**: **Mặc định BẬT**. Ưu tiên tự động đổi từ **Gold Star Chest (500⭐: 1x Rainbow, 1x Amethyst, 1x Silver)**; vào ngày cuối của Mùa (Day 60), hệ thống sẽ vét đổi tiếp Silver Star Chest (250⭐) và Bronze Star Chest (100⭐) nếu không đủ 500⭐.
+          - **:blue[Card Rush Event]**: Kích hoạt vào Thứ 7 (Tuần 1-6) và Thứ 4 + Thứ 7 (Tuần 7+), tự động nâng cấp Bronze -> Bronze+ (3 thẻ, +50%), Emerald -> Emerald+ (5 thẻ, +67%), Silver -> Silver+ (6 thẻ, +50%).
+          - **:green[Chest Drop Minigame]**: Thắng 3, 7, 12 level trong ngày nhận rương 1-Sao, 2-Sao, 3-Sao. Mỗi rương được đập đúng 5 lần (đảm bảo 5 thẻ trong cùng 1 rương không trùng lặp), có xác suất thăng cấp lên tối đa 5-Sao.
         - **Card Album Mechanics**:
-          - **Chu kỳ Mùa (Season)**: Kéo dài đúng **60 Ngày**. Khi kết thúc 60 ngày sẽ bắt đầu Mùa mới, reset toàn bộ thẻ về 0.
-          - Tổng cộng 135 thẻ phân bổ trong 15 Sets thẻ.
-          - Tỷ lệ ra thẻ Mới giảm dần theo lũy thừa `(Remaining / Max) ^ (power + y_value)`.
-          - Thẻ trùng lặp được quy đổi tự động thành Sao (1 đến 15 Sao tùy độ hiếm).
+          - **Chu kỳ Mùa (Season)**: Kéo dài đúng **60 Ngày**. Khi kết thúc 60 ngày sẽ bắt đầu Mùa mới (Season 2, Day 61), **reset toàn bộ thẻ về 0** để mở lại chu kỳ sưu tập mới.
+          - Tổng cộng 135 thẻ phân bổ trong 15 Sets thẻ (mỗi set 9 thẻ, từ 1-Sao đến 6-Sao Secret Gold).
+          - Tỷ lệ ra thẻ Mới: `New Card Ratio = (Remaining New / Total) ^ (power + y_value) + Pity`.
+          - Thẻ trùng lặp được quy đổi tự động thành Sao: 1⭐=1, 2⭐=2, 3⭐=3, 4⭐=5, 5⭐=10, 6⭐=15 Sao.
           - Cơ chế **Set Completion Pity (SS2)**: Tự động hỗ trợ nhét thẻ còn thiếu vào Set gần hoàn thành nhất.
-          - Cơ chế **:rainbow[Grand Album]**: Tự động reset kho thẻ khi hoàn thành đủ 135 thẻ trong mùa, giữ nguyên toàn bộ số Sao đã tích lũy.
+          - Cơ chế **First Pack Luck (SS2)**: Lần đầu tiên mở bất kỳ loại gói thẻ nào trong mùa chắc chắn 100% rớt Thẻ Mới.
+          - Cơ chế **:rainbow[Grand Album]**: Hoàn thành đủ 15 Sets (135/135 thẻ) nhận Grand Prize Vòng 1, kho thẻ tự động reset về 0 để mở khóa Grand Album (nhân đôi Coins thưởng của các Set), **giữ nguyên toàn bộ số Sao đã tích lũy**.
         """)
         
     with st.form("macro_form"):
