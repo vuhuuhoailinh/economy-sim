@@ -237,7 +237,10 @@ def run_deterministic_simulation(cfg, tuning_cfg):
                 day_log["EventLog"].append(f"Master Pass [{mp_tier}] Started (30-day Cycle)!")
 
             prev_mp_tokens = master_pass_tokens
-            master_pass_tokens += daily_tokens
+            if mp_tier != 'Premium':
+                master_pass_tokens = min(float(max_mp_stage), master_pass_tokens + daily_tokens)
+            else:
+                master_pass_tokens += daily_tokens
             day_log["DailyMPTokens"] = int(daily_tokens)
 
             if not mp_df.empty:
@@ -277,7 +280,7 @@ def run_deterministic_simulation(cfg, tuning_cfg):
                             'prem_reward': prem_rew_str if mp_tier == 'Premium' else None
                         })
 
-            if master_pass_tokens > max_mp_stage:
+            if mp_tier == 'Premium' and master_pass_tokens > max_mp_stage:
                 prev_overflow = max(0, prev_mp_tokens - max_mp_stage)
                 curr_overflow = master_pass_tokens - max_mp_stage
                 chunks_today = int(curr_overflow / 10) - int(prev_overflow / 10)
@@ -285,7 +288,7 @@ def run_deterministic_simulation(cfg, tuning_cfg):
                     added_bank = chunks_today * 150
                     master_pass_bonus_bank = min(3000, master_pass_bonus_bank + added_bank)
 
-            if d % 30 == 0 and master_pass_bonus_bank > 0:
+            if mp_tier == 'Premium' and d % 30 == 0 and master_pass_bonus_bank > 0:
                 day_log["CoinLog"].append(f"Master Pass End: +{int(master_pass_bonus_bank)} Coins (Bonus Bank)")
                 day_liveops += master_pass_bonus_bank
                 tot_liveops_mp += master_pass_bonus_bank

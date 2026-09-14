@@ -121,7 +121,10 @@ def run_monte_carlo_simulation(cfg, t_cfg, num_players):
                     mp_max_stage_tokens = mp_df['TokensReq'].max() if not mp_df.empty else 150
                     prev_tokens = mp_tokens
                     tokens_earned = 1 if l_type == 'N' else (2 if l_type == 'H' else 3)
-                    mp_tokens += tokens_earned
+                    if mp_tier != 'Premium':
+                        mp_tokens = min(float(mp_max_stage_tokens), mp_tokens + tokens_earned)
+                    else:
+                        mp_tokens += tokens_earned
                     
                     if not mp_df.empty:
                         mp_match = mp_df[(mp_df['TokensReq'] > prev_tokens) & (mp_df['TokensReq'] <= mp_tokens)]
@@ -138,7 +141,7 @@ def run_monte_carlo_simulation(cfg, t_cfg, num_players):
                                 if s>0: added_bst.append(f"{s}S")
                                 if c>0 or h>0 or b>0 or s>0:
                                     added_bst.append("MP Milestone!")
-                    if mp_tokens > mp_max_stage_tokens:
+                    if mp_tier == 'Premium' and mp_tokens > mp_max_stage_tokens:
                         prev_overflow = max(0, prev_tokens - mp_max_stage_tokens)
                         curr_overflow = mp_tokens - mp_max_stage_tokens
                         if int(curr_overflow / 10) > int(prev_overflow / 10):

@@ -57,9 +57,9 @@ def render_deterministic_tab():
           - **:orange[Key Collection]**: Diễn ra từ **Thứ 2 đến hết Thứ 5** (1 Win = 5 Keys, trần 304 Keys/tuần). Thưởng tiền tại Mốc 12 (80 Coins), Mốc 16 (120 Coins), Mốc 20 (200 Coins), Mốc 25 (1,000 Coins) -> **Tổng 1,400 Coins/chu kỳ tuần**.
           - **:red[Win Streak]**: Diễn ra từ **Thứ 6 đến hết Chủ Nhật** (thua reset chuỗi về 0, trần 36 trận thắng). Thưởng tiền tại Mốc 2 (40 Coins), Mốc 18 (80 Coins), Mốc 36 (300 Coins) -> **Tổng 420 Coins/chu kỳ tuần**.
           - **:violet[Master Pass] (Chu kỳ 30 ngày)**: Thu thập token từ màn chơi (N: 1, H: 2, SH: 3 Tokens, max 329 Tokens).
-            - **Nhánh Free (Mặc định bật)**: Mốc 3 (40c), Mốc 6 (60c), Mốc 16 (80c), Mốc 22 (100c), Mốc 30 (200c trong Rương) -> **Tổng 480 Coins/chu kỳ 30 ngày**.
-            - **Nhánh Premium (Nếu bật)**: Nhận thêm tại Mốc 0 (500c), Mốc 5 (100c), Mốc 10 (150c), Mốc 15 (200c), Mốc 20 (300c), Mốc 25 (500c), Mốc 30 (750c) -> **Cộng thêm 2,500 Coins**.
-            - **Bonus Bank**: Sau khi vượt mốc 30 (329 Tokens), mỗi 10 Tokens tích lũy thêm sẽ cộng **150 Coins** vào ngân hàng thưởng (tối đa **3,000 Coins**), được chi trả vào ngày cuối cùng của chu kỳ 30 ngày.
+            - **Nhánh Free (Mặc định bật)**: Mốc 3 (40c), Mốc 6 (60c), Mốc 16 (80c), Mốc 22 (100c), Mốc 30 (200c trong Rương) -> **Tổng 480 Coins/chu kỳ 30 ngày**. Khi đạt mốc 30 (329 Tokens), toàn bộ Token thừa sẽ không được tính và không tích lũy Bonus Bank.
+            - **Nhánh Premium (Yarn Pass - Nếu mua)**: Nhận thêm tại Mốc 0 (500c), Mốc 5 (100c), Mốc 10 (150c), Mốc 15 (200c), Mốc 20 (300c), Mốc 25 (500c), Mốc 30 (750c) -> **Cộng thêm 2,500 Coins**.
+            - **Bonus Bank (Chỉ mở khóa khi mua Yarn Pass/Premium)**: Sau khi vượt mốc 30 (329 Tokens), mỗi 10 Tokens tích lũy thêm sẽ cộng **150 Coins** vào ngân hàng thưởng (tối đa **3,000 Coins**), được chi trả vào ngày cuối cùng của chu kỳ 30 ngày.
           - **Card Set Completion & :rainbow[Grand Prize]**:
             - Thưởng Coins khi hoàn thành từng Set: Set 1 (100 Coins), Set 4 (150 Coins), Set 7 (200 Coins), Set 10 (300 Coins), Set 13 (500 Coins). Ở vòng Grand Album phần thưởng Coins của các Set này được nhân đôi (x2).
             - **Grand Prize**: Hoàn tất 15 Sets (135/135 Thẻ) nhận **+5,000 Coins** (Album Thường) hoặc **+10,000 Coins** (Grand Album).
@@ -151,7 +151,7 @@ def render_deterministic_tab():
                     ["Free", "Premium"], 
                     key="ui_mp_tier", 
                     disabled=not enable_mp,
-                    help="Chọn luồng phần thưởng Master Pass: 'Free' (chỉ nhận mốc Free thông thường) hoặc 'Premium' (nhận song song cả mốc Free và Premium với giá trị thưởng vượt trội)."
+                    help="Chọn luồng phần thưởng Master Pass: 'Free' (chỉ nhận mốc Free, không tích lũy Bonus Bank khi max mốc) hoặc 'Premium' (Yarn Pass - nhận song song cả mốc Free & Premium và mở khóa tính năng Bonus Bank tích lũy tối đa 3,000 Coins cuối chu kỳ)."
                 )
             with col_ctrl2:
                 enable_core_packs = st.toggle("Thưởng Pack từ Màn Hard/Super Hard", value=st.session_state.get("ui_enable_core_packs", False), key="ui_enable_core_packs", help="Thắng màn Hard nhận Bronze Pack, màn Super Hard nhận Emerald Pack.")
