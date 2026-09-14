@@ -30,3 +30,28 @@ def parse_rewards(r_str):
         
     # Card packs are collectible album cards, not direct in-game coins
     return c, h, b, s
+
+def parse_packs(reward_str: str) -> dict[str, int]:
+    packs = {}
+    if not isinstance(reward_str, str):
+        return packs
+    
+    cleaned = reward_str.replace('*', '')
+    if "Avatar" in cleaned and "Ruby" in cleaned:
+        cleaned = "500 Coins + 1x Boosters Set + 1x Ruby Pack"
+        
+    for base in ["Bronze", "Emerald", "Silver", "Amethyst", "Ruby", "Gold", "Rainbow"]:
+        pattern = rf'(?:(\d+)\s*[xX]?\s*)?({base}(\+)?)\s*pack'
+        matches = re.finditer(pattern, cleaned, re.IGNORECASE)
+        for m in matches:
+            count_str = m.group(1)
+            pack_name = m.group(2).capitalize()
+            if pack_name.endswith('+'):
+                pack_name = pack_name[:-1].capitalize() + '+'
+            else:
+                pack_name = pack_name.capitalize()
+            count = int(count_str) if count_str else 1
+            packs[pack_name] = packs.get(pack_name, 0) + count
+            
+    return packs
+

@@ -1,7 +1,80 @@
 import random
 import pandas as pd
-from config import DEFAULT_PRICES
-from utils.parser import parse_rewards
+from config import DEFAULT_PRICES, SET_REWARDS_MAP, GRAND_PRIZE_REWARDS
+from utils.parser import parse_rewards, parse_packs
+from card_album.config import PACK_ORDER, TOTAL_CARDS, CARD_SETS, CHEST_CONFIG
+from card_album.config_manager import get_default_config
+from card_album.state import fresh_inventory, fresh_pack_counts, total_cards_collected, reset_season
+from card_album.gacha import open_pack, process_chest_drop_hit, format_card_name
+
+def is_card_rush_day(day: int) -> bool:
+    if day <= 0: return False
+    week = (day - 1) // 7 + 1
+    weekday = (day - 1) % 7 + 1
+    if week <= 6: 
+        return weekday == 6
+    else: 
+        return weekday in (3, 6)
+
+def upgrade_pack(pack: str, is_cr: bool) -> str:
+    if is_cr and pack in ("Bronze", "Emerald", "Silver"):
+        return pack + "+"
+    return pack
+
+def create_album_state(tuning_cfg=None):
+    def_cfg = get_default_config()
+    custom_packs = tuning_cfg.get('config_packs') if tuning_cfg else None
+    custom_chest_tiers = tuning_cfg.get('config_chest_drop_tiers') if tuning_cfg else None
+    custom_chest_matrix = tuning_cfg.get('config_chest_upgrade_matrix') if tuning_cfg else None
+    chest_x = tuning_cfg.get('config_chest_drop_x', 2.0) if tuning_cfg else 2.0
+    new_card_power = tuning_cfg.get('new_card_power', 2.5) if tuning_cfg else 2.5
+    s_base = tuning_cfg.get('config_ss2_s_base', 0.1) if tuning_cfg else 0.1
+    s_max = tuning_cfg.get('config_ss2_s_max', 0.5) if tuning_cfg else 0.5
+    c_base = tuning_cfg.get('config_ss2_c_base', 0.3) if tuning_cfg else 0.3
+    c_max = tuning_cfg.get('config_ss2_c_max', 1.0) if tuning_cfg else 1.0
+
+    return {
+        "inventory": fresh_inventory(),
+        "stars": 0,
+        "total_packs": 0,
+        "pack_counts": fresh_pack_counts(),
+        "pack_pity": fresh_pack_counts(),
+        "log": [],
+        "grand_album_enabled": True,
+        "grand_album_completions": 0,
+        "grand_album_finished": False,
+        "new_card_formula_type": "document",
+        "config_packs": custom_packs if custom_packs else def_cfg["packs"],
+        "new_card_power": new_card_power,
+        "pity_multiplier": 1.0,
+        "owned_cards": set(),
+        "total_cards_drawn": 0,
+        "new_cards_drawn": 0,
+        "dup_cards_drawn": 0,
+        "pack_stars_gained": 0,
+        "new_cards_by_rarity": {r: 0 for r in range(1, 7)},
+        "dup_cards_by_rarity": {r: 0 for r in range(1, 7)},
+        "cd_total_cards_drawn": 0,
+        "cd_new_cards_drawn": 0,
+        "cd_dup_cards_drawn": 0,
+        "cd_stars_gained": 0,
+        "cd_new_cards_by_rarity": {r: 0 for r in range(1, 7)},
+        "cd_dup_cards_by_rarity": {r: 0 for r in range(1, 7)},
+        "chest_drop_counts": {r: 0 for r in range(1, 6)},
+        "config_chest_drop_tiers": custom_chest_tiers if custom_chest_tiers else def_cfg["chest_tiers"],
+        "config_chest_upgrade_matrix": custom_chest_matrix if custom_chest_matrix else def_cfg["chest_upgrade_matrix"],
+        "config_chest_drop_x": chest_x,
+        "opened_pack_types_ss2": set(),
+        "ss2_optimize_collection": True,
+        "config_ss2_s_base": s_base,
+        "config_ss2_s_max": s_max,
+        "config_ss2_c_base": c_base,
+        "config_ss2_c_max": c_max,
+        "cd_log": [],
+        "cd_upgrade_summary": {t: {dest: 0 for dest in range(1, 6)} for t in range(1, 4)},
+        "cd_total_chests_opened": 0
+    }
+
 
 def run_deterministic_simulation(cfg, tuning_cfg):
     days = cfg['sim_days']
@@ -9,10 +82,8 @@ def run_deterministic_simulation(cfg, tuning_cfg):
     avg_base_coin_per_lvl = (20 * 6 + 40 * 2 + 60 * 1) / 9
     avg_win_rate = (cfg['win_rate_n'] * 6 + cfg['win_rate_h'] * 2 + cfg['win_rate_sh'] * 1) / 9
     
-    
     prices_df = tuning_cfg.get('prices', pd.DataFrame(DEFAULT_PRICES))
     COST = dict(zip(prices_df['Item'], prices_df['Price']))
-    avg_booster_cost = (COST.get('Revive', 190) * 0.5) + (COST.get('Hammer', 120) * 0.2) + (COST.get('Broom', 120) * 0.2) + (COST.get('Scissors', 120) * 0.1)
     
     tot_base, tot_rv, tot_liveops, tot_sink = 0, 0, 0, 0
     tot_liveops_keys, tot_liveops_streak, tot_liveops_mp = 0, 0, 0
@@ -28,6 +99,28 @@ def run_deterministic_simulation(cfg, tuning_cfg):
     tot_bst_used = {'Hammer': 0, 'Broom': 0, 'Scissors': 0}
     tot_revives_bought = 0
     
+    # Card Album State & Tracking
+    sim_album_state = create_album_state(tuning_cfg)
+    tot_packs_earned = {p: 0 for p in PACK_ORDER}
+    tot_packs_earned_core = {p: 0 for p in PACK_ORDER}
+    tot_packs_earned_mp = {p: 0 for p in PACK_ORDER}
+    tot_packs_earned_streak = {p: 0 for p in PACK_ORDER}
+    tot_packs_earned_keys = {p: 0 for p in PACK_ORDER}
+    tot_packs_earned_star_chest = {p: 0 for p in PACK_ORDER}
+    tot_star_chests = {'Gold': 0, 'Silver': 0, 'Bronze': 0}
+    tot_chests_earned = {1: 0, 2: 0, 3: 0}
+    global_won_level = 0
+    tot_album_coins = 0
+    tot_bst_earned_album = {'Hammer': 0, 'Broom': 0, 'Scissors': 0}
+    claimed_sets_round = {0: set(), 1: set()}
+    claimed_grand_prize = {0: False, 1: False}
+
+    enable_core_packs = cfg.get('enable_core_packs', False)
+    enable_card_rush = cfg.get('enable_card_rush', True)
+    enable_chest_drop = cfg.get('enable_chest_drop', True)
+    enable_auto_star_chest = cfg.get('enable_auto_star_chest', True)
+    auto_open_packs = cfg.get('auto_open_packs', True)
+
     macro_log = []
     accum_needed = {'Revive': 0.0, 'Hammer': 0.0, 'Broom': 0.0, 'Scissors': 0.0}
     current_coins = 400
@@ -38,6 +131,10 @@ def run_deterministic_simulation(cfg, tuning_cfg):
     claimed_key_reqs = set()
     
     for d in range(1, days + 1):
+        is_cr = enable_card_rush and is_card_rush_day(d)
+        day_packs = {}
+        day_chests = {}
+
         if cfg.get('min_l', 2) == cfg.get('max_l', 2):
             daily_levels = cfg['daily_sessions'] * cfg.get('min_l', 2)
         else:
@@ -60,8 +157,25 @@ def run_deterministic_simulation(cfg, tuning_cfg):
             "DailyKeys": 0, "DailyStreak": 0, "DailyMPTokens": 0,
             "DayName": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"][(d-1)%7],
             "KeyStage": 0, "StreakStage": 0,
-            "MPStage": 0, "MPTokens": 0, "MPTier": cfg.get('mp_tier', 'Free') if cfg.get('enable_mp', True) else "Off"
+            "MPStage": 0, "MPTokens": 0, "MPTier": cfg.get('mp_tier', 'Free') if cfg.get('enable_mp', True) else "Off",
+            "IsCardRush": is_cr,
+            "PacksEarned": {}, "ChestsEarned": {},
+            "AlbumCardsNew": 0, "AlbumCardsDup": 0, "AlbumStarsGained": 0,
+            "AlbumTotalOwned": 0, "AlbumCompletionPct": 0.0, "AlbumStarsTotal": 0,
+            "AlbumSetsCompleted": 0,
+            "AlbumSeason": ((d - 1) // 60) + 1
         }
+        
+        # Check for Card Album Season Rollover (Season duration = 60 days)
+        if d > 1 and (d - 1) % 60 == 0:
+            season_num = (d - 1) // 60 + 1
+            prev_season = season_num - 1
+            reset_season(sim_album_state)
+            claimed_sets_round = {0: set(), 1: set()}
+            claimed_grand_prize = {0: False, 1: False}
+            day_log["EventLog"].append(
+                f":rainbow[**Card Album Season {season_num} Started (Day {d})**]: Mùa Card Album {prev_season} (60 ngày) đã kết thúc! Bắt đầu Mùa {season_num}, toàn bộ thẻ về 0 để mở lại chu kỳ sưu tập mới."
+            )
         
         day_base = daily_levels * avg_base_coin_per_lvl * avg_win_rate
         day_rv = day_base * cfg['rv_watch_rate'] * (cfg['rv_multiplier'] - 1)
@@ -76,7 +190,31 @@ def run_deterministic_simulation(cfg, tuning_cfg):
         
         tot_base += day_base_earned
         tot_rv += day_rv_earned
-        
+
+        # Core Gameplay Packs & Daily Chests
+        if enable_core_packs:
+            for _ in range(won_levels):
+                global_won_level += 1
+                if global_won_level % 3 == 0 and global_won_level % 9 != 0:
+                    p = upgrade_pack("Bronze", is_cr)
+                    day_packs[p] = day_packs.get(p, 0) + 1
+                    tot_packs_earned_core[p] = tot_packs_earned_core.get(p, 0) + 1
+                elif global_won_level % 9 == 0:
+                    p = upgrade_pack("Emerald", is_cr)
+                    day_packs[p] = day_packs.get(p, 0) + 1
+                    tot_packs_earned_core[p] = tot_packs_earned_core.get(p, 0) + 1
+
+        if enable_chest_drop:
+            if won_levels >= 3:
+                day_chests[1] = day_chests.get(1, 0) + 1
+                tot_chests_earned[1] += 1
+            if won_levels >= 7:
+                day_chests[2] = day_chests.get(2, 0) + 1
+                tot_chests_earned[2] += 1
+            if won_levels >= 12:
+                day_chests[3] = day_chests.get(3, 0) + 1
+                tot_chests_earned[3] += 1
+
         day_liveops = 0
         # Master Pass
         enable_mp = cfg.get('enable_mp', True)
@@ -114,10 +252,24 @@ def run_deterministic_simulation(cfg, tuning_cfg):
                         _fc, _fh, _fb, _fs = parse_rewards(rew_str)
                         free_c += _fc; free_h += _fh; free_b += _fb; free_s += _fs
                         
+                        # Parse packs from Free track
+                        _fp = parse_packs(rew_str)
+                        for p, cnt in _fp.items():
+                            p_act = upgrade_pack(p, is_cr)
+                            day_packs[p_act] = day_packs.get(p_act, 0) + cnt
+                            tot_packs_earned_mp[p_act] = tot_packs_earned_mp.get(p_act, 0) + cnt
+
                         _pc, _ph, _pb, _ps = 0, 0, 0, 0
                         if mp_tier == 'Premium' and prem_rew_str:
                             _pc, _ph, _pb, _ps = parse_rewards(prem_rew_str)
                             prem_c += _pc; prem_h += _ph; prem_b += _pb; prem_s += _ps
+                            
+                            # Parse packs from Premium track
+                            _pp = parse_packs(prem_rew_str)
+                            for p, cnt in _pp.items():
+                                p_act = upgrade_pack(p, is_cr)
+                                day_packs[p_act] = day_packs.get(p_act, 0) + cnt
+                                tot_packs_earned_mp[p_act] = tot_packs_earned_mp.get(p_act, 0) + cnt
                         
                         reached_stage_info.append({
                             'stage': stg,
@@ -194,15 +346,13 @@ def run_deterministic_simulation(cfg, tuning_cfg):
             if daily_tokens > 0:
                 day_log["EventLog"].append(f"Master Pass [{mp_tier}]: +{int(daily_tokens)} Tokens (Total: {int(master_pass_tokens)})")
 
-        
-# Key Collection
+        # Key Collection
         k_df = tuning_cfg['key_stages']
         max_keys_cap = k_df['KeysReq'].max() if not k_df.empty else 304
         
         if (d - 1) % 7 == 0:
             accum_keys = 0.0
             claimed_key_reqs = set()
-            
             
         enable_keys = cfg.get('enable_keys', True)
         keys_event_str = ""
@@ -225,7 +375,6 @@ def run_deterministic_simulation(cfg, tuning_cfg):
         day_log["LevelsPlayed"] = daily_levels
         day_log["KeyStage"] = len(claimed_key_reqs)
         
-        k_df = tuning_cfg['key_stages']
         c, h, b, s = 0, 0, 0, 0
         stages_reached = 0
         
@@ -235,7 +384,13 @@ def run_deterministic_simulation(cfg, tuning_cfg):
                     claimed_key_reqs.add(req)
                     stages_reached += 1
                     _c, _h, _b, _s = parse_rewards(rew_str)
-                    c+=_c; h+=_h; b+=_b; s+=_s
+                    c += _c; h += _h; b += _b; s += _s
+                    
+                    _kp = parse_packs(rew_str)
+                    for p, cnt in _kp.items():
+                        p_act = upgrade_pack(p, is_cr)
+                        day_packs[p_act] = day_packs.get(p_act, 0) + cnt
+                        tot_packs_earned_keys[p_act] = tot_packs_earned_keys.get(p_act, 0) + cnt
                 
         if stages_reached > 0:
             day_liveops += c
@@ -245,7 +400,7 @@ def run_deterministic_simulation(cfg, tuning_cfg):
             tot_bst_earned_keys['Hammer'] += h; tot_bst_earned_keys['Broom'] += b; tot_bst_earned_keys['Scissors'] += s
             
             if c > 0: day_log["CoinLog"].append(f"Key Collection ({stages_reached} stages): +{int(c)} Coins")
-            if h>0 or b>0 or s>0:
+            if h > 0 or b > 0 or s > 0:
                 bst_parts = []
                 if h > 0: bst_parts.append(f"+{int(h)} Hammer")
                 if b > 0: bst_parts.append(f"+{int(b)} Broom")
@@ -266,7 +421,6 @@ def run_deterministic_simulation(cfg, tuning_cfg):
             streak_wins = 0.0
             accum_fails = 0.0
             claimed_streak_reqs = set()
-            
             
         s_df = tuning_cfg['streak_stages']
         max_streak_cap = s_df['WinsReq'].max() if not s_df.empty else 36
@@ -292,7 +446,7 @@ def run_deterministic_simulation(cfg, tuning_cfg):
                         tot_liveops_streak += _c
                         if _c > 0: day_log["CoinLog"].append(f"Win Streak (Stage {req}): +{int(_c)} Coins")
                         inv['Hammer'] += _h; inv['Broom'] += _b; inv['Scissors'] += _s
-                        if _h>0 or _b>0 or _s>0:
+                        if _h > 0 or _b > 0 or _s > 0:
                             bst_parts = []
                             if _h > 0: bst_parts.append(f"+{int(_h)} Hammer")
                             if _b > 0: bst_parts.append(f"+{int(_b)} Broom")
@@ -303,6 +457,12 @@ def run_deterministic_simulation(cfg, tuning_cfg):
                         day_log["BoostersEarned"]['Hammer'] += _h
                         day_log["BoostersEarned"]['Broom'] += _b
                         day_log["BoostersEarned"]['Scissors'] += _s
+
+                        _sp = parse_packs(rew_str)
+                        for p, cnt in _sp.items():
+                            p_act = upgrade_pack(p, is_cr)
+                            day_packs[p_act] = day_packs.get(p_act, 0) + cnt
+                            tot_packs_earned_streak[p_act] = tot_packs_earned_streak.get(p_act, 0) + cnt
                 
                 if accum_fails >= 1.0:
                     accum_fails -= 1.0
@@ -322,7 +482,207 @@ def run_deterministic_simulation(cfg, tuning_cfg):
         current_coins += int(day_liveops)
         day_log["LiveOpsCoins"] = int(day_liveops)
         tot_liveops += day_liveops
-        
+
+        # Card Album Daily Packs & Chests Opening
+        start_new_total = sim_album_state["new_cards_drawn"] + sim_album_state["cd_new_cards_drawn"]
+        start_dup_total = sim_album_state["dup_cards_drawn"] + sim_album_state["cd_dup_cards_drawn"]
+        start_stars_gained = sim_album_state.get("pack_stars_gained", 0) + sim_album_state.get("cd_stars_gained", 0)
+
+        for p, count in day_packs.items():
+            tot_packs_earned[p] = tot_packs_earned.get(p, 0) + count
+            if auto_open_packs:
+                for _ in range(count):
+                    open_pack(sim_album_state, p)
+
+        if auto_open_packs:
+            for stier, count in day_chests.items():
+                for c_num in range(count):
+                    sim_album_state["cd_total_chests_opened"] = sim_album_state.get("cd_total_chests_opened", 0) + 1
+                    cur_tier = stier
+                    drawn_in_chest = set()
+                    hit_logs = []
+                    chest_has_new = False
+                    for _ in range(5):
+                        hit = process_chest_drop_hit(sim_album_state, stier, cur_tier, drawn_in_chest)
+                        if hit["status"] == "NEW":
+                            chest_has_new = True
+                        card_tuple = hit.get("card")
+                        cname = format_card_name(card_tuple) if card_tuple else "?"
+                        card_r = card_tuple[1] if card_tuple else hit.get("rarity", cur_tier)
+                        status_str = f"({hit['status']})"
+                        card_str = f"{card_r}⭐ [{cname}] {status_str}"
+                        if hit.get("upgraded", False):
+                            hit_logs.append(f"{card_str} ➔ Upgraded to {hit['next_tier']}⭐")
+                        else:
+                            hit_logs.append(card_str)
+                        cur_tier = hit['next_tier']
+                    
+                    if "cd_upgrade_summary" not in sim_album_state:
+                        sim_album_state["cd_upgrade_summary"] = {t: {dest: 0 for dest in range(1, 6)} for t in range(1, 4)}
+                    if stier in sim_album_state["cd_upgrade_summary"]:
+                        sim_album_state["cd_upgrade_summary"][stier][cur_tier] = sim_album_state["cd_upgrade_summary"][stier].get(cur_tier, 0) + 1
+                    
+                    if "cd_log" not in sim_album_state:
+                        sim_album_state["cd_log"] = []
+                    prefix = "[NEW]" if chest_has_new else "[DUP]"
+                    log_msg = f"Day {d} {prefix} Chest {stier}⭐ #{c_num+1} (Final: {cur_tier}⭐) | Hits: " + ", ".join(hit_logs)
+                    sim_album_state["cd_log"].insert(0, log_msg)
+                    if len(sim_album_state["cd_log"]) > 300:
+                        sim_album_state["cd_log"] = sim_album_state["cd_log"][:300]
+
+            # Auto Star Chest Exchange if enabled (Target Gold 500⭐ down to Bronze 100⭐)
+            if enable_auto_star_chest:
+                star_chests_today = {'Gold': 0, 'Silver': 0, 'Bronze': 0}
+                is_season_end_or_last_day = (d % 60 == 0) or (d == days)
+                auto_loops = 0
+                while auto_loops < 50:
+                    auto_loops += 1
+                    if sim_album_state["stars"] >= 500:
+                        c_type = "Gold"
+                    elif is_season_end_or_last_day and sim_album_state["stars"] >= 250:
+                        c_type = "Silver"
+                    elif is_season_end_or_last_day and sim_album_state["stars"] >= 100:
+                        c_type = "Bronze"
+                    else:
+                        break
+                    
+                    cost = CHEST_CONFIG[c_type]["cost"]
+                    sim_album_state["stars"] -= cost
+                    star_chests_today[c_type] += 1
+                    tot_star_chests[c_type] += 1
+                    
+                    for base_p in CHEST_CONFIG[c_type]["packs"]:
+                        act_p = upgrade_pack(base_p, is_cr)
+                        tot_packs_earned[act_p] = tot_packs_earned.get(act_p, 0) + 1
+                        tot_packs_earned_star_chest[act_p] = tot_packs_earned_star_chest.get(act_p, 0) + 1
+                        day_packs[act_p] = day_packs.get(act_p, 0) + 1
+                        open_pack(sim_album_state, act_p)
+
+                day_log["StarChestsEarned"] = star_chests_today.copy()
+                if sum(star_chests_today.values()) > 0:
+                    parts = []
+                    spent_stars = 0
+                    if star_chests_today['Gold'] > 0:
+                        parts.append(f"{star_chests_today['Gold']} Gold")
+                        spent_stars += star_chests_today['Gold'] * CHEST_CONFIG['Gold']['cost']
+                    if star_chests_today['Silver'] > 0:
+                        parts.append(f"{star_chests_today['Silver']} Silver")
+                        spent_stars += star_chests_today['Silver'] * CHEST_CONFIG['Silver']['cost']
+                    if star_chests_today['Bronze'] > 0:
+                        parts.append(f"{star_chests_today['Bronze']} Bronze")
+                        spent_stars += star_chests_today['Bronze'] * CHEST_CONFIG['Bronze']['cost']
+                    day_log["EventLog"].append(
+                        f":violet[**Auto Star Chest**]: Opened {', '.join(parts)} Chest(s) (-{spent_stars}⭐)"
+                    )
+
+        cards_new_today = (sim_album_state["new_cards_drawn"] + sim_album_state["cd_new_cards_drawn"]) - start_new_total
+        cards_dup_today = (sim_album_state["dup_cards_drawn"] + sim_album_state["cd_dup_cards_drawn"]) - start_dup_total
+        stars_gained_today = (sim_album_state.get("pack_stars_gained", 0) + sim_album_state.get("cd_stars_gained", 0)) - start_stars_gained
+        current_owned_cards = total_cards_collected(sim_album_state)
+
+        # Track completed sets and grant rewards
+        current_round = min(1, sim_album_state.get("grand_album_completions", 0))
+        set_counts = {}
+        for c in sim_album_state.get("owned_cards", set()):
+            set_counts[c[0]] = set_counts.get(c[0], 0) + 1
+
+        newly_completed_sets = []
+        for s_id, s_info in CARD_SETS.items():
+            if set_counts.get(s_id, 0) >= sum(s_info["cards"].values()):
+                if s_id not in claimed_sets_round[current_round]:
+                    claimed_sets_round[current_round].add(s_id)
+                    newly_completed_sets.append(s_id)
+                    
+                    set_data = SET_REWARDS_MAP.get(s_id, {})
+                    rew_str = set_data.get("AlbumReward" if current_round == 0 else "GrandAlbumReward", "")
+                    if rew_str:
+                        _c, _h, _b, _s = parse_rewards(rew_str)
+                        if _c > 0:
+                            day_log["CoinsEarned"] += _c
+                            current_coins += _c
+                            tot_album_coins += _c
+                            day_log["CoinLog"].append(f"Card Album Set {s_id} ({set_data.get('Name')}) Completed: +{_c} Coins")
+                        if _h > 0 or _b > 0 or _s > 0:
+                            inv['Hammer'] += _h; inv['Broom'] += _b; inv['Scissors'] += _s
+                            tot_bst_earned['Hammer'] += _h; tot_bst_earned['Broom'] += _b; tot_bst_earned['Scissors'] += _s
+                            tot_bst_earned_album['Hammer'] += _h; tot_bst_earned_album['Broom'] += _b; tot_bst_earned_album['Scissors'] += _s
+                            day_log["BoostersEarned"]['Hammer'] += _h
+                            day_log["BoostersEarned"]['Broom'] += _b
+                            day_log["BoostersEarned"]['Scissors'] += _s
+                            
+                            bst_parts = []
+                            if _h > 0: bst_parts.append(f"+{_h} Hammer")
+                            if _b > 0: bst_parts.append(f"+{_b} Broom")
+                            if _s > 0: bst_parts.append(f"+{_s} Scissors")
+                            day_log["BoosterLog"].append(f"Card Album Set {s_id} ({set_data.get('Name')}) Completed: {', '.join(bst_parts)}")
+
+        # Check Grand Prize for round 0 (full 135 cards)
+        if (sim_album_state.get("grand_album_completions", 0) >= 1 or len(claimed_sets_round[0]) == 15) and not claimed_grand_prize[0]:
+            claimed_grand_prize[0] = True
+            gp_rew = GRAND_PRIZE_REWARDS["AlbumReward"]
+            _c, _h, _b, _s = parse_rewards(gp_rew)
+            day_log["CoinsEarned"] += _c
+            current_coins += _c
+            tot_album_coins += _c
+            inv['Hammer'] += _h; inv['Broom'] += _b; inv['Scissors'] += _s
+            tot_bst_earned['Hammer'] += _h; tot_bst_earned['Broom'] += _b; tot_bst_earned['Scissors'] += _s
+            tot_bst_earned_album['Hammer'] += _h; tot_bst_earned_album['Broom'] += _b; tot_bst_earned_album['Scissors'] += _s
+            day_log["BoostersEarned"]['Hammer'] += _h
+            day_log["BoostersEarned"]['Broom'] += _b
+            day_log["BoostersEarned"]['Scissors'] += _s
+            day_log["CoinLog"].append(f"Album Grand Prize (Full 135 Cards): +{_c} Coins")
+            day_log["BoosterLog"].append(f"Album Grand Prize: +{_h} Hammer, +{_b} Broom, +{_s} Scissors")
+            day_log["EventLog"].append(f"COMPLETED FULL ALBUM! Grand Prize: [{gp_rew}]")
+
+        # Check Grand Prize for round 1 (Grand Album finished)
+        if sim_album_state.get("grand_album_finished", False) and not claimed_grand_prize[1]:
+            claimed_grand_prize[1] = True
+            gp_rew = GRAND_PRIZE_REWARDS["GrandAlbumReward"]
+            _c, _h, _b, _s = parse_rewards(gp_rew)
+            day_log["CoinsEarned"] += _c
+            current_coins += _c
+            tot_album_coins += _c
+            inv['Hammer'] += _h; inv['Broom'] += _b; inv['Scissors'] += _s
+            tot_bst_earned['Hammer'] += _h; tot_bst_earned['Broom'] += _b; tot_bst_earned['Scissors'] += _s
+            tot_bst_earned_album['Hammer'] += _h; tot_bst_earned_album['Broom'] += _b; tot_bst_earned_album['Scissors'] += _s
+            day_log["BoostersEarned"]['Hammer'] += _h
+            day_log["BoostersEarned"]['Broom'] += _b
+            day_log["BoostersEarned"]['Scissors'] += _s
+            day_log["CoinLog"].append(f"Grand Album Grand Prize: +{_c} Coins")
+            day_log["BoosterLog"].append(f"Grand Album Grand Prize: +{_h} Hammer, +{_b} Broom, +{_s} Scissors")
+            day_log["EventLog"].append(f"COMPLETED GRAND ALBUM! Grand Prize: [{gp_rew}]")
+
+        total_sets_completed = len(claimed_sets_round[current_round])
+        day_log["AlbumSetsCompleted"] = total_sets_completed
+
+        for s_id in newly_completed_sets:
+            set_data = SET_REWARDS_MAP.get(s_id, {})
+            rew_str = set_data.get("AlbumReward" if current_round == 0 else "GrandAlbumReward", "")
+            day_log["EventLog"].append(f"Completed Set {s_id} ({set_data.get('Name')})! Reward: [{rew_str}] (Total: {total_sets_completed}/15 Sets)")
+
+        day_log["PacksEarned"] = {k: v for k, v in day_packs.items() if v > 0}
+        day_log["ChestsEarned"] = {k: v for k, v in day_chests.items() if v > 0}
+        day_log["AlbumCardsNew"] = cards_new_today
+        day_log["AlbumCardsDup"] = cards_dup_today
+        day_log["AlbumStarsGained"] = stars_gained_today
+        day_log["AlbumTotalOwned"] = current_owned_cards
+        day_log["AlbumCompletionPct"] = (current_owned_cards / TOTAL_CARDS) * 100
+        day_log["AlbumStarsTotal"] = sim_album_state["stars"]
+
+        if is_cr:
+            day_log["EventLog"].append("Card Rush Active: Bronze, Emerald, Silver upgraded to Plus (+)")
+
+        pack_summary_parts = []
+        for p, cnt in day_packs.items():
+            if cnt > 0: pack_summary_parts.append(f"+{cnt} {p}")
+        for t, cnt in day_chests.items():
+            if cnt > 0: pack_summary_parts.append(f"+{cnt} Chest {t}*")
+            
+        if pack_summary_parts:
+            day_log["EventLog"].append(
+                f"Card Album: {', '.join(pack_summary_parts)} | Progress: +{cards_new_today} New, {cards_dup_today} Dup (+{stars_gained_today} Stars) -> Total: {current_owned_cards}/135 ({current_owned_cards/135*100:.1f}%) | Sets: {total_sets_completed}/15"
+            )
+
         def process_revive():
             nonlocal current_coins
             bought = 0
@@ -346,7 +706,6 @@ def run_deterministic_simulation(cfg, tuning_cfg):
 
         # Call Revive
         bought_r, cost_r = process_revive()
-        free_r = 0 # Not used
 
         # Process Boosters Randomly 1 out of 3
         uses_total = daily_levels * cfg.get('booster_use_rate', 0.5)
@@ -405,11 +764,22 @@ def run_deterministic_simulation(cfg, tuning_cfg):
         tot_sink += day_sink
         macro_log.append(day_log)
 
-    tot_inflow = tot_base + tot_rv + tot_liveops
+    tot_inflow = tot_base + tot_rv + tot_liveops + tot_album_coins
     net_accum = tot_inflow - tot_sink
     total_bst_used_overall = sum(tot_bst_used.values())
     tot_bst_bought = {'Hammer': 0, 'Broom': 0, 'Scissors': 0, 'Revive': tot_revives_bought}
     
+    # Calculate completed sets
+    completed_sets_count = 0
+    set_counts = {}
+    for c in sim_album_state.get("owned_cards", set()):
+        set_counts[c[0]] = set_counts.get(c[0], 0) + 1
+    for s_id, s_info in CARD_SETS.items():
+        if set_counts.get(s_id, 0) >= sum(s_info["cards"].values()):
+            completed_sets_count += 1
+
+    final_owned = total_cards_collected(sim_album_state)
+
     return {
         'days': days,
         'daily_levels': daily_levels,
@@ -429,10 +799,35 @@ def run_deterministic_simulation(cfg, tuning_cfg):
         'tot_liveops_keys': tot_liveops_keys,
         'tot_liveops_streak': tot_liveops_streak,
         'tot_liveops_mp': tot_liveops_mp,
+        'tot_album_coins': tot_album_coins,
+        'tot_bst_earned_album': tot_bst_earned_album,
         'tot_bst_bought': tot_bst_bought,
         'tot_bst_earned': tot_bst_earned,
         'tot_bst_earned_keys': tot_bst_earned_keys,
         'tot_bst_earned_streak': tot_bst_earned_streak,
         'tot_bst_earned_mp': tot_bst_earned_mp,
-        'macro_log': macro_log
+        'macro_log': macro_log,
+        'sim_album_state': sim_album_state,
+        'tot_packs_earned': tot_packs_earned,
+        'tot_packs_earned_core': tot_packs_earned_core,
+        'tot_packs_earned_mp': tot_packs_earned_mp,
+        'tot_packs_earned_streak': tot_packs_earned_streak,
+        'tot_packs_earned_keys': tot_packs_earned_keys,
+        'tot_packs_earned_star_chest': tot_packs_earned_star_chest,
+        'tot_star_chests': tot_star_chests,
+        'enable_auto_star_chest': enable_auto_star_chest,
+        'tot_chests_earned': tot_chests_earned,
+        'album_summary': {
+            'total_cards_owned': final_owned,
+            'total_cards': TOTAL_CARDS,
+            'completion_pct': (final_owned / TOTAL_CARDS) * 100,
+            'total_stars': sim_album_state['stars'],
+            'new_cards_drawn': sim_album_state['new_cards_drawn'] + sim_album_state['cd_new_cards_drawn'],
+            'dup_cards_drawn': sim_album_state['dup_cards_drawn'] + sim_album_state['cd_dup_cards_drawn'],
+            'completed_sets': completed_sets_count,
+            'grand_album_completions': sim_album_state.get('grand_album_completions', 0),
+            'grand_album_finished': sim_album_state.get('grand_album_finished', False),
+            'current_season': ((days - 1) // 60) + 1,
+            'season_day': ((days - 1) % 60) + 1
+        }
     }

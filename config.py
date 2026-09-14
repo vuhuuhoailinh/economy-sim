@@ -14,27 +14,27 @@ DEFAULT_KEY_STAGES = [
     {"Stage": 1, "KeysReq": 3, "Reward": "15m Heart"},
     {"Stage": 2, "KeysReq": 8, "Reward": "1x Scissors"},
     {"Stage": 3, "KeysReq": 15, "Reward": "15m x2 Key"},
-    {"Stage": 4, "KeysReq": 25, "Reward": "30m Heart"},
+    {"Stage": 4, "KeysReq": 25, "Reward": "1x Bronze Pack"},
     {"Stage": 5, "KeysReq": 33, "Reward": "1x Hammer"},
-    {"Stage": 6, "KeysReq": 40, "Reward": "1x Scissors"},
-    {"Stage": 7, "KeysReq": 52, "Reward": "Chest: 1x Hammer + 1x Broom"},
+    {"Stage": 6, "KeysReq": 40, "Reward": "1x Broom"},
+    {"Stage": 7, "KeysReq": 52, "Reward": "1x Bronze Pack"},
     {"Stage": 8, "KeysReq": 67, "Reward": "30m x2 Key"},
-    {"Stage": 9, "KeysReq": 77, "Reward": "100 Coins"},
-    {"Stage": 10, "KeysReq": 89, "Reward": "1x Scissors"},
-    {"Stage": 11, "KeysReq": 99, "Reward": "1x Broom"},
-    {"Stage": 12, "KeysReq": 111, "Reward": "1x Hammer"},
-    {"Stage": 13, "KeysReq": 126, "Reward": "Chest: 30m Heart + 1x Hammer + 1x Scissors"},
+    {"Stage": 9, "KeysReq": 77, "Reward": "1x Scissors"},
+    {"Stage": 10, "KeysReq": 89, "Reward": "1x Emerald Pack"},
+    {"Stage": 11, "KeysReq": 99, "Reward": "30m Heart"},
+    {"Stage": 12, "KeysReq": 111, "Reward": "80 Coins"},
+    {"Stage": 13, "KeysReq": 126, "Reward": "1x Emerald Pack"},
     {"Stage": 14, "KeysReq": 138, "Reward": "1x Broom"},
     {"Stage": 15, "KeysReq": 154, "Reward": "30m x2 Key"},
-    {"Stage": 16, "KeysReq": 164, "Reward": "1x Hammer"},
-    {"Stage": 17, "KeysReq": 176, "Reward": "1x Broom"},
-    {"Stage": 18, "KeysReq": 192, "Reward": "400 Coins"},
-    {"Stage": 19, "KeysReq": 204, "Reward": "1x Scissors"},
-    {"Stage": 20, "KeysReq": 214, "Reward": "1h Heart"},
-    {"Stage": 21, "KeysReq": 229, "Reward": "1x Broom"},
-    {"Stage": 22, "KeysReq": 241, "Reward": "1x Scissors"},
+    {"Stage": 16, "KeysReq": 164, "Reward": "120 Coins"},
+    {"Stage": 17, "KeysReq": 176, "Reward": "1x Silver Pack"},
+    {"Stage": 18, "KeysReq": 192, "Reward": "1x Scissors"},
+    {"Stage": 19, "KeysReq": 204, "Reward": "1h Heart"},
+    {"Stage": 20, "KeysReq": 214, "Reward": "200 Coins"},
+    {"Stage": 21, "KeysReq": 229, "Reward": "1x Amethyst Pack"},
+    {"Stage": 22, "KeysReq": 241, "Reward": "1x Hammer"},
     {"Stage": 23, "KeysReq": 259, "Reward": "1h x2 Key"},
-    {"Stage": 24, "KeysReq": 279, "Reward": "Chest: 1h Heart, 1x Boosters Set"},
+    {"Stage": 24, "KeysReq": 279, "Reward": "1x Ruby Pack"},
     {"Stage": 25, "KeysReq": 304, "Reward": "1000 Coins"},
 ]
 
@@ -84,6 +84,39 @@ DEFAULT_STREAK_STAGES = [
     {"WinsReq": 36, "Reward": "300 coins + Ruby Pack + 1 Broom"}
 ]
 
+DEFAULT_CARD_SET_REWARDS = [
+    {"Set": 1, "Name": "Items", "Common": 8, "Uncommon": 1, "Rare": 0, "Epic": 0, "Legendary": 0, "Secret": 0, "AlbumReward": "100 Coins", "GrandAlbumReward": "200 Coins"},
+    {"Set": 2, "Name": "Transport", "Common": 7, "Uncommon": 2, "Rare": 0, "Epic": 0, "Legendary": 0, "Secret": 0, "AlbumReward": "2x Scissors", "GrandAlbumReward": "2x Scissors"},
+    {"Set": 3, "Name": "Souvenirs", "Common": 7, "Uncommon": 1, "Rare": 1, "Epic": 0, "Legendary": 0, "Secret": 0, "AlbumReward": "2x Hammer", "GrandAlbumReward": "2x Hammer"},
+    {"Set": 4, "Name": "Cuisine", "Common": 5, "Uncommon": 3, "Rare": 1, "Epic": 0, "Legendary": 0, "Secret": 0, "AlbumReward": "150 Coins", "GrandAlbumReward": "300 Coins"},
+    {"Set": 5, "Name": "Camping", "Common": 3, "Uncommon": 4, "Rare": 1, "Epic": 1, "Legendary": 0, "Secret": 0, "AlbumReward": "2x Scissors", "GrandAlbumReward": "2x Scissors"},
+    {"Set": 6, "Name": "Beach", "Common": 2, "Uncommon": 4, "Rare": 1, "Epic": 1, "Legendary": 1, "Secret": 0, "AlbumReward": "2x Broom", "GrandAlbumReward": "2x Broom"},
+    {"Set": 7, "Name": "Retreat", "Common": 1, "Uncommon": 3, "Rare": 2, "Epic": 1, "Legendary": 1, "Secret": 1, "AlbumReward": "200 Coins", "GrandAlbumReward": "400 Coins"},
+    {"Set": 8, "Name": "Theme Park", "Common": 0, "Uncommon": 4, "Rare": 2, "Epic": 1, "Legendary": 1, "Secret": 1, "AlbumReward": "2x Hammer", "GrandAlbumReward": "2x Hammer"},
+    {"Set": 9, "Name": "Nature", "Common": 0, "Uncommon": 3, "Rare": 2, "Epic": 1, "Legendary": 2, "Secret": 1, "AlbumReward": "2x Broom", "GrandAlbumReward": "2x Broom"},
+    {"Set": 10, "Name": "Ice Nature", "Common": 0, "Uncommon": 2, "Rare": 2, "Epic": 2, "Legendary": 1, "Secret": 2, "AlbumReward": "300 Coins", "GrandAlbumReward": "600 Coins"},
+    {"Set": 11, "Name": "Museum", "Common": 0, "Uncommon": 1, "Rare": 3, "Epic": 1, "Legendary": 2, "Secret": 2, "AlbumReward": "3x Scissors", "GrandAlbumReward": "3x Scissors"},
+    {"Set": 12, "Name": "Culture", "Common": 0, "Uncommon": 0, "Rare": 3, "Epic": 2, "Legendary": 2, "Secret": 2, "AlbumReward": "3x Hammer", "GrandAlbumReward": "3x Hammer"},
+    {"Set": 13, "Name": "Landmark", "Common": 0, "Uncommon": 0, "Rare": 3, "Epic": 2, "Legendary": 1, "Secret": 3, "AlbumReward": "500 Coins", "GrandAlbumReward": "1000 Coins"},
+    {"Set": 14, "Name": "Festivals", "Common": 0, "Uncommon": 0, "Rare": 2, "Epic": 2, "Legendary": 2, "Secret": 3, "AlbumReward": "3x Hammer", "GrandAlbumReward": "3x Hammer"},
+    {"Set": 15, "Name": "Wonders", "Common": 0, "Uncommon": 0, "Rare": 0, "Epic": 4, "Legendary": 2, "Secret": 3, "AlbumReward": "3x Broom", "GrandAlbumReward": "3x Broom"},
+    {"Set": "Total", "Name": "Travel (Grand Prize)", "Common": 33, "Uncommon": 28, "Rare": 23, "Epic": 18, "Legendary": 15, "Secret": 18, "AlbumReward": "Grand Prize: Exclusive Badge + 5000 Coins + 5x Booster Set", "GrandAlbumReward": "Grand Prize: Diamond Exclusive Badge + 10000 Coins + 10x Booster Set"}
+]
+
+SET_REWARDS_MAP = {
+    row["Set"]: {
+        "Name": row["Name"],
+        "AlbumReward": row["AlbumReward"],
+        "GrandAlbumReward": row["GrandAlbumReward"]
+    }
+    for row in DEFAULT_CARD_SET_REWARDS if isinstance(row["Set"], int)
+}
+
+GRAND_PRIZE_REWARDS = {
+    "AlbumReward": "Grand Prize: Exclusive Badge + 5000 Coins + 5x Booster Set",
+    "GrandAlbumReward": "Grand Prize: Diamond Exclusive Badge + 10000 Coins + 10x Booster Set"
+}
+
 def get_default_tuning():
     return {
         'key_stages': pd.DataFrame(DEFAULT_KEY_STAGES),
@@ -92,5 +125,31 @@ def get_default_tuning():
         'key_cadence': 7,
         'streak_cadence': 3,
         'master_pass_cadence': 30,
-        'master_pass_stages': pd.DataFrame(DEFAULT_MASTER_PASS_STAGES)
+        'master_pass_stages': pd.DataFrame(DEFAULT_MASTER_PASS_STAGES),
+        'card_set_rewards': pd.DataFrame(DEFAULT_CARD_SET_REWARDS)
     }
+
+DEFAULT_CONFIG = {
+    'sim_days': 60,
+    'daily_sessions': 2,
+    'levels_per_session': 2.0,
+    'min_l': 1,
+    'max_l': 4,
+    'win_rate_n': 1.0,
+    'win_rate_h': 0.90,
+    'win_rate_sh': 0.80,
+    'rv_watch_rate': 0.25,
+    'rv_multiplier': 3.0,
+    'booster_use_rate': 0.0,
+    'revive_buy_rate': 0.10,
+    'enable_keys': True,
+    'enable_streak': True,
+    'enable_mp': True,
+    'mp_tier': 'Free',
+    'enable_core_packs': False,
+    'enable_card_rush': True,
+    'enable_chest_drop': True,
+    'enable_auto_star_chest': True
+}
+
+
