@@ -126,6 +126,7 @@ def run_deterministic_simulation(cfg, tuning_cfg):
     current_coins = 400
     streak_wins = 0.0
     accum_fails = 0.0
+    accum_lost_levels = 0.0
     accum_keys = 0.0
     claimed_streak_reqs = set()
     claimed_key_reqs = set()
@@ -140,9 +141,14 @@ def run_deterministic_simulation(cfg, tuning_cfg):
         else:
             daily_levels = sum(random.randint(cfg['min_l'], cfg['max_l']) for _ in range(cfg['daily_sessions']))
             
+        accum_lost_levels += daily_levels * (1.0 - avg_win_rate)
+        actual_lost = int(round(accum_lost_levels, 5))
+        if actual_lost > 0:
+            accum_lost_levels -= actual_lost
+            actual_lost = min(daily_levels, actual_lost)
+        lost_levels = actual_lost
+        won_levels = daily_levels - lost_levels
         failed_levels_per_day = daily_levels * (1 - avg_win_rate)
-        won_levels = int(round(daily_levels * avg_win_rate))
-        lost_levels = int(daily_levels - won_levels)
         
         day_log = {
             "Day": d, 
@@ -691,20 +697,20 @@ def run_deterministic_simulation(cfg, tuning_cfg):
             bought = 0
             cost = 0
             
-            situations = failed_levels_per_day
-            willing_to_buy = situations * cfg.get('revive_buy_rate', 0.1)
-            accum_needed["Revive_buy"] = accum_needed.get("Revive_buy", 0) + willing_to_buy
-            wanted_to_buy = int(accum_needed["Revive_buy"])
-            if wanted_to_buy > 0:
-                unit_cost = COST.get("Revive", 380)
-                affordable = int(current_coins / unit_cost)
-                bought = min(wanted_to_buy, affordable)
-                cost = bought * unit_cost
-                current_coins -= cost
-                if bought > 0:
-                    accum_needed["Revive_buy"] -= bought
-                if wanted_to_buy > affordable:
-                    accum_needed["Revive_buy"] = 0
+            if lost_levels > 0:
+                willing_to_buy = lost_levels * cfg.get('revive_buy_rate', 0.1)
+                accum_needed["Revive_buy"] = accum_needed.get("Revive_buy", 0) + willing_to_buy
+                wanted_to_buy = min(lost_levels, int(round(accum_needed["Revive_buy"], 5)))
+                if wanted_to_buy > 0:
+                    unit_cost = COST.get("Revive", 380)
+                    affordable = int(current_coins / unit_cost)
+                    bought = min(wanted_to_buy, affordable)
+                    cost = bought * unit_cost
+                    current_coins -= cost
+                    if bought > 0:
+                        accum_needed["Revive_buy"] -= bought
+                    if wanted_to_buy > affordable:
+                        accum_needed["Revive_buy"] = 0
             return bought, cost
 
         # Call Revive
