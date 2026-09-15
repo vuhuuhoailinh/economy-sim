@@ -26,8 +26,8 @@ def create_album_state(tuning_cfg=None):
     custom_packs = tuning_cfg.get('config_packs') if tuning_cfg else None
     custom_chest_tiers = tuning_cfg.get('config_chest_drop_tiers') if tuning_cfg else None
     custom_chest_matrix = tuning_cfg.get('config_chest_upgrade_matrix') if tuning_cfg else None
-    chest_x = tuning_cfg.get('config_chest_drop_x', 2.0) if tuning_cfg else 2.0
-    new_card_power = tuning_cfg.get('new_card_power', 2.5) if tuning_cfg else 2.5
+    chest_x = tuning_cfg.get('config_chest_drop_x', 0.0) if tuning_cfg else 0.0
+    new_card_power = tuning_cfg.get('new_card_power', 0.5) if tuning_cfg else 0.5
     s_base = tuning_cfg.get('config_ss2_s_base', 0.1) if tuning_cfg else 0.1
     s_max = tuning_cfg.get('config_ss2_s_max', 0.5) if tuning_cfg else 0.5
     c_base = tuning_cfg.get('config_ss2_c_base', 0.3) if tuning_cfg else 0.3
@@ -71,7 +71,7 @@ def create_album_state(tuning_cfg=None):
         "config_ss2_c_base": c_base,
         "config_ss2_c_max": c_max,
         "cd_log": [],
-        "cd_upgrade_summary": {t: {dest: 0 for dest in range(1, 6)} for t in range(1, 4)},
+        "cd_upgrade_summary": {t: {dest: 0 for dest in range(1, 6)} for t in range(1, 6)},
         "cd_total_chests_opened": 0
     }
 
@@ -609,14 +609,15 @@ def run_deterministic_simulation(cfg, tuning_cfg):
                         cur_tier = hit['next_tier']
                     
                     if "cd_upgrade_summary" not in sim_album_state:
-                        sim_album_state["cd_upgrade_summary"] = {t: {dest: 0 for dest in range(1, 6)} for t in range(1, 4)}
+                        sim_album_state["cd_upgrade_summary"] = {t: {dest: 0 for dest in range(1, 6)} for t in range(1, 6)}
                     if stier in sim_album_state["cd_upgrade_summary"]:
                         sim_album_state["cd_upgrade_summary"][stier][cur_tier] = sim_album_state["cd_upgrade_summary"][stier].get(cur_tier, 0) + 1
                     
                     if "cd_log" not in sim_album_state:
                         sim_album_state["cd_log"] = []
                     prefix = "[NEW]" if chest_has_new else "[DUP]"
-                    log_msg = f"Day {d} {prefix} Chest {stier}⭐ #{c_num+1} (Final: {cur_tier}⭐) | Hits: " + ", ".join(hit_logs)
+                    final_label = f"{cur_tier}⭐" if cur_tier < 6 else "Gold (6⭐)"
+                    log_msg = f"Day {d} {prefix} Chest {stier}⭐ #{c_num+1} (Final: {final_label}) | Hits: " + ", ".join(hit_logs)
                     sim_album_state["cd_log"].insert(0, log_msg)
                     if len(sim_album_state["cd_log"]) > 300:
                         sim_album_state["cd_log"] = sim_album_state["cd_log"][:300]

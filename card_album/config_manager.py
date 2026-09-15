@@ -49,9 +49,9 @@ def get_default_config() -> dict:
             "key_collection_rewards": copy.deepcopy(KEY_COLLECTION_REWARDS),
         },
         "system": {
-            "new_card_power": 2.5,
+            "new_card_power": 0.5,
             "new_card_formula_type": "document",
-            "chest_drop_x": 2.0
+            "chest_drop_x": 0.0
         }
     }
 
@@ -80,9 +80,9 @@ def load_config_to_state(session_state, config_dict=None) -> None:
     }
     
     if "system" in config_dict:
-        session_state["new_card_power"] = config_dict["system"].get("new_card_power", 3.0)
-        session_state["new_card_formula_type"] = config_dict["system"].get("new_card_formula_type", "simple")
-        session_state["config_chest_drop_x"] = config_dict["system"].get("chest_drop_x", 2.0)
+        session_state["new_card_power"] = config_dict["system"].get("new_card_power", 0.5)
+        session_state["new_card_formula_type"] = config_dict["system"].get("new_card_formula_type", "document")
+        session_state["config_chest_drop_x"] = config_dict["system"].get("chest_drop_x", 0.0)
 
 
 def export_config_to_json(session_state) -> str:
@@ -93,9 +93,9 @@ def export_config_to_json(session_state) -> str:
         "chest_upgrade_matrix": session_state.get("config_chest_upgrade_matrix", get_default_config()["chest_upgrade_matrix"]),
         "rewards": session_state["config_rewards"],
         "system": {
-            "new_card_power": session_state.get("new_card_power", 3.0),
-            "new_card_formula_type": session_state.get("new_card_formula_type", "simple"),
-            "chest_drop_x": session_state.get("config_chest_drop_x", 2.0)
+            "new_card_power": session_state.get("new_card_power", 0.5),
+            "new_card_formula_type": session_state.get("new_card_formula_type", "document"),
+            "chest_drop_x": session_state.get("config_chest_drop_x", 0.0)
         }
     }
     return json.dumps(config_dict, indent=4, ensure_ascii=False)

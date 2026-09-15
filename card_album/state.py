@@ -13,6 +13,15 @@ def ensure_album_state(session_state) -> None:
     if "config_packs" not in session_state:
         from .config_manager import load_config_to_state
         load_config_to_state(session_state)
+    elif (
+        session_state.get("config_packs", {}).get("Bronze", {}).get("y_value") == 1.0 
+        or session_state.get("new_card_power") in (2.5, 3.0)
+        or "6" in session_state.get("config_chest_drop_tiers", {})
+        or session_state.get("config_chest_drop_tiers", {}).get("5", {}).get("weights", {}).get("5") != 60
+        or session_state.get("config_chest_drop_x") == 2.0
+    ):
+        from .config_manager import load_config_to_state
+        load_config_to_state(session_state)
 
     if "inventory" not in session_state:
         session_state["inventory"] = fresh_inventory()
@@ -44,7 +53,7 @@ def ensure_album_state(session_state) -> None:
     if "grand_album_enabled" not in session_state:
         session_state["grand_album_enabled"] = True
     if "new_card_formula_type" not in session_state:
-        session_state["new_card_formula_type"] = "simple"
+        session_state["new_card_formula_type"] = "document"
     if "cart_packs" not in session_state:
         session_state["cart_packs"] = fresh_pack_counts()
     else:
@@ -89,7 +98,7 @@ def ensure_album_state(session_state) -> None:
     if "cd_log" not in session_state:
         session_state["cd_log"] = []
     if "cd_upgrade_summary" not in session_state:
-        session_state["cd_upgrade_summary"] = {t: {dest: 0 for dest in range(1, 6)} for t in range(1, 4)}
+        session_state["cd_upgrade_summary"] = {t: {dest: 0 for dest in range(1, 6)} for t in range(1, 6)}
     if "cd_total_chests_opened" not in session_state:
         session_state["cd_total_chests_opened"] = 0
 
@@ -113,6 +122,9 @@ def reset_season(session_state) -> None:
     session_state["inventory"] = fresh_inventory()
     session_state["owned_cards"] = set()
     session_state["stars"] = 0
+    session_state["total_packs"] = 0
+    session_state["pack_counts"] = fresh_pack_counts()
+    session_state["total_cards_drawn"] = 0
     session_state["grand_album_completions"] = 0
     session_state["grand_album_finished"] = False
     session_state["pack_pity"] = fresh_pack_counts()
@@ -128,7 +140,7 @@ def reset_season(session_state) -> None:
     session_state["pack_stars_gained"] = 0
     session_state["cd_stars_gained"] = 0
     session_state["cd_log"] = []
-    session_state["cd_upgrade_summary"] = {t: {dest: 0 for dest in range(1, 6)} for t in range(1, 4)}
+    session_state["cd_upgrade_summary"] = {t: {dest: 0 for dest in range(1, 6)} for t in range(1, 6)}
     session_state["cd_total_chests_opened"] = 0
     ensure_album_state(session_state)
 

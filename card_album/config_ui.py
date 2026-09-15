@@ -11,9 +11,9 @@ def init_draft_config():
     if "draft_config_rewards" not in st.session_state:
         st.session_state["draft_config_rewards"] = copy.deepcopy(st.session_state["config_rewards"])
     if "draft_new_card_formula_type" not in st.session_state:
-        st.session_state["draft_new_card_formula_type"] = st.session_state.get("new_card_formula_type", "simple")
+        st.session_state["draft_new_card_formula_type"] = st.session_state.get("new_card_formula_type", "document")
     if "draft_new_card_power" not in st.session_state:
-        st.session_state["draft_new_card_power"] = st.session_state.get("new_card_power", 3.0)
+        st.session_state["draft_new_card_power"] = st.session_state.get("new_card_power", 0.5)
     if "draft_chest_drop_x" not in st.session_state:
         st.session_state["draft_chest_drop_x"] = st.session_state.get("config_chest_drop_x", 2.0)
     if "draft_config_chest_drop_tiers" not in st.session_state:
@@ -84,7 +84,7 @@ def render_config_tab():
         Game hiện tại áp dụng công thức sau để tính tỉ lệ ra thẻ mới:
         
         `New Card Ratio = (Remaining New / Total) ^ (x + y) + Pity`
-        - `x`: Hệ số chung cho mọi gói (Base for all pack), mặc định = 3.0.
+        - `x`: Hệ số chung cho mọi gói (Base for all pack), mặc định = 0.5.
         - `y`: Hệ số riêng của từng gói (Cấu hình riêng trong từng gói thẻ giúp gói thẻ xịn dễ rớt thẻ mới hơn).
         
         **2. Giải thích Bảng Tỉ lệ Gói Thẻ (Packs Config):**
@@ -107,10 +107,10 @@ def render_config_tab():
         
         **5. Cơ chế Tối ưu Bộ Sưu Tập (SS2):**
         Khi bật tính năng **SS2 Optimize Collection**, game sẽ kích hoạt 2 cơ chế:
-        - **First Pack Luck**: Lần ĐẦU TIÊN mở bất kỳ Gói thẻ nào, chắc chắn 100% rớt Thẻ Mới.
+        - **First Pack Luck**: 100% rớt Thẻ Mới ở 5 gói đầu tiên của mùa và ở gói đầu tiên của mọi loại pack (Bronze, Emerald, Silver, Amethyst, Ruby, Gold, Rainbow). Tất cả thẻ trong các gói này đều là Thẻ Mới.
         - **Set Completion Pity**: Bàn tay vô hình nhét thẻ bạn thiếu vào set gần hoàn thành nhất. Xác suất = (Độ mót của Album) × (Độ rẻ của Thẻ).
           > **Độ mót (Pity Set)**: `S.Base + (S.Max - S.Base) * (1 - Số Set Xong / Tổng Set)`. Càng xong ít Set, xác suất nhét bài càng cao (Max bằng S.Max).
-          > **Độ rẻ (Pity Rarity)**: `C.Base + (C.Max - C.Base) * (5 - Rarity) / 4`. Thẻ càng rẻ (ít Sao) thì xác suất nhét vào set càng cao (Max bằng C.Max đối với thẻ 1-sao).
+          > **Độ rẻ (Pity Rarity)**: `C.Base + (C.Max - C.Base) * (6 - Rarity) / 5`. Thẻ càng rẻ (ít Sao) thì xác suất nhét vào set càng cao (Max bằng C.Max đối với thẻ 1-sao, Min bằng C.Base đối với thẻ Gold 6-sao).
         """)
 
     # ----------------- SYSTEM CONFIG -----------------
@@ -133,7 +133,7 @@ def render_config_tab():
     chest_x = st.session_state["draft_chest_drop_x"]
     if "ui_chest_x" not in st.session_state:
         st.session_state["ui_chest_x"] = float(chest_x)
-    st.markdown("Hệ số Khó chung của Đập Rương (x): **New Card Ratio = (Remaining New/Total)^(x+y)**", help="Hệ số x cho Đập Rương. Hệ số y sẽ phụ thuộc trực tiếp vào độ hiếm của thẻ (1-Sao y=1.0, 2-Sao y=0.5, 3-Sao y=0.0, 4-Sao y=-0.5, 5-Sao y=-1.0, 6-Sao y=-1.5).")
+    st.markdown("Hệ số Khó chung của Đập Rương (x): **New Card Ratio = (Remaining New/Total)^(x+y)**", help="Hệ số x cho Đập Rương (mặc định 0.0). Hệ số y phụ thuộc trực tiếp vào độ hiếm của thẻ (1-Sao y=0.5, 2-Sao y=0.25, 3-Sao y=0.2, 4-Sao y=0.15, 5-Sao y=0.1, Gold Card y=0.05).")
     c2, _ = st.columns([1, 4])
     with c2:
         st.number_input("chest_power_input", step=0.1, label_visibility="collapsed", key="ui_chest_x")
@@ -218,7 +218,7 @@ def render_config_tab():
     with cc2:
         st.number_input("S.Max", step=0.01, key="ui_ss2_s_max", help="Hệ số bù cao nhất khi chưa xong Set nào")
     with cc3:
-        st.number_input("C.Base", step=0.01, key="ui_ss2_c_base", help="Hệ số buff đối với Thẻ khó ra (Thẻ 5-Sao)")
+        st.number_input("C.Base", step=0.01, key="ui_ss2_c_base", help="Hệ số buff đối với Thẻ khó ra nhất (Thẻ Gold 6-Sao)")
     with cc4:
         st.number_input("C.Max", step=0.01, key="ui_ss2_c_max", help="Hệ số buff đối với Thẻ siêu dễ (Thẻ 1-Sao)")
 
@@ -301,7 +301,6 @@ def render_config_tab():
             for ctier in range(1, 5):
                 col_name = f"To {ctier+1}-Star"
                 st.session_state["draft_config_chest_upgrade_matrix"][stier_str][str(ctier)] = float(row[col_name])
-            # Set ctier=5 to 0.0 implicitly since there is no UI for it
             st.session_state["draft_config_chest_upgrade_matrix"][stier_str]["5"] = 0.0
         st.session_state["config_chest_upgrade_matrix"] = copy.deepcopy(st.session_state["draft_config_chest_upgrade_matrix"])
         

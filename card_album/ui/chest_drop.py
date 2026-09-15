@@ -39,10 +39,11 @@ def show_chest_drop_bulk_result_dialog(res: dict):
             for t in sorted(tier_stats.keys()):
                 count = tier_stats[t]
                 if count > 0:
-                    if t == start_tier:
+                    dest_label = f"{t}⭐" if int(t) < 6 else "Gold (6⭐)"
+                    if int(t) == int(start_tier):
                         parts.append(f"{count} retained")
                     else:
-                        parts.append(f"<b><span style='color: #22c55e;'>{count} upgraded to {t}⭐</span></b>")
+                        parts.append(f"<b><span style='color: #22c55e;'>{count} upgraded to {dest_label}</span></b>")
             summary_html += ", ".join(parts) + "</div>"
             
     if summary_html:
@@ -231,10 +232,10 @@ def render_chest_drop_tab() -> None:
         {"Chest Tier": "2⭐ Chest", "Reward (Per Hit)": get_reward_str("2"), "New Card Chance": get_new_chance_str("2"), "Upgrade Chance": get_upgrade_str("2", str(current_sandbox_tier))},
         {"Chest Tier": "3⭐ Chest", "Reward (Per Hit)": get_reward_str("3"), "New Card Chance": get_new_chance_str("3"), "Upgrade Chance": get_upgrade_str("3", str(current_sandbox_tier))},
         {"Chest Tier": "4⭐ Chest", "Reward (Per Hit)": get_reward_str("4"), "New Card Chance": get_new_chance_str("4"), "Upgrade Chance": get_upgrade_str("4", str(current_sandbox_tier))},
-        {"Chest Tier": "5⭐ Chest", "Reward (Per Hit)": get_reward_str("5"), "New Card Chance": get_new_chance_str("5"), "Upgrade Chance": "No Upgrade"},
+        {"Chest Tier": "5⭐ Chest", "Reward (Per Hit)": get_reward_str("5"), "New Card Chance": get_new_chance_str("5"), "Upgrade Chance": "Max Tier"},
     ])
 
-    cart = st.session_state.get("cart_chests", {1:0, 2:0, 3:0})
+    cart = st.session_state.get("cart_chests", {1:0, 2:0, 3:0, 4:0, 5:0})
     # --- SANDBOX SIMULATOR ---
     st.subheader("Interactive Chest Drop Sandbox")
     st.markdown("Interactive minigame simulation to test 5-hit hammer tapping and chest upgrades. Does not consume saved inventory.")
@@ -247,7 +248,7 @@ def render_chest_drop_tab() -> None:
         with st.container(border=True):
             tier = st.selectbox(
                 "Select Starting Chest Tier:",
-                [1, 2, 3],
+                [1, 2, 3, 4, 5],
                 format_func=lambda x: f"{x}⭐ Chest",
                 key="sandbox_chest_tier"
             )
@@ -384,14 +385,18 @@ def render_chest_drop_tab() -> None:
         qty_1 = st.number_input("1⭐ Chest", min_value=0, max_value=9999, step=1, key="bulk_chest_1")
         qty_2 = st.number_input("2⭐ Chest", min_value=0, max_value=9999, step=1, key="bulk_chest_2")
         qty_3 = st.number_input("3⭐ Chest", min_value=0, max_value=9999, step=1, key="bulk_chest_3")
+        qty_4 = st.number_input("4⭐ Chest", min_value=0, max_value=9999, step=1, key="bulk_chest_4")
+        qty_5 = st.number_input("5⭐ Chest", min_value=0, max_value=9999, step=1, key="bulk_chest_5")
             
-        total_bulk = qty_1 + qty_2 + qty_3
+        total_bulk = qty_1 + qty_2 + qty_3 + qty_4 + qty_5
         
         st.write("")
         def reset_cart_cd():
             st.session_state["bulk_chest_1"] = 0
             st.session_state["bulk_chest_2"] = 0
             st.session_state["bulk_chest_3"] = 0
+            st.session_state["bulk_chest_4"] = 0
+            st.session_state["bulk_chest_5"] = 0
             
         col_exec, col_reset = st.columns([3, 1])
         
@@ -411,12 +416,10 @@ def render_chest_drop_tab() -> None:
                 add_cd_log(st.session_state, f"========== BULK OPENING STARTED ({total_bulk} CHESTS) ==========")
                 
                 upgrade_summary = {
-                    1: {1:0, 2:0, 3:0, 4:0, 5:0},
-                    2: {2:0, 3:0, 4:0, 5:0},
-                    3: {3:0, 4:0, 5:0}
+                    st: {dt: 0 for dt in range(st, 6)} for st in range(1, 6)
                 }
             
-                cart_to_open = {1: qty_1, 2: qty_2, 3: qty_3}
+                cart_to_open = {1: qty_1, 2: qty_2, 3: qty_3, 4: qty_4, 5: qty_5}
                 
                 from ..gacha import format_card_name
                 for start_tier, count in cart_to_open.items():
