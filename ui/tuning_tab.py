@@ -21,13 +21,43 @@ def render_tuning_tab():
         with c2:
             st.dataframe(st.session_state.tuning['key_stages'], use_container_width=True, hide_index=True)
 
-        st.subheader("2. :red[Win Streak]")
-        st.markdown("Cơ chế: Thắng liên tiếp (không được thua) để nhận thưởng. Thua sẽ bị reset chuỗi về 0. **Lưu ý: Chỉ diễn ra từ Thứ 6 đến hết Chủ Nhật.**")
+        st.subheader("2. :red[Win Streak (Puffer Bubble)]")
+        st.markdown(
+            "Cơ chế: Thắng liên tiếp qua **9 Tiers (tối đa 36 Wins)** để nhận thưởng Coins, Boosters, Hearts và Gói thẻ cao cấp. "
+            "Sự kiện áp dụng **4 Checkpoint Safety Shelves (Mốc 5, 11, 18, 30)**: khi thua trận, chuỗi thắng không reset về 0 mà rớt về "
+            "mốc Checkpoint an toàn gần nhất đã đạt được. **Lưu ý: Chỉ diễn ra từ Thứ 6 đến hết Chủ Nhật.**"
+        )
         c3, c4 = st.columns([1, 4])
         with c3:
-            st.info(":red[**Schedule:**]\n:red[Fri - Sun]")
+            st.info(
+                ":red[**Schedule:**]\n"
+                ":red[Fri - Sun]\n\n"
+                ":green[**Checkpoints:**]\n"
+                "- CP1: Streak 5\n"
+                "- CP2: Streak 11\n"
+                "- CP3: Streak 18\n"
+                "- CP4: Streak 30"
+            )
         with c4:
-            st.dataframe(st.session_state.tuning['streak_stages'], use_container_width=True, hide_index=True)
+            st.dataframe(
+                st.session_state.tuning['streak_stages'],
+                use_container_width=True,
+                hide_index=True,
+                column_config={
+                    "Tier": st.column_config.NumberColumn("Tier", width="small"),
+                    "WinsReq": st.column_config.NumberColumn("Win Streak", width="small"),
+                    "DeltaWins": st.column_config.NumberColumn("Delta Wins", width="small"),
+                    "Checkpoint": st.column_config.TextColumn("Checkpoint Status", width="medium"),
+                    "Reward": st.column_config.TextColumn("Reward (Post-CA)", width="large"),
+                    "CoinEquiv": st.column_config.NumberColumn("Value (Post)", format="%d Coins"),
+                    "Category": st.column_config.TextColumn("Category (Post)", width="medium"),
+                    "Reward_PreCA": st.column_config.TextColumn("Reward (Pre-CA)", width="large"),
+                    "CoinEquiv_PreCA": st.column_config.NumberColumn("Value (Pre)", format="%d Coins"),
+                    "Category_PreCA": st.column_config.TextColumn("Category (Pre)", width="medium"),
+                    "ResetFloor": st.column_config.NumberColumn("Reset Floor", width="small"),
+                    "Notes": st.column_config.TextColumn("Design Notes", width="large")
+                }
+            )
 
         st.markdown("---")
         st.subheader("3. :violet[Master Pass]")

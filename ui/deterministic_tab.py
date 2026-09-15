@@ -55,7 +55,7 @@ def render_deterministic_tab():
           - **Gameplay Base**: Nhận trực tiếp mỗi khi vượt qua màn chơi theo chu kỳ màn chơi.
           - **Rewarded Video (Ads)**: Xem quảng cáo sau khi thắng (Mặc định: **25%** tỷ lệ xem với hệ số **x3** tiền thưởng, tương ứng cộng thêm +200% tiền thưởng gốc của màn đó).
           - **:orange[Key Collection]**: Diễn ra từ **Thứ 2 đến hết Thứ 5** (1 Win = 5 Keys, trần 304 Keys/tuần). Thưởng tiền tại Mốc 12 (80 Coins), Mốc 16 (120 Coins), Mốc 20 (200 Coins), Mốc 25 (1,000 Coins) -> **Tổng 1,400 Coins/chu kỳ tuần**.
-          - **:red[Win Streak]**: Diễn ra từ **Thứ 6 đến hết Chủ Nhật** (thua reset chuỗi về 0, trần 36 trận thắng). Thưởng tiền tại Mốc 2 (40 Coins), Mốc 18 (80 Coins), Mốc 36 (300 Coins) -> **Tổng 420 Coins/chu kỳ tuần**.
+          - **:red[Win Streak] (Puffer Bubble)**: Diễn ra từ **Thứ 6 đến hết Chủ Nhật** (9 Tiers, trần 36 trận thắng). Cơ chế **4 Checkpoint Safety Shelves (Mốc 5, 11, 18, 30)**: khi thua trận, chuỗi thắng không reset về 0 mà rớt về mốc Checkpoint cao nhất đã đạt được. Thưởng tiền tại Mốc 2 (40 Coins), Mốc 18 (80 Coins), Mốc 36 (300 Coins) -> **Tổng 420 Coins/chu kỳ tuần** (Post-CA).
           - **:violet[Master Pass] (Chu kỳ 30 ngày)**: Thu thập token từ màn chơi (N: 1, H: 2, SH: 3 Tokens, max 329 Tokens).
             - **Nhánh Free (Mặc định bật)**: Mốc 3 (40c), Mốc 6 (60c), Mốc 16 (80c), Mốc 22 (100c), Mốc 30 (200c trong Rương) -> **Tổng 480 Coins/chu kỳ 30 ngày**. Khi đạt mốc 30 (329 Tokens), toàn bộ Token thừa sẽ không được tính và không tích lũy Bonus Bank.
             - **Nhánh Premium (Yarn Pass - Nếu mua)**: Nhận thêm tại Mốc 0 (500c), Mốc 5 (100c), Mốc 10 (150c), Mốc 15 (200c), Mốc 20 (300c), Mốc 25 (500c), Mốc 30 (750c) -> **Cộng thêm 2,500 Coins**.
@@ -71,7 +71,7 @@ def render_deterministic_tab():
         - **Nhóm Booster hỗ trợ**: Hammer (Búa), Broom (Chổi), Scissors (Kéo).
         - **Nguồn nhận Booster (Inflows)**:
           - **:orange[Key Collection]**: Thưởng qua các mốc chìa khóa: Mốc 2 (1 Scissors), Mốc 5 (1 Hammer), Mốc 6 (1 Broom), Mốc 9 (1 Scissors), Mốc 14 (1 Broom), Mốc 18 (1 Scissors), Mốc 22 (1 Hammer) -> **Tổng 2 Hammer, 2 Broom, 3 Scissors/chu kỳ tuần**.
-          - **:red[Win Streak]**: Thưởng từ mốc chuỗi thắng: Mốc 11 (1 Scissors), Mốc 30 (**2x Hammer**), Mốc 36 (1 Broom) -> **Tổng 2 Hammer, 1 Broom, 1 Scissors/chu kỳ tuần**.
+          - **:red[Win Streak] (Puffer Bubble)**: Thưởng từ mốc chuỗi thắng (Post-CA): Mốc 11 (1 Scissors), Mốc 30 (**2x Hammer**), Mốc 36 (1 Broom) -> **Tổng 2 Hammer, 1 Broom, 1 Scissors/chu kỳ tuần**.
           - **:violet[Master Pass]**: Mốc 0 mở khóa nhận ngay 1x Hammer; nhiều mốc thưởng đơn lẻ và Rương Booster Set (1 Hammer + 1 Broom + 1 Scissors) ở cả 2 nhánh Free và Premium.
           - **Card Set Completion & :rainbow[Grand Prize]**:
             - Hoàn thành Set nhận Booster: Set 2, 5 (2x Scissors); Set 3, 8 (2x Hammer); Set 6, 9 (2x Broom); Set 11 (3x Scissors); Set 12, 14 (3x Hammer); Set 15 (3x Broom).
@@ -84,7 +84,7 @@ def render_deterministic_tab():
         - **Card Packs Inflows**:
           - **Core Gameplay**: Thắng màn Hard nhận 1x Bronze Pack, thắng Super Hard nhận 1x Emerald Pack (**Mặc định TẮT** để tránh lạm phát thẻ từ cày cuốc thường; có thể bật trong config).
           - **:orange[Key Collection]**: Cung cấp Bronze, Emerald, Silver, Amethyst, Ruby Packs theo các mốc chìa khóa.
-          - **:red[Win Streak]**: Cung cấp Bronze, Emerald, Silver, Amethyst, Ruby Packs theo các mốc chuỗi thắng.
+          - **:red[Win Streak] (Puffer Bubble)**: Cung cấp Bronze, Emerald, Silver, Amethyst, Ruby Packs qua các mốc an toàn và mốc thường (Tier 2, 3, 5, 7, 9).
           - **:violet[Master Pass]**: Cung cấp Bronze, Emerald, Silver, Amethyst, Ruby, Rainbow Packs.
           - **:violet[Star Chest] (Tự động Đổi Rương Sao)**: **Mặc định BẬT**. Ưu tiên tự động đổi từ **Gold Star Chest (500⭐: 1x Rainbow, 1x Amethyst, 1x Silver)**; vào ngày cuối của Mùa (Day 60), hệ thống sẽ vét đổi tiếp Silver Star Chest (250⭐) và Bronze Star Chest (100⭐) nếu không đủ 500⭐.
           - **:blue[Card Rush Event]**: Kích hoạt vào Thứ 7 (Tuần 1-6) và Thứ 4 + Thứ 7 (Tuần 7+), tự động nâng cấp Bronze -> Bronze+ (3 thẻ, +50%), Emerald -> Emerald+ (5 thẻ, +67%), Silver -> Silver+ (6 thẻ, +50%).
@@ -139,7 +139,7 @@ def render_deterministic_tab():
                 enable_streak = st.toggle(
                     ":red[**Win Streak**]", 
                     key="ui_enable_streak",
-                    help="Sự kiện Win Streak (Thứ 6 - Chủ Nhật): Thắng liên tiếp (không được thua) để nhận 9 mốc thưởng Coins, Boosters, Hearts và Gói thẻ cao cấp (Amethyst, Ruby). Thua màn sẽ bị reset chuỗi thắng về 0."
+                    help="Sự kiện Win Streak (Puffer Bubble, Thứ 6 - Chủ Nhật): Thắng liên tiếp qua 9 Tiers (trần 36 trận thắng) để nhận Coins, Boosters, Hearts và Gói thẻ cao cấp. Hệ thống trang bị 4 Checkpoint Safety Shelves (Mốc 5, 11, 18, 30): khi thua trận, chuỗi thắng sẽ không rớt về 0 mà được giữ lại tại mốc an toàn (Checkpoint) gần nhất đã đạt được."
                 )
                 enable_mp = st.toggle(
                     ":violet[**Master Pass**]", 

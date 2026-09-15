@@ -73,16 +73,164 @@ DEFAULT_MASTER_PASS_STAGES = [
     {"Stage": 30, "TokensReq": 329, "Reward": "Chest: 200 Coins + 1x Boosters Set + 1x Ruby Pack", "PremiumReward": "Chest: 750 Coins + 60m Heart + 3x Boosters Set + 1x Rainbow Pack"},
 ]
 DEFAULT_STREAK_STAGES = [
-    {"WinsReq": 2, "Reward": "40 coins"},
-    {"WinsReq": 5, "Reward": "15m Heart + 1x Bronze pack"},
-    {"WinsReq": 8, "Reward": "1x Emerald pack"},
-    {"WinsReq": 11, "Reward": "1x Scissors"},
-    {"WinsReq": 14, "Reward": "1x Silver pack"},
-    {"WinsReq": 18, "Reward": "15m Heart + 80 Coins"},
-    {"WinsReq": 24, "Reward": "1x Amethyst Pack"},
-    {"WinsReq": 30, "Reward": "2x Hammer + 30m heart"},
-    {"WinsReq": 36, "Reward": "300 coins + Ruby Pack + 1 Broom"}
+    {
+        "Tier": 1,
+        "WinsReq": 2,
+        "DeltaWins": 2,
+        "Checkpoint": "Normal Milestone",
+        "Reward": "40 Coins",
+        "CoinEquiv": 40,
+        "Category": "Currency",
+        "Reward_PreCA": "40 Coins",
+        "CoinEquiv_PreCA": 40,
+        "Category_PreCA": "Currency",
+        "ResetFloor": 0,
+        "Notes": "First milestone (drop to 0 on loss)"
+    },
+    {
+        "Tier": 2,
+        "WinsReq": 5,
+        "DeltaWins": 3,
+        "Checkpoint": "CHECKPOINT 1",
+        "Reward": "15m Infinite Heart + 1x Bronze Pack",
+        "CoinEquiv": 130,
+        "Category": "Card & Life",
+        "Reward_PreCA": "15m Infinite Heart",
+        "CoinEquiv_PreCA": 30,
+        "Category_PreCA": "Infinite Life",
+        "ResetFloor": 5,
+        "Notes": "First safety floor! Reset base = Streak 5"
+    },
+    {
+        "Tier": 3,
+        "WinsReq": 8,
+        "DeltaWins": 3,
+        "Checkpoint": "Normal Milestone",
+        "Reward": "1x Emerald Pack",
+        "CoinEquiv": 200,
+        "Category": "Card Pack",
+        "Reward_PreCA": "1x Hammer",
+        "CoinEquiv_PreCA": 120,
+        "Category_PreCA": "Booster",
+        "ResetFloor": 5,
+        "Notes": "Unlocks Emerald tier (drop to Streak 5)"
+    },
+    {
+        "Tier": 4,
+        "WinsReq": 11,
+        "DeltaWins": 3,
+        "Checkpoint": "CHECKPOINT 2",
+        "Reward": "1x Scissors",
+        "CoinEquiv": 160,
+        "Category": "Booster",
+        "Reward_PreCA": "60 Coins",
+        "CoinEquiv_PreCA": 60,
+        "Category_PreCA": "Currency",
+        "ResetFloor": 11,
+        "Notes": "Second safety floor! Reset base = Streak 11"
+    },
+    {
+        "Tier": 5,
+        "WinsReq": 14,
+        "DeltaWins": 3,
+        "Checkpoint": "Normal Milestone",
+        "Reward": "1x Silver Pack",
+        "CoinEquiv": 320,
+        "Category": "Card Pack",
+        "Reward_PreCA": "1x Scissors",
+        "CoinEquiv_PreCA": 160,
+        "Category_PreCA": "Booster",
+        "ResetFloor": 11,
+        "Notes": "Unlocks Silver tier (drop to Streak 11)"
+    },
+    {
+        "Tier": 6,
+        "WinsReq": 18,
+        "DeltaWins": 4,
+        "Checkpoint": "CHECKPOINT 3",
+        "Reward": "15m Infinite Heart + 80 Coins",
+        "CoinEquiv": 110,
+        "Category": "Life & Coin",
+        "Reward_PreCA": "80 Coins + 15m Infinite Heart",
+        "CoinEquiv_PreCA": 110,
+        "Category_PreCA": "Life & Coin",
+        "ResetFloor": 18,
+        "Notes": "Third safety floor! Reset base = Streak 18"
+    },
+    {
+        "Tier": 7,
+        "WinsReq": 24,
+        "DeltaWins": 6,
+        "Checkpoint": "Normal Milestone",
+        "Reward": "1x Amethyst Pack",
+        "CoinEquiv": 485,
+        "Category": "Card Pack",
+        "Reward_PreCA": "1x Hammer + 1x Scissors",
+        "CoinEquiv_PreCA": 280,
+        "Category_PreCA": "Booster Duo",
+        "ResetFloor": 18,
+        "Notes": "High-tier Amethyst card (drop to Streak 18)"
+    },
+    {
+        "Tier": 8,
+        "WinsReq": 30,
+        "DeltaWins": 6,
+        "Checkpoint": "CHECKPOINT 4",
+        "Reward": "2x Hammer + 30m Infinite Heart",
+        "CoinEquiv": 300,
+        "Category": "Booster & Life",
+        "Reward_PreCA": "1x Broom + 30m Infinite Heart",
+        "CoinEquiv_PreCA": 240,
+        "Category_PreCA": "Booster & Life",
+        "ResetFloor": 30,
+        "Notes": "Final safety floor! Reset base = Streak 30"
+    },
+    {
+        "Tier": 9,
+        "WinsReq": 36,
+        "DeltaWins": 6,
+        "Checkpoint": "GRAND FINALE",
+        "Reward": "300 Coins + 1x Ruby Pack + 1x Broom + Avatar",
+        "CoinEquiv": 1210,
+        "Category": "Grand Prize",
+        "Reward_PreCA": "300 Coins + 1h Infinite Heart + 1x Broom + Avatar",
+        "CoinEquiv_PreCA": 600,
+        "Category_PreCA": "Grand Prize",
+        "ResetFloor": 30,
+        "Notes": "Event completed! Avatar replaced by boosters if claimed"
+    }
 ]
+
+DEFAULT_STREAK_CHECKPOINTS = [5, 11, 18, 30]
+
+def get_streak_floor(current_streak: float, s_df=None) -> float:
+    """
+    Returns the checkpoint floor for a given win streak.
+    If s_df is provided with 'ResetFloor' column, uses the max ResetFloor for reached milestones.
+    Otherwise falls back to DEFAULT_STREAK_CHECKPOINTS = [5, 11, 18, 30].
+    """
+    if s_df is not None and not s_df.empty:
+        if 'ResetFloor' in s_df.columns:
+            reached = s_df[s_df['WinsReq'] <= current_streak]
+            if not reached.empty:
+                return float(reached['ResetFloor'].max())
+            return 0.0
+        elif 'Checkpoint' in s_df.columns:
+            cps = s_df[s_df['Checkpoint'].astype(str).str.contains('CHECKPOINT', case=False, na=False)]['WinsReq'].tolist()
+            floor = 0.0
+            for cp in sorted(cps):
+                if current_streak >= cp:
+                    floor = float(cp)
+                else:
+                    break
+            return floor
+    floor = 0.0
+    for cp in DEFAULT_STREAK_CHECKPOINTS:
+        if current_streak >= cp:
+            floor = float(cp)
+        else:
+            break
+    return floor
 
 DEFAULT_CARD_SET_REWARDS = [
     {"Set": 1, "Name": "Items", "Common": 8, "Uncommon": 1, "Rare": 0, "Epic": 0, "Legendary": 0, "Secret": 0, "AlbumReward": "100 Coins", "GrandAlbumReward": "200 Coins"},

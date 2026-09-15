@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 import random
-from config import COIN_N, COIN_H, COIN_SH, DEFAULT_PRICES
+from config import COIN_N, COIN_H, COIN_SH, DEFAULT_PRICES, get_streak_floor
 from utils.parser import parse_rewards
 
 def run_monte_carlo_simulation(cfg, t_cfg, num_players):
@@ -169,7 +169,12 @@ def run_monte_carlo_simulation(cfg, t_cfg, num_players):
                 else:
                     streak_wins = 0
             else:
-                streak_wins = 0
+                d_current = d
+                if enable_streak and (d_current % 7 in [5, 6, 0]):
+                    s_df = t_cfg.get('streak_stages', pd.DataFrame())
+                    streak_wins = int(get_streak_floor(streak_wins, s_df))
+                else:
+                    streak_wins = 0
             
             p_balance += liveops_rwd
             

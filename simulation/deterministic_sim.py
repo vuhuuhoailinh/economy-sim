@@ -1,6 +1,6 @@
 import random
 import pandas as pd
-from config import DEFAULT_PRICES, SET_REWARDS_MAP, GRAND_PRIZE_REWARDS
+from config import DEFAULT_PRICES, SET_REWARDS_MAP, GRAND_PRIZE_REWARDS, get_streak_floor
 from utils.parser import parse_rewards, parse_packs
 from card_album.config import PACK_ORDER, TOTAL_CARDS, CARD_SETS, CHEST_CONFIG
 from card_album.config_manager import get_default_config
@@ -475,7 +475,7 @@ def run_deterministic_simulation(cfg, tuning_cfg):
                 
                 if accum_fails >= 1.0:
                     accum_fails -= 1.0
-                    streak_wins = 0.0
+                    streak_wins = get_streak_floor(streak_wins, s_df)
             day_log["EventLog"].append(f"Win Streak: Max Streak {int(max_streak_today)}/{int(max_streak_cap)} Wins")
             day_log["StreakStage"] = len(claimed_streak_reqs)
         else:

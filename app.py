@@ -23,6 +23,7 @@ if (
     or 'PremiumReward' not in st.session_state.tuning.get('master_pass_stages', pd.DataFrame()).columns 
     or 'card_set_rewards' not in st.session_state.tuning
     or 'Pack' not in ' '.join(st.session_state.tuning.get('key_stages', pd.DataFrame())['Reward'].tolist())
+    or 'Checkpoint' not in st.session_state.tuning.get('streak_stages', pd.DataFrame()).columns
 ):
     st.session_state.tuning = get_default_tuning()
 
