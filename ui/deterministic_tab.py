@@ -316,7 +316,317 @@ def render_deterministic_tab():
                 st.success("Đã đồng bộ thành công sang Bộ Sưu Tập Card Album, Gacha Sandbox & Chest Drop!")
 
         st.divider()
-        st.subheader("4. Resource & Pack Distribution")
+        st.subheader("4. LiveOps Overview")
+
+        def _fmt_bst(b_dict):
+            if not isinstance(b_dict, dict): return "0"
+            parts = []
+            if b_dict.get('Hammer', 0) > 0: parts.append(f"{b_dict['Hammer']} 🔨")
+            if b_dict.get('Broom', 0) > 0: parts.append(f"{b_dict['Broom']} 🧹")
+            if b_dict.get('Scissors', 0) > 0: parts.append(f"{b_dict['Scissors']} ✂️")
+            tot = sum(b_dict.values())
+            if tot == 0: return "0"
+            return f"{' | '.join(parts)} (Total: {tot})"
+
+        def _fmt_packs(p_dict):
+            if not isinstance(p_dict, dict): return "0"
+            parts = [f"{cnt}x {p}" for p, cnt in p_dict.items() if cnt > 0]
+            tot = sum(p_dict.values())
+            if tot == 0: return "0"
+            return f"{', '.join(parts)} (Total: {tot})"
+
+        lo_sum = res.get('liveops_summary', {})
+        lo_keys = lo_sum.get('key_collection', {})
+        lo_streak = lo_sum.get('win_streak', {})
+        lo_mp = lo_sum.get('master_pass', {})
+        lo_cd = lo_sum.get('chest_drop', {})
+        lo_sc = lo_sum.get('star_chest', {})
+        lo_album = lo_sum.get('card_album', {})
+
+        tot_inflow = max(1, res.get('tot_inflow', 1))
+        tot_album_coins = res.get('tot_album_coins', 0)
+        tot_lo_coins = res.get('tot_liveops', 0) + tot_album_coins
+        tot_lo_bst_h = (res.get('tot_bst_earned_keys', {}).get('Hammer', 0) + 
+                        res.get('tot_bst_earned_streak', {}).get('Hammer', 0) + 
+                        res.get('tot_bst_earned_mp', {}).get('Hammer', 0) + 
+                        res.get('tot_bst_earned_album', {}).get('Hammer', 0))
+        tot_lo_bst_b = (res.get('tot_bst_earned_keys', {}).get('Broom', 0) + 
+                        res.get('tot_bst_earned_streak', {}).get('Broom', 0) + 
+                        res.get('tot_bst_earned_mp', {}).get('Broom', 0) + 
+                        res.get('tot_bst_earned_album', {}).get('Broom', 0))
+        tot_lo_bst_s = (res.get('tot_bst_earned_keys', {}).get('Scissors', 0) + 
+                        res.get('tot_bst_earned_streak', {}).get('Scissors', 0) + 
+                        res.get('tot_bst_earned_mp', {}).get('Scissors', 0) + 
+                        res.get('tot_bst_earned_album', {}).get('Scissors', 0))
+        tot_lo_bst_all = tot_lo_bst_h + tot_lo_bst_b + tot_lo_bst_s
+        tot_lo_packs = (sum(res.get('tot_packs_earned_keys', {}).values()) + 
+                        sum(res.get('tot_packs_earned_streak', {}).values()) + 
+                        sum(res.get('tot_packs_earned_mp', {}).values()) + 
+                        sum(res.get('tot_packs_earned_star_chest', {}).values()))
+        tot_chests_count = sum(res.get('tot_chests_earned', {}).values())
+
+        # Top Metric Cards for LiveOps
+        m_c1, m_c2, m_c3, m_c4 = st.columns(4)
+        m_c1.metric("LiveOps & Album Coins", f"+{tot_lo_coins:,}", f"{tot_lo_coins/tot_inflow*100:.1f}% of Total Inflow")
+        m_c2.metric("LiveOps & Album Boosters", f"{tot_lo_bst_all:,}", f"{tot_lo_bst_h} 🔨 | {tot_lo_bst_b} 🧹 | {tot_lo_bst_s} ✂️")
+        m_c3.metric("LiveOps Card Packs", f"{tot_lo_packs:,} Packs", "Keys + Streak + MP + Star Chest")
+        m_c4.metric("Chests & Star Exchange", f"{tot_chests_count:,} Daily Chests", f"{sum(res.get('tot_star_chests', {}).values())} Star Chests")
+
+        st.markdown("<br>", unsafe_allow_html=True)
+        st.markdown("##### End-of-Simulation LiveOps Resource Summary")
+
+        summary_rows = []
+        # Key Collection
+        kc_coins = lo_keys.get('total_coins', 0)
+        kc_bst = lo_keys.get('total_boosters', {})
+        kc_packs = lo_keys.get('total_packs', {})
+        summary_rows.append({
+            "LiveOps Feature": "Key Collection",
+            "Cadence": lo_keys.get('cadence', 'Weekly (Mon - Thu)'),
+            "Completed Cycles": f"{lo_keys.get('completed_cycles', 0)} cycles",
+            "Total Coins Earned": f"+{kc_coins:,} ({kc_coins/tot_inflow*100:.1f}%)" if kc_coins > 0 else "0 Coins",
+            "Total Boosters Earned": _fmt_bst(kc_bst),
+            "Total Card Packs Earned": _fmt_packs(kc_packs),
+            "Progression / Key Metrics": f"Keys: {lo_keys.get('total_keys', 0):,} Keys"
+        })
+
+        # Win Streak
+        ws_coins = lo_streak.get('total_coins', 0)
+        ws_bst = lo_streak.get('total_boosters', {})
+        ws_packs = lo_streak.get('total_packs', {})
+        summary_rows.append({
+            "LiveOps Feature": "Win Streak",
+            "Cadence": lo_streak.get('cadence', 'Weekly (Fri - Sun)'),
+            "Completed Cycles": f"{lo_streak.get('completed_cycles', 0)} cycles",
+            "Total Coins Earned": f"+{ws_coins:,} ({ws_coins/tot_inflow*100:.1f}%)" if ws_coins > 0 else "0 Coins",
+            "Total Boosters Earned": _fmt_bst(ws_bst),
+            "Total Card Packs Earned": _fmt_packs(ws_packs),
+            "Progression / Key Metrics": f"Max Streak: {max((c.get('max_streak', 0) for c in lo_streak.get('cycles', [])), default=0)} Wins"
+        })
+
+        # Master Pass
+        mp_coins = lo_mp.get('total_coins', 0)
+        mp_bst = lo_mp.get('total_boosters', {})
+        mp_packs = lo_mp.get('total_packs', {})
+        bb_coins = lo_mp.get('total_bonus_bank', 0)
+        bb_str = f" | Bonus Bank: +{bb_coins:,} Coins" if bb_coins > 0 else ""
+        summary_rows.append({
+            "LiveOps Feature": lo_mp.get('name', 'Master Pass'),
+            "Cadence": lo_mp.get('cadence', 'Seasonal (30-Day Cycle)'),
+            "Completed Cycles": f"{lo_mp.get('completed_cycles', 0)} seasons",
+            "Total Coins Earned": f"+{mp_coins:,} ({mp_coins/tot_inflow*100:.1f}%)" if mp_coins > 0 else "0 Coins",
+            "Total Boosters Earned": _fmt_bst(mp_bst),
+            "Total Card Packs Earned": _fmt_packs(mp_packs),
+            "Progression / Key Metrics": f"Tokens: {lo_mp.get('total_tokens', 0):,}{bb_str}"
+        })
+
+        # Chest Drop
+        cd_chests = lo_cd.get('chests_earned', {})
+        cd_tot_chests = sum(cd_chests.values())
+        summary_rows.append({
+            "LiveOps Feature": "Chest Drop",
+            "Cadence": lo_cd.get('cadence', 'Daily (3, 7, 12 Wins)'),
+            "Completed Cycles": f"{res['days']} days",
+            "Total Coins Earned": "0 Coins",
+            "Total Boosters Earned": "0",
+            "Total Card Packs Earned": f"{cd_tot_chests:,} Chests (5-hit/chest)",
+            "Progression / Key Metrics": f"1-Star: {cd_chests.get(1,0)} | 2-Star: {cd_chests.get(2,0)} | 3-Star: {cd_chests.get(3,0)} ({lo_cd.get('total_cards',0)} Cards, +{lo_cd.get('stars_gained',0)} Stars)"
+        })
+
+        # Star Chest
+        sc_chests = lo_sc.get('chests_opened', {})
+        sc_tot = sum(sc_chests.values())
+        sc_packs = lo_sc.get('total_packs', {})
+        summary_rows.append({
+            "LiveOps Feature": "Star Chest",
+            "Cadence": lo_sc.get('cadence', 'Automatic (100 / 250 / 500 Stars)'),
+            "Completed Cycles": f"{sc_tot} redemptions",
+            "Total Coins Earned": "0 Coins",
+            "Total Boosters Earned": "0",
+            "Total Card Packs Earned": _fmt_packs(sc_packs),
+            "Progression / Key Metrics": f"Gold: {sc_chests.get('Gold',0)} | Silver: {sc_chests.get('Silver',0)} | Bronze: {sc_chests.get('Bronze',0)}"
+        })
+
+        # Card Album
+        ca_coins = lo_album.get('total_coins', 0)
+        ca_bst = lo_album.get('total_boosters', {})
+        ca_sets = lo_album.get('total_sets_completed', 0)
+        ca_gp_count = len(lo_album.get('grand_prize_log', []))
+        gp_text = f" | {ca_gp_count} Grand Prize" if ca_gp_count > 0 else ""
+        summary_rows.append({
+            "LiveOps Feature": "Card Album",
+            "Cadence": lo_album.get('cadence', 'Seasonal (60-Day Cycle)'),
+            "Completed Cycles": f"{lo_album.get('completed_cycles', 0)} seasons",
+            "Total Coins Earned": f"+{ca_coins:,} ({ca_coins/tot_inflow*100:.1f}%)" if ca_coins > 0 else "0 Coins",
+            "Total Boosters Earned": _fmt_bst(ca_bst),
+            "Total Card Packs Earned": "0",
+            "Progression / Key Metrics": f"{ca_sets}/30 Sets Completed{gp_text}"
+        })
+
+        def _color_liveops_feature(val):
+            val_str = str(val)
+            if "Key Collection" in val_str:
+                return "color: #d97706; font-weight: bold;"
+            elif "Win Streak" in val_str:
+                return "color: #dc2626; font-weight: bold;"
+            elif "Master Pass" in val_str:
+                return "color: #7c3aed; font-weight: bold;"
+            elif "Chest Drop" in val_str:
+                return "color: #059669; font-weight: bold;"
+            elif "Star Chest" in val_str:
+                return "color: #8b5cf6; font-weight: bold;"
+            elif "Card Album" in val_str:
+                return "color: #4f46e5; font-weight: bold;"
+            return ""
+
+        df_summary = pd.DataFrame(summary_rows)
+        style_mapper = df_summary.style.map if hasattr(df_summary.style, "map") else df_summary.style.applymap
+        st.dataframe(style_mapper(_color_liveops_feature, subset=["LiveOps Feature"]), use_container_width=True, hide_index=True)
+
+        st.markdown("<br>", unsafe_allow_html=True)
+        st.markdown("##### Cycle-by-Cycle Performance Breakdown")
+
+        tab_keys, tab_streak, tab_mp, tab_chests, tab_album = st.tabs([
+            "Key Collection (Midweek)", 
+            "Win Streak (Weekend)", 
+            "Master Pass (Season)", 
+            "Chest Drop & Star Chest",
+            "Card Album (Sets & Grand Prize)"
+        ])
+
+        with tab_keys:
+            st.markdown("###### :orange[Key Collection (Midweek)]")
+            st.caption("**:orange[Key Collection]:** 7-day weekly cycle, active Monday through Thursday. Collect Keys via level wins (5 Keys/win) to unlock milestone rewards. Progress resets every Monday.")
+            kc_cycle_rows = []
+            for c in lo_keys.get('cycles', []):
+                kc_cycle_rows.append({
+                    "Cycle": f"Week {c.get('cycle', '')}",
+                    "Active Period": c.get('active_range', ''),
+                    "Keys Collected": f"{c.get('keys_collected', 0):,} / {c.get('max_keys_cap', 304)} Keys",
+                    "Milestones Reached": f"{c.get('milestones_reached', 0)} / {c.get('total_milestones', 0)} Milestones",
+                    "Coins Earned": f"+{c.get('coins', 0):,} Coins" if c.get('coins', 0) > 0 else "0",
+                    "Boosters Earned": _fmt_bst(c.get('boosters', {})),
+                    "Card Packs Earned": _fmt_packs(c.get('packs', {}))
+                })
+            if kc_cycle_rows:
+                st.dataframe(pd.DataFrame(kc_cycle_rows), use_container_width=True, hide_index=True)
+            else:
+                st.info("No Key Collection cycle data available.")
+
+        with tab_streak:
+            st.markdown("###### :red[Win Streak (Weekend)]")
+            st.caption("**:red[Win Streak]:** 7-day weekly cycle, active Friday through Sunday. Accumulate consecutive level wins across 9 Tiers with 4 Checkpoint Safety Shelves (5, 11, 18, 30). Streak resets every Friday.")
+            ws_cycle_rows = []
+            for c in lo_streak.get('cycles', []):
+                ws_cycle_rows.append({
+                    "Cycle": f"Week {c.get('cycle', '')}",
+                    "Active Period": c.get('active_range', ''),
+                    "Max Streak": f"{c.get('max_streak', 0)} / {c.get('max_streak_cap', 36)} Wins",
+                    "Milestones Reached": f"{c.get('milestones_reached', 0)} / {c.get('total_milestones', 0)} Milestones",
+                    "Coins Earned": f"+{c.get('coins', 0):,} Coins" if c.get('coins', 0) > 0 else "0",
+                    "Boosters Earned": _fmt_bst(c.get('boosters', {})),
+                    "Card Packs Earned": _fmt_packs(c.get('packs', {}))
+                })
+            if ws_cycle_rows:
+                st.dataframe(pd.DataFrame(ws_cycle_rows), use_container_width=True, hide_index=True)
+            else:
+                st.info("No Win Streak cycle data available.")
+
+        with tab_mp:
+            st.markdown("###### :violet[Master Pass (Season)]")
+            st.caption("**:violet[Master Pass]:** 30-day season cycle, active daily. Collect Tokens via level wins (Normal: 1, Hard: 2, Super Hard: 3). Premium track unlocks additional rewards and Bonus Bank (up to 3,000 Coins). Resets every 30 days.")
+            mp_cycle_rows = []
+            for c in lo_mp.get('cycles', []):
+                bb = c.get('bonus_bank_coins', 0)
+                bb_txt = f"+{bb:,} Coins" if bb > 0 else "0"
+                mp_cycle_rows.append({
+                    "Season": f"Season {c.get('cycle', '')}",
+                    "Active Period": c.get('active_range', ''),
+                    "Tier": c.get('tier', 'Free'),
+                    "Tokens Collected": f"{c.get('tokens_collected', 0):,} Tokens",
+                    "Highest Stage": f"Stage {c.get('max_stage_reached', 0)} / {c.get('total_stages', 0)}",
+                    "Bonus Bank (Coins)": bb_txt,
+                    "Total Coins Earned": f"+{c.get('coins', 0):,} Coins" if c.get('coins', 0) > 0 else "0",
+                    "Boosters Earned": _fmt_bst(c.get('boosters', {})),
+                    "Card Packs Earned": _fmt_packs(c.get('packs', {}))
+                })
+            if mp_cycle_rows:
+                st.dataframe(pd.DataFrame(mp_cycle_rows), use_container_width=True, hide_index=True)
+            else:
+                st.info("No Master Pass cycle data available.")
+
+        with tab_chests:
+            st.markdown("###### :green[Chest Drop] & :violet[Star Chest]")
+            st.caption("**:green[Chest Drop] & :violet[Star Chest]:** Daily chest drop minigame based on win thresholds (3, 7, 12 wins) and automatic duplicate star conversion for Star Chests (Bronze 100 Stars, Silver 250 Stars, Gold 500 Stars).")
+            col_cd1, col_cd2 = st.columns(2)
+            with col_cd1:
+                st.markdown("###### :green[Daily Chest Drop Summary]")
+                st.markdown(f"- **1-Star Chests (3 Wins/day):** {cd_chests.get(1, 0):,} Chests")
+                st.markdown(f"- **2-Star Chests (7 Wins/day):** {cd_chests.get(2, 0):,} Chests")
+                st.markdown(f"- **3-Star Chests (12 Wins/day):** {cd_chests.get(3, 0):,} Chests")
+                st.markdown(f"- **Total Chests Broken (5 hits/chest):** {cd_tot_chests:,} Chests ({cd_tot_chests * 5:,} Hits)")
+                st.markdown(f"- **Total Cards Drawn:** {lo_cd.get('total_cards', 0):,} Cards ({lo_cd.get('new_cards', 0):,} New | +{lo_cd.get('stars_gained', 0):,} Stars)")
+            with col_cd2:
+                st.markdown("###### :violet[Star Chest Summary]")
+                st.markdown(f"- **Bronze Star Chest (100 Stars):** {sc_chests.get('Bronze', 0):,} Times")
+                st.markdown(f"- **Silver Star Chest (250 Stars):** {sc_chests.get('Silver', 0):,} Times")
+                st.markdown(f"- **Gold Star Chest (500 Stars):** {sc_chests.get('Gold', 0):,} Times")
+                st.markdown(f"- **Total Redemptions:** {sc_tot} Times")
+                st.markdown(f"- **Total Card Packs Received:** {_fmt_packs(sc_packs)}")
+
+        with tab_album:
+            st.markdown("###### :blue[Card Album (Sets & Grand Prize)]")
+            st.caption("**:blue[Card Album]:** 60-day season cycle. Complete 15 Sets in Round 1 (Standard Album) to claim individual set rewards and Grand Prize (5,000 Coins + 5x Booster Set), then unlock Round 2 (Grand Album) with 2x Coin rewards and Grand Prize (10,000 Coins + 10x Booster Set).")
+            ca_cycle_rows = []
+            for c in lo_album.get('cycles', []):
+                gp_status = "Claimed" if c.get('grand_prize_claimed', False) else "None"
+                ca_cycle_rows.append({
+                    "Season": f"Season {c.get('cycle', '')}",
+                    "Active Period": c.get('active_range', ''),
+                    "Standard Sets (Round 1)": f"{c.get('standard_sets', 0)} / 15",
+                    "Grand Sets (Round 2)": f"{c.get('grand_sets', 0)} / 15",
+                    "Grand Prize": gp_status,
+                    "Total Coins Earned": f"+{c.get('coins', 0):,} Coins" if c.get('coins', 0) > 0 else "0",
+                    "Boosters Earned": _fmt_bst(c.get('boosters', {}))
+                })
+            if ca_cycle_rows:
+                st.dataframe(pd.DataFrame(ca_cycle_rows), use_container_width=True, hide_index=True)
+            else:
+                st.info("No Card Album cycle data available.")
+
+            completed_sets = lo_album.get('completed_sets_log', [])
+            if completed_sets:
+                st.markdown("<br>", unsafe_allow_html=True)
+                st.markdown("###### Completed Sets History")
+                sets_rows = []
+                for s in completed_sets:
+                    sets_rows.append({
+                        "Day": f"Day {s.get('day', 0)}",
+                        "Season": f"Season {s.get('season', 1)}",
+                        "Album Round": s.get('round_name', ''),
+                        "Set Completed": f"Set {s.get('set_id', '')} - {s.get('set_name', '')}",
+                        "Coins Reward": f"+{s.get('coins', 0):,} Coins" if s.get('coins', 0) > 0 else "0 Coins",
+                        "Boosters Reward": _fmt_bst(s.get('boosters', {}))
+                    })
+                st.dataframe(pd.DataFrame(sets_rows), use_container_width=True, hide_index=True)
+
+            gp_log = lo_album.get('grand_prize_log', [])
+            if gp_log:
+                st.markdown("<br>", unsafe_allow_html=True)
+                st.markdown("###### Grand Prize History")
+                gp_rows = []
+                for gp in gp_log:
+                    gp_rows.append({
+                        "Day": f"Day {gp.get('day', 0)}",
+                        "Season": f"Season {gp.get('season', 1)}",
+                        "Milestone": gp.get('name', ''),
+                        "Coins Reward": f"+{gp.get('coins', 0):,} Coins" if gp.get('coins', 0) > 0 else "0 Coins",
+                        "Boosters Reward": _fmt_bst(gp.get('boosters', {}))
+                    })
+                st.dataframe(pd.DataFrame(gp_rows), use_container_width=True, hide_index=True)
+
+        st.divider()
+        st.subheader("5. Resource & Pack Distribution")
         pc1, pc2, pc3, pc4 = st.columns(4)
 
         liveops_color_map = {

@@ -131,7 +131,125 @@ def run_deterministic_simulation(cfg, tuning_cfg):
     claimed_streak_reqs = set()
     claimed_key_reqs = set()
     
+    enable_mp = cfg.get('enable_mp', True)
+    mp_tier = cfg.get('mp_tier', 'Free')
+    enable_keys = cfg.get('enable_keys', True)
+    enable_streak = cfg.get('enable_streak', True)
+    k_df = tuning_cfg.get('key_stages', pd.DataFrame())
+    s_df = tuning_cfg.get('streak_stages', pd.DataFrame())
+    mp_df = tuning_cfg.get('master_pass_stages', pd.DataFrame())
+    max_keys_cap = k_df['KeysReq'].max() if (not k_df.empty and 'KeysReq' in k_df.columns) else 304
+    max_streak_cap = s_df['WinsReq'].max() if (not s_df.empty and 'WinsReq' in s_df.columns) else 36
+    max_mp_stage = mp_df['TokensReq'].max() if (not mp_df.empty and 'TokensReq' in mp_df.columns) else 150
+
+    key_collection_cycles = []
+    win_streak_cycles = []
+    master_pass_cycles = []
+
+    def _init_key_cycle(wk):
+        s_d = (wk - 1) * 7 + 1
+        e_d = min(days, (wk - 1) * 7 + 4)
+        return {
+            'cycle': wk,
+            'week_name': f"Week {wk}",
+            'start_day': s_d,
+            'end_day': min(days, wk * 7),
+            'active_range': f"Day {s_d} - {e_d}" if enable_keys else "Off",
+            'keys_collected': 0,
+            'max_keys_cap': int(max_keys_cap),
+            'milestones_reached': 0,
+            'total_milestones': len(k_df) if not k_df.empty else 0,
+            'coins': 0,
+            'boosters': {'Hammer': 0, 'Broom': 0, 'Scissors': 0},
+            'packs': {},
+            'is_active': enable_keys
+        }
+
+    def _init_streak_cycle(wk):
+        s_d = (wk - 1) * 7 + 5
+        e_d = min(days, wk * 7)
+        return {
+            'cycle': wk,
+            'week_name': f"Week {wk}",
+            'start_day': s_d,
+            'end_day': e_d,
+            'active_range': f"Day {s_d} - {e_d}" if (enable_streak and days >= s_d) else ("Off" if not enable_streak else f"Upcoming (from Day {s_d})"),
+            'max_streak': 0,
+            'max_streak_cap': int(max_streak_cap),
+            'milestones_reached': 0,
+            'total_milestones': len(s_df) if not s_df.empty else 0,
+            'coins': 0,
+            'boosters': {'Hammer': 0, 'Broom': 0, 'Scissors': 0},
+            'packs': {},
+            'is_active': enable_streak
+        }
+
+    def _init_mp_cycle(sn):
+        s_d = (sn - 1) * 30 + 1
+        e_d = min(days, sn * 30)
+        return {
+            'cycle': sn,
+            'season_name': f"Season {sn}",
+            'start_day': s_d,
+            'end_day': e_d,
+            'active_range': f"Day {s_d} - {e_d}" if enable_mp else "Off",
+            'tier': mp_tier if enable_mp else "Off",
+            'tokens_collected': 0,
+            'max_stage_reached': 0,
+            'total_stages': len(mp_df) if not mp_df.empty else 0,
+            'bonus_bank_coins': 0,
+            'coins': 0,
+            'boosters': {'Hammer': 0, 'Broom': 0, 'Scissors': 0},
+            'packs': {},
+            'is_active': enable_mp
+        }
+
+    card_album_cycles = []
+    album_completed_sets_log = []
+    grand_prize_log = []
+
+    def _init_album_cycle(sn):
+        s_d = (sn - 1) * 60 + 1
+        e_d = min(days, sn * 60)
+        return {
+            'cycle': sn,
+            'season_name': f"Season {sn}",
+            'start_day': s_d,
+            'end_day': e_d,
+            'active_range': f"Day {s_d} - {e_d}",
+            'standard_sets': 0,
+            'grand_sets': 0,
+            'grand_prize_claimed': False,
+            'coins': 0,
+            'boosters': {'Hammer': 0, 'Broom': 0, 'Scissors': 0}
+        }
+
+    cur_key_cycle = _init_key_cycle(1)
+    cur_streak_cycle = _init_streak_cycle(1)
+    cur_mp_cycle = _init_mp_cycle(1)
+    cur_album_cycle = _init_album_cycle(1)
+
     for d in range(1, days + 1):
+        # Rollover weekly cycles on Monday
+        if d > 1 and (d - 1) % 7 == 0:
+            key_collection_cycles.append(cur_key_cycle)
+            win_streak_cycles.append(cur_streak_cycle)
+            wk = (d - 1) // 7 + 1
+            cur_key_cycle = _init_key_cycle(wk)
+            cur_streak_cycle = _init_streak_cycle(wk)
+
+        # Rollover Master Pass seasons every 30 days
+        if d > 1 and (d - 1) % 30 == 0:
+            master_pass_cycles.append(cur_mp_cycle)
+            sn = (d - 1) // 30 + 1
+            cur_mp_cycle = _init_mp_cycle(sn)
+
+        # Rollover Card Album seasons every 60 days
+        if d > 1 and (d - 1) % 60 == 0:
+            card_album_cycles.append(cur_album_cycle)
+            alb_sn = (d - 1) // 60 + 1
+            cur_album_cycle = _init_album_cycle(alb_sn)
+
         is_cr = enable_card_rush and is_card_rush_day(d)
         day_packs = {}
         day_chests = {}
@@ -267,6 +385,7 @@ def run_deterministic_simulation(cfg, tuning_cfg):
                             p_act = upgrade_pack(p, is_cr)
                             day_packs[p_act] = day_packs.get(p_act, 0) + cnt
                             tot_packs_earned_mp[p_act] = tot_packs_earned_mp.get(p_act, 0) + cnt
+                            cur_mp_cycle['packs'][p_act] = cur_mp_cycle['packs'].get(p_act, 0) + cnt
 
                         _pc, _ph, _pb, _ps = 0, 0, 0, 0
                         if mp_tier == 'Premium' and prem_rew_str:
@@ -279,6 +398,7 @@ def run_deterministic_simulation(cfg, tuning_cfg):
                                 p_act = upgrade_pack(p, is_cr)
                                 day_packs[p_act] = day_packs.get(p_act, 0) + cnt
                                 tot_packs_earned_mp[p_act] = tot_packs_earned_mp.get(p_act, 0) + cnt
+                                cur_mp_cycle['packs'][p_act] = cur_mp_cycle['packs'].get(p_act, 0) + cnt
                         
                         reached_stage_info.append({
                             'stage': stg,
@@ -298,6 +418,8 @@ def run_deterministic_simulation(cfg, tuning_cfg):
                 day_log["CoinLog"].append(f"Master Pass End: +{int(master_pass_bonus_bank)} Coins (Bonus Bank)")
                 day_liveops += master_pass_bonus_bank
                 tot_liveops_mp += master_pass_bonus_bank
+                cur_mp_cycle['coins'] += int(master_pass_bonus_bank)
+                cur_mp_cycle['bonus_bank_coins'] += int(master_pass_bonus_bank)
         else:
             day_log["DailyMPTokens"] = 0
 
@@ -310,6 +432,8 @@ def run_deterministic_simulation(cfg, tuning_cfg):
         day_log["MPStage"] = current_mp_stage
         day_log["MPTokens"] = int(master_pass_tokens)
         day_log["MPTier"] = mp_tier if enable_mp else "Off"
+        cur_mp_cycle['tokens_collected'] = int(master_pass_tokens)
+        cur_mp_cycle['max_stage_reached'] = max(cur_mp_cycle['max_stage_reached'], current_mp_stage)
 
         if mp_stages_reached > 0:
             day_liveops += c
@@ -318,6 +442,11 @@ def run_deterministic_simulation(cfg, tuning_cfg):
             inv['Hammer'] += h; inv['Broom'] += b; inv['Scissors'] += s
             tot_bst_earned['Hammer'] += h; tot_bst_earned['Broom'] += b; tot_bst_earned['Scissors'] += s
             tot_bst_earned_mp['Hammer'] += h; tot_bst_earned_mp['Broom'] += b; tot_bst_earned_mp['Scissors'] += s
+
+            cur_mp_cycle['coins'] += c
+            cur_mp_cycle['boosters']['Hammer'] += h
+            cur_mp_cycle['boosters']['Broom'] += b
+            cur_mp_cycle['boosters']['Scissors'] += s
 
             if free_c > 0:
                 day_log["CoinLog"].append(f"Master Pass [Free]: +{int(free_c)} Coins")
@@ -400,6 +529,7 @@ def run_deterministic_simulation(cfg, tuning_cfg):
                         p_act = upgrade_pack(p, is_cr)
                         day_packs[p_act] = day_packs.get(p_act, 0) + cnt
                         tot_packs_earned_keys[p_act] = tot_packs_earned_keys.get(p_act, 0) + cnt
+                        cur_key_cycle['packs'][p_act] = cur_key_cycle['packs'].get(p_act, 0) + cnt
                 
         if stages_reached > 0:
             day_liveops += c
@@ -407,6 +537,10 @@ def run_deterministic_simulation(cfg, tuning_cfg):
             inv['Hammer'] += h; inv['Broom'] += b; inv['Scissors'] += s
             tot_bst_earned['Hammer'] += h; tot_bst_earned['Broom'] += b; tot_bst_earned['Scissors'] += s
             tot_bst_earned_keys['Hammer'] += h; tot_bst_earned_keys['Broom'] += b; tot_bst_earned_keys['Scissors'] += s
+            cur_key_cycle['coins'] += c
+            cur_key_cycle['boosters']['Hammer'] += h
+            cur_key_cycle['boosters']['Broom'] += b
+            cur_key_cycle['boosters']['Scissors'] += s
             
             if c > 0: day_log["CoinLog"].append(f"Key Collection ({stages_reached} stages): +{int(c)} Coins")
             if h > 0 or b > 0 or s > 0:
@@ -424,6 +558,8 @@ def run_deterministic_simulation(cfg, tuning_cfg):
             day_log["BoostersEarned"]['Hammer'] += h
             day_log["BoostersEarned"]['Broom'] += b
             day_log["BoostersEarned"]['Scissors'] += s
+        cur_key_cycle['keys_collected'] = int(accum_keys)
+        cur_key_cycle['milestones_reached'] = len(claimed_key_reqs)
 
         # Win Streak (Fri-Sun only)
         if d % 7 == 5:
@@ -463,6 +599,10 @@ def run_deterministic_simulation(cfg, tuning_cfg):
                             day_log["BoosterLog"].append(f"Win Streak (Stage {req}): {', '.join(bst_parts)}")
                         tot_bst_earned['Hammer'] += _h; tot_bst_earned['Broom'] += _b; tot_bst_earned['Scissors'] += _s
                         tot_bst_earned_streak['Hammer'] += _h; tot_bst_earned_streak['Broom'] += _b; tot_bst_earned_streak['Scissors'] += _s
+                        cur_streak_cycle['coins'] += _c
+                        cur_streak_cycle['boosters']['Hammer'] += _h
+                        cur_streak_cycle['boosters']['Broom'] += _b
+                        cur_streak_cycle['boosters']['Scissors'] += _s
                         day_log["BoostersEarned"]['Hammer'] += _h
                         day_log["BoostersEarned"]['Broom'] += _b
                         day_log["BoostersEarned"]['Scissors'] += _s
@@ -472,12 +612,15 @@ def run_deterministic_simulation(cfg, tuning_cfg):
                             p_act = upgrade_pack(p, is_cr)
                             day_packs[p_act] = day_packs.get(p_act, 0) + cnt
                             tot_packs_earned_streak[p_act] = tot_packs_earned_streak.get(p_act, 0) + cnt
+                            cur_streak_cycle['packs'][p_act] = cur_streak_cycle['packs'].get(p_act, 0) + cnt
                 
                 if accum_fails >= 1.0:
                     accum_fails -= 1.0
                     streak_wins = get_streak_floor(streak_wins, s_df)
             day_log["EventLog"].append(f"Win Streak: Max Streak {int(max_streak_today)}/{int(max_streak_cap)} Wins")
             day_log["StreakStage"] = len(claimed_streak_reqs)
+            cur_streak_cycle['max_streak'] = max(cur_streak_cycle['max_streak'], int(max_streak_today))
+            cur_streak_cycle['milestones_reached'] = len(claimed_streak_reqs)
         else:
             streak_wins = 0.0
             accum_fails = 0.0
@@ -529,6 +672,26 @@ def run_deterministic_simulation(cfg, tuning_cfg):
                                 if _s > 0: bst_parts.append(f"+{_s} Scissors")
                                 day_log["BoosterLog"].append(f"Card Album Set {s_id} ({set_data.get('Name')}) Completed: {', '.join(bst_parts)}")
 
+                            cur_album_cycle['coins'] += _c
+                            cur_album_cycle['boosters']['Hammer'] += _h
+                            cur_album_cycle['boosters']['Broom'] += _b
+                            cur_album_cycle['boosters']['Scissors'] += _s
+                            if rnd == 0:
+                                cur_album_cycle['standard_sets'] = len(claimed_sets_round[0])
+                            else:
+                                cur_album_cycle['grand_sets'] = len(claimed_sets_round[1])
+
+                            album_completed_sets_log.append({
+                                'day': d,
+                                'season': ((d - 1) // 60) + 1,
+                                'round': rnd + 1,
+                                'round_name': 'Standard Album' if rnd == 0 else 'Grand Album',
+                                'set_id': s_id,
+                                'set_name': set_data.get('Name', f"Set {s_id}"),
+                                'coins': _c,
+                                'boosters': {'Hammer': _h, 'Broom': _b, 'Scissors': _s}
+                            })
+
             if newly_completed:
                 total_in_rnd = len(claimed_sets_round[rnd])
                 for s_id in newly_completed:
@@ -554,6 +717,19 @@ def run_deterministic_simulation(cfg, tuning_cfg):
                 day_log["CoinLog"].append(f"Album Grand Prize (Full 135 Cards): +{_c} Coins")
                 day_log["BoosterLog"].append(f"Album Grand Prize: +{_h} Hammer, +{_b} Broom, +{_s} Scissors")
                 day_log["EventLog"].append(f"🏆 COMPLETED FULL ALBUM! Grand Prize: [{gp_rew}] ➔ Mở khóa Grand Album!")
+                cur_album_cycle['coins'] += _c
+                cur_album_cycle['boosters']['Hammer'] += _h
+                cur_album_cycle['boosters']['Broom'] += _b
+                cur_album_cycle['boosters']['Scissors'] += _s
+                cur_album_cycle['grand_prize_claimed'] = True
+                grand_prize_log.append({
+                    'day': d,
+                    'season': ((d - 1) // 60) + 1,
+                    'round': 1,
+                    'name': 'Standard Album Grand Prize',
+                    'coins': _c,
+                    'boosters': {'Hammer': _h, 'Broom': _b, 'Scissors': _s}
+                })
 
             # Check Grand Prize for round 1 (Grand Album finished)
             if rnd == 1 and (len(claimed_sets_round[1]) == 15 or sim_album_state.get("grand_album_finished", False)) and not claimed_grand_prize[1]:
@@ -572,6 +748,19 @@ def run_deterministic_simulation(cfg, tuning_cfg):
                 day_log["CoinLog"].append(f"Grand Album Grand Prize: +{_c} Coins")
                 day_log["BoosterLog"].append(f"Grand Album Grand Prize: +{_h} Hammer, +{_b} Broom, +{_s} Scissors")
                 day_log["EventLog"].append(f"🏆 COMPLETED GRAND ALBUM! Grand Prize: [{gp_rew}]")
+                cur_album_cycle['coins'] += _c
+                cur_album_cycle['boosters']['Hammer'] += _h
+                cur_album_cycle['boosters']['Broom'] += _b
+                cur_album_cycle['boosters']['Scissors'] += _s
+                cur_album_cycle['grand_prize_claimed'] = True
+                grand_prize_log.append({
+                    'day': d,
+                    'season': ((d - 1) // 60) + 1,
+                    'round': 2,
+                    'name': 'Grand Album Grand Prize',
+                    'coins': _c,
+                    'boosters': {'Hammer': _h, 'Broom': _b, 'Scissors': _s}
+                })
 
         sim_album_state["on_album_complete"] = lambda state, completions: claim_sets_for_round(completions)
 
@@ -794,6 +983,81 @@ def run_deterministic_simulation(cfg, tuning_cfg):
         tot_sink += day_sink
         macro_log.append(day_log)
 
+    # Finalize active cycles
+    key_collection_cycles.append(cur_key_cycle)
+    win_streak_cycles.append(cur_streak_cycle)
+    master_pass_cycles.append(cur_mp_cycle)
+    card_album_cycles.append(cur_album_cycle)
+
+    liveops_summary = {
+        'key_collection': {
+            'name': 'Key Collection',
+            'cadence': 'Weekly (Mon - Thu)',
+            'cycles': key_collection_cycles,
+            'total_coins': tot_liveops_keys,
+            'total_boosters': tot_bst_earned_keys,
+            'total_packs': tot_packs_earned_keys,
+            'total_keys': sum(c['keys_collected'] for c in key_collection_cycles),
+            'completed_cycles': len(key_collection_cycles),
+            'is_active': enable_keys
+        },
+        'win_streak': {
+            'name': 'Win Streak',
+            'cadence': 'Weekly (Fri - Sun)',
+            'cycles': win_streak_cycles,
+            'total_coins': tot_liveops_streak,
+            'total_boosters': tot_bst_earned_streak,
+            'total_packs': tot_packs_earned_streak,
+            'completed_cycles': len(win_streak_cycles),
+            'is_active': enable_streak
+        },
+        'master_pass': {
+            'name': f"Master Pass [{mp_tier if enable_mp else 'Off'}]",
+            'cadence': 'Seasonal (30-Day Cycle)',
+            'tier': mp_tier if enable_mp else 'Off',
+            'cycles': master_pass_cycles,
+            'total_coins': tot_liveops_mp,
+            'total_boosters': tot_bst_earned_mp,
+            'total_packs': tot_packs_earned_mp,
+            'total_tokens': sum(c['tokens_collected'] for c in master_pass_cycles),
+            'total_bonus_bank': sum(c.get('bonus_bank_coins', 0) for c in master_pass_cycles),
+            'completed_cycles': len(master_pass_cycles),
+            'is_active': enable_mp
+        },
+        'chest_drop': {
+            'name': 'Chest Drop',
+            'cadence': 'Daily (3, 7, 12 Wins)',
+            'chests_earned': tot_chests_earned,
+            'total_chests_count': sum(tot_chests_earned.values()),
+            'total_cards': sim_album_state.get('cd_total_cards_drawn', 0),
+            'new_cards': sim_album_state.get('cd_new_cards_drawn', 0),
+            'dup_cards': sim_album_state.get('cd_dup_cards_drawn', 0),
+            'stars_gained': sim_album_state.get('cd_stars_gained', 0),
+            'is_active': enable_chest_drop
+        },
+        'star_chest': {
+            'name': 'Star Chest',
+            'cadence': 'Automatic (100 / 250 / 500 Stars)',
+            'chests_opened': tot_star_chests,
+            'total_chests_count': sum(tot_star_chests.values()),
+            'total_packs': tot_packs_earned_star_chest,
+            'is_active': enable_auto_star_chest
+        },
+        'card_album': {
+            'name': 'Card Album',
+            'cadence': 'Seasonal (60-Day Cycle)',
+            'cycles': card_album_cycles,
+            'completed_sets_log': album_completed_sets_log,
+            'grand_prize_log': grand_prize_log,
+            'total_coins': tot_album_coins,
+            'total_boosters': tot_bst_earned_album,
+            'total_packs': {},
+            'total_sets_completed': len(claimed_sets_round[0]) + len(claimed_sets_round[1]),
+            'completed_cycles': len(card_album_cycles),
+            'is_active': True
+        }
+    }
+
     tot_inflow = tot_base + tot_rv + tot_liveops + tot_album_coins
     net_accum = tot_inflow - tot_sink
     total_bst_used_overall = sum(tot_bst_used.values())
@@ -846,6 +1110,7 @@ def run_deterministic_simulation(cfg, tuning_cfg):
         'tot_star_chests': tot_star_chests,
         'enable_auto_star_chest': enable_auto_star_chest,
         'tot_chests_earned': tot_chests_earned,
+        'liveops_summary': liveops_summary,
         'album_summary': {
             'total_cards_owned': final_owned,
             'total_cards': TOTAL_CARDS,
